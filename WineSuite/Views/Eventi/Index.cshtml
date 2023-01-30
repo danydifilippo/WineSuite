@@ -1,0 +1,107 @@
+﻿@model IEnumerable<WineSuite.Models.Eventi>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Elenco Eventi e Degustazioni</h2>
+
+<p>
+    @Html.ActionLink("Inserisci un nuovo Evento", "Create")
+</p>
+<table class="table table-success table-stripe">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Luogo.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SottoDescrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoVetrina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Giorno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NrPaxMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pubblico)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Luogo.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SottoDescrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FotoVetrina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Foto1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Foto2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Foto3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Giorno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NrPaxMax)
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => item.Pubblico)
+        </td>
+        <td>
+            @Html.ActionLink("Modifica", "Edit", new { id = item.IdEvento }) |
+            @Html.ActionLink("Dettagli", "Details", new { id = item.IdEvento }) |
+            @if (item.Pubblico == false)
+            {
+                @Html.ActionLink("Pubblica", "Public", new { id = item.IdEvento });
+            }
+            else
+            {
+                @Html.ActionLink("Nascondi", "Hide", new { id = item.IdEvento });
+            } |
+            @Html.ActionLink("Elimina", "Delete", new { id = item.IdEvento })
+        </td>
+    </tr>
+}
+
+</table>

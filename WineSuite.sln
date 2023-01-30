@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineSuite", "WineSuite\WineSuite.csproj", "{68DC2743-2931-4AAB-80E5-625DF2A560BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68DC2743-2931-4AAB-80E5-625DF2A560BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68DC2743-2931-4AAB-80E5-625DF2A560BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68DC2743-2931-4AAB-80E5-625DF2A560BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68DC2743-2931-4AAB-80E5-625DF2A560BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D181AD07-D08B-417A-B288-2A8C2C9D2AC8}
+	EndGlobalSection
+EndGlobal
