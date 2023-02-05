@@ -1,30 +1,219 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    width: 100%;
+    height: 100%;
+    background-position-x: center;
+    background-size: cover;
+    background-image: url('img/background_sec1.jpeg');
+    color: #bbddff;
+    font-family: 'Quattrocento Sans', sans-serif;
+    font-weight: 700
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    width: 100%;
+    height: 100%;
+    min-height: 61vh;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.navbar {
+    --bs-navbar-padding-y: 1rem;
+    --bs-navbar-color: white;
+    --bs-navbar-hover-color: #4eb6bf;
+    --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
+    --bs-navbar-active-color: #4eb6bf;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.main {
+    height: 100%;
+    min-height: 100vh;
 }
 
-.navbar-inverse .navbar-toggle:hover,
-.navbar-inverse .navbar-toggle:focus {
-    background-color: #777;
-    border-color: #fff
+.btn-outline-info {
+    --bs-btn-color: #4eb6bf;
+    --bs-btn-border-color: #4eb6bf;
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #4eb6bf;
+    --bs-btn-hover-border-color: #4eb6bf;
+    font-weight:700
+}
+
+
+
+footer{
+    font-size:10px
+}
+
+textarea{
+    width:100%
+}
+
+a {
+    text-decoration: none;
+    color: #4eb6bf;
+    font-weight: bold
+}
+
+a:hover{
+    color: white
+}
+
+.form-group{
+    width: 75vw;
+    margin-top: 0.5em
+}
+.form-control[type=file] {
+    display: none;
+}
+
+.input-group-text {
+    color: #bbddff;
+    background-color: transparent;
+    border: 1px solid #bbddff;
+    padding: 0
+}
+
+#tariffe {
+    border-left: 2px solid #bbddff;
+    color: #bbddff;
+}
+.bi-camera2 {
+    font-size: 4em;
+    padding: 0.5em;
+    vertical-align: middle;
+    line-height: normal
+}
+
+.bi-camera-fill{
+    padding:0.5em
+}
+
+.picture:hover {
+    transition: ease-in-out 0.3s;
+    transform: scale(4.5)
+}
+
+#IdTariffe {
+    font-size: 0.8rem;
+    font-weight: 700
+}
+
+.btn-info {
+    --bs-btn-bg: #bbddff;
+    --bs-btn-border-color: #bbddff;
+    --bs-btn-hover-bg: #bbddff;
+    --bs-btn-hover-border-color: #bbddff;
+    --bs-btn-active-bg: #bbddff;
+    --bs-btn-active-border-color: #bbddff;
+    font-size: 0.9rem;
+}
+
+.home {
+    height: 100vh;
+    background-color: #00000094;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48.6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.start{
+    z-index:1
+}
+
+.active {
+    border-top-color: #4eb6bf;
+    border-top: 2px solid;
+}
+
+    .nav-link:hover {
+        border-top-color: #4eb6bf;
+        border-top: 2px solid;
+    }
+
+.title {
+    font-size: 5rem;
+    margin: 0;
+    line-height: normal;
+}
+
+.container-fluid{
+    padding-right: 0;
+    padding-left:0
+}
+.tableBack {
+    background-color: #00000066;
+    padding-top: 30px;
+    height: 100%;
+    margin: auto;
+    padding-bottom: 2rem
+}
+
+tbody {
+   color: #bbddff
+}
+
+:root {
+    --bs-body-color: #bbddff;
+}
+
+
+.sectionhome {
+    position: relative;
+    width: 75%;
+}
+
+h1 {
+    color: #ff92a2;
+    font-size: 50px
+}
+
+h3 {
+    color: #ff7a8e;
+}
+
+.video-box {
+    position: relative;
+
+}
+
+.border-animation {
+    position: absolute;
+    top: -25px;
+    width: 5rem;
+    height: 5rem;
+    border: 0.55rem solid #4eb6bf;
+    border-radius: 50%;
+    animation: pulse-border 1s linear infinite;
+}
+
+.start-50:hover {
+    color: #4eb6bf;
+}
+.border1 {
+    animation-delay: 2s;
+}
+
+.border2 {
+    animation-delay: 1s;
+}
+
+@keyframes pulse-border {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.col-md-6 p {
+    font-size: 14px
 }

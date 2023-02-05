@@ -22,6 +22,8 @@ namespace WineSuite.Models
         [StringLength(50)]
         public string Descrizione { get; set; }
 
+        public string Indirizzo { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Eventi> Eventi { get; set; }
     }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WineSuite.Models.Tariffe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="container-fluid tableBack">
+    <div class="container" style="max-width:50%">
+        <h2>Elenco Tariffe</h2>
+
+        <p>
+            @Html.ActionLink("Inserisci una nuova Tariffa", "Create")
+        </p>
+        <table class="table table-striped">
+            <tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tariffa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescrTariffa)
+                </th>
+                <th></th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tariffa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescrTariffa)
+                    </td>
+                    <td class="text-end">
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdTariffa }) |
+                        @Html.ActionLink("Elimina", "Delete", new { id = item.IdTariffa })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>
+           

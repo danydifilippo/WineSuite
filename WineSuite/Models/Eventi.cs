@@ -26,8 +26,10 @@ namespace WineSuite.Models
         [Required]
         public string Descrizione { get; set; }
 
+        [Display(Name="Descrizione Aggiuntiva")] 
         public string SottoDescrizione { get; set; }
 
+        [Display(Name = "Location")]
         public int? IdLuogo { get; set; }
 
         [Required]
@@ -48,8 +50,10 @@ namespace WineSuite.Models
 
         public TimeSpan Ora { get; set; }
 
+        [Display(Name = "Nr max Persone")]
         public int NrPaxMax { get; set; }
 
+        [Display(Name = "Pubblica Evento")]
         public bool Pubblico { get; set; }
 
         public virtual Luogo Luogo { get; set; }

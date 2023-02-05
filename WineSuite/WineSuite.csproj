@@ -131,6 +131,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EventiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LuogoController.cs" />
+    <Compile Include="Controllers\TariffeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -141,6 +143,10 @@
     <Compile Include="Migrations\202301301351278_PubblicaInEventi.cs" />
     <Compile Include="Migrations\202301301351278_PubblicaInEventi.designer.cs">
       <DependentUpon>202301301351278_PubblicaInEventi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302021548108_AddAddressInPlace.cs" />
+    <Compile Include="Migrations\202302021548108_AddAddressInPlace.designer.cs">
+      <DependentUpon>202302021548108_AddAddressInPlace.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Eventi.cs" />
@@ -169,6 +175,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\img\background_sec1.jpeg" />
+    <Content Include="Content\img\evento1.jpeg" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\bg1.jpeg" />
+    <Content Include="Content\img\red.jpeg" />
+    <Content Include="Content\img\sfndo_glass.jpg" />
+    <Content Include="Content\img\sfondo.png" />
+    <Content Include="Content\img\sfondo_porta.png" />
+    <Content Include="Content\img\vino_pane.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -230,6 +245,16 @@
     <Content Include="Views\Eventi\Details.cshtml" />
     <Content Include="Views\Eventi\Edit.cshtml" />
     <Content Include="Views\Eventi\Index.cshtml" />
+    <Content Include="Views\Luogo\Create.cshtml" />
+    <Content Include="Views\Luogo\Delete.cshtml" />
+    <Content Include="Views\Luogo\Edit.cshtml" />
+    <Content Include="Views\Luogo\Index.cshtml" />
+    <Content Include="Views\Tariffe\Create.cshtml" />
+    <Content Include="Views\Tariffe\Delete.cshtml" />
+    <Content Include="Views\Tariffe\Edit.cshtml" />
+    <Content Include="Views\Tariffe\Index.cshtml" />
+    <Content Include="Views\Eventi\_AddNewPrice.cshtml" />
+    <Content Include="Views\Tariffe\_AddNewPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301301351278_PubblicaInEventi.resx">
       <DependentUpon>202301301351278_PubblicaInEventi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302021548108_AddAddressInPlace.resx">
+      <DependentUpon>202302021548108_AddAddressInPlace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

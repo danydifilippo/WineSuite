@@ -36,22 +36,28 @@ namespace WineSuite.Controllers
             return View(eventi);
         }
 
+       
+
         // GET: Eventi/Create
         public ActionResult Create()
         {
             ViewBag.IdLuogo = new SelectList(db.Luogo, "IdLuogo", "Descrizione");
+            ViewBag.IdTariffe = Tariffe.ListaTariffe;
             return View();
         }
 
+       
+
         // POST: Eventi/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdEvento,Titolo,Descrizione,SottoDescrizione,IdLuogo,FotoVetrina,Foto1,Foto2,Foto3,Giorno,Ora,NrPaxMax")] Eventi eventi)
+        public ActionResult Create(Eventi eventi)
         {
             if (ModelState.IsValid)
             {
+                //var Path = Server.MapPath("/Content/img/" + Vetrina);
+                //FotoVetrina.SaveAs(Path)
                 db.Eventi.Add(eventi);
                 db.SaveChanges();
                 return RedirectToAction("Index");

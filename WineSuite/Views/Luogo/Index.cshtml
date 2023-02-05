@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WineSuite.Models.Luogo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="container-fluid tableBack">
+    <div class="container">
+        <h2>Elenco Locations</h2>
+
+        <p>
+            @Html.ActionLink("Inserisci una nuova Location", "Create")
+        </p>
+        <table class="table table-striped">
+            <tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descrizione)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Indirizzo)
+                </th>
+                <th></th>
+            </tr>
+            
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descrizione)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Indirizzo)
+                    </td>                  
+                    <td>
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdLuogo }) |                 
+                        @Html.ActionLink("Elimina", "Delete", new { id = item.IdLuogo })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>
+
+
