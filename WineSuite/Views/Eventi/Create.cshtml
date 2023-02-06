@@ -129,13 +129,13 @@
                         @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa4 d-none mt-2" })
                     </div>
                 </div>
-                <div style="font-size:0.8em" class="mt-2">
-                    <div class="col-10 tariffeIndex">
-                        
-                    </div>
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         + Aggiungi una nuova Tariffa
                     </button>
+                        
+                <div style="font-size:0.8em" class="mt-2 form-group">
+                    <div class="col-10 tariffeIndex" name="Tariffe">
+                    </div>
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -157,7 +157,7 @@
             </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10 mt-3 fw-bold">
-                        <input type="submit" value="SALVA EVENTO" class="btn btn-outline-info" />
+                        <input type="submit" value="SALVA EVENTO" class="btn btn-outline-info" name="saveEvent" />
                     </div>
                 </div>
             </div>
@@ -229,15 +229,8 @@
                 $(this).remove();
             })
         })
-        //$(".tariffa2").change(function () {
-        //    $(".tariffa3").toggleClass("d-none");
-        //})
-        //$(".tariffa3").change(function () {
-        //    $(".tariffa4").toggleClass("d-none");
-        //})
-        //$(".tariffa4").change(function () {
-        //    $(".tariffa5").toggleClass("d-none");
-        //})
+        $
+       
 
     })
 

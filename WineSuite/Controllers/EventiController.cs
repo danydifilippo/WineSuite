@@ -51,8 +51,7 @@ namespace WineSuite.Controllers
         // POST: Eventi/Create
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Eventi eventi)
+        public ActionResult Create(Eventi eventi, Array ListaTariffe)
         {
             if (ModelState.IsValid)
             {
