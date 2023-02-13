@@ -6,7 +6,8 @@
     background-image: url('img/background_sec1.jpeg');
     color: #bbddff;
     font-family: 'Quattrocento Sans', sans-serif;
-    font-weight: 700
+    font-weight: 700;
+    background-repeat: no-repeat
 }
 
 .body-content {
@@ -78,6 +79,13 @@ a:hover{
     border-left: 2px solid #bbddff;
     color: #bbddff;
 }
+
+.tariffe {
+    height: 30px;
+    background-color: #bbddff;
+    border-radius: 6px;
+    padding: 0.5em;
+}
 .bi-camera2 {
     font-size: 4em;
     padding: 0.5em;
@@ -95,7 +103,7 @@ a:hover{
 }
 
 #IdTariffe {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 700
 }
 
@@ -159,6 +167,7 @@ tbody {
 
 :root {
     --bs-body-color: #bbddff;
+    --bs-warning-rgb: 255, 122, 142;
 }
 
 
@@ -217,3 +226,68 @@ h3 {
 .col-md-6 p {
     font-size: 14px
 }
+
+#toggle-btn {
+    position: relative;
+    width: 31px;
+    height: 16px;
+    border-radius: 24px;
+    background-size: 100%;
+    transition: all ease-in-out 0.4s;
+    cursor: pointer;
+}
+
+.btn-tog {
+    background-color: #263d51
+}
+
+.publish, .unpublish{
+    position: absolute;
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    transition: all ease-in-out 0.4s;
+    z-index: 9;
+}
+
+.publish {
+    left: 2px;
+}
+.unpublish {
+    left: 17px;
+}
+
+.pubblica {
+    color: #263d51;
+    background-color: #cdd7e1;
+    font-weight: 700;
+}
+
+.nonPubblica {
+    color: #eaf2ff;
+    background-color: #9bb9d7;
+}
+
+.card{
+    background-color: transparent;
+    border-radius:10cm
+}
+
+.card-title{
+    font-size: 17px
+}
+
+.card-body {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 12px
+}
+
+.img-card {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+

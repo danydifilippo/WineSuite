@@ -46,8 +46,10 @@ namespace WineSuite.Models
         public string Foto3 { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Giorno { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}")]
         public TimeSpan Ora { get; set; }
 
         [Display(Name = "Nr max Persone")]
@@ -57,6 +59,7 @@ namespace WineSuite.Models
         public bool Pubblico { get; set; }
 
         public virtual Luogo Luogo { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prenotazione> Prenotazione { get; set; }

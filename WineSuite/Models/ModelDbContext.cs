@@ -21,6 +21,9 @@ namespace WineSuite.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Tariffe>().HasMany(a => a.Eventi)
+                                            .WithMany(t => t.Tariffe);
+
             modelBuilder.Entity<Eventi>()
                 .HasMany(e => e.Prenotazione)
                 .WithRequired(e => e.Eventi)

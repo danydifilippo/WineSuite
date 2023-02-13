@@ -7,71 +7,89 @@
 <section class="container-fluid tableBack">
     <div class="container">
         <h2>Elenco Eventi e Degustazioni</h2>
-
         <p>
             @Html.ActionLink("Inserisci un nuovo Evento", "Create")
         </p>
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Luogo.Descrizione)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Titolo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FotoVetrina)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Giorno)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NrPaxMax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Pubblico)
-                </th>
-                <th></th>
-            </tr>
-
+        <div class=" d-flex gap-3 flex-wrap justify-content-center">
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Luogo.Descrizione)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Titolo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FotoVetrina)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Giorno)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NrPaxMax)
-                    </td>
-                    <td>
-                        @Html.CheckBoxFor(modelItem => item.Pubblico)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdEvento }) |
-                        @Html.ActionLink("Dettagli", "Details", new { id = item.IdEvento }) |
-                        @if (item.Pubblico == false)
-                        {
-                            @Html.ActionLink("Pubblica", "Public", new { id = item.IdEvento });
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Nascondi", "Hide", new { id = item.IdEvento });
-                        } |
-                        @Html.ActionLink("Elimina", "Delete", new { id = item.IdEvento })
-                    </td>
-                </tr>
+                <div class="card mb-3" style="width: 300px;">
+                    <div class="row g-0">
+                        <div class="col-md-5 img-card" style="max-height: 300px; background-image: url('/Content/img/@Html.DisplayFor(modelItem=>item.FotoVetrina)');
+                        background-position-x:center; background-size:cover;">
+                        </div>
+                        <div class="col-md-7">
+                            @if (item.Pubblico == false)
+                            {
+                                <div class="card-body nonPubblica">
+                                       <div class="d-flex gap-1">
+                                           <div id="toggle-btn" class="btn-tog"><div id="@Html.DisplayFor(modelItem => item.IdEvento)" class="unpublish tog"></div></div>
+                                           <p class="togTitle">Pubblica Evento</p><i class="bi bi-pen-fill ms-1" style="cursor:pointer"></i>
+                                       </div>                                  
+                                    <p class="card-title">@Html.DisplayFor(modelItem => item.Titolo)</p>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Ora)</p>
+                                    <p class="card-text">Nr Max Persone @Html.DisplayFor(modelItem => item.NrPaxMax)</p>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Luogo.Descrizione)</p>
+                                </div>
+                            }
+                            else
+                            {
+                        <div class="card-body pubblica">
+                            <div class="d-flex gap-1">
+                                <div id="toggle-btn" class="btn-tog"><div id="@Html.DisplayFor(modelItem => item.IdEvento)" class="publish tog"></div></div>
+                                <p class="togTitle">Disattiva Evento</p><i class="bi bi-pen-fill ms-1" style="cursor:pointer"></i>
+                            </div>
+                            <p class="card-title">@Html.DisplayFor(modelItem => item.Titolo)</p>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Ora)</p>
+                            <p class="card-text">Nr Max Persone @Html.DisplayFor(modelItem => item.NrPaxMax)</p>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Luogo.Descrizione)</p>
+                        </div>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+
             }
-
-        </table>
-
+        </div>
     </div>
 </section>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-tog").click(function () {
+                if ($(this).children(".tog").hasClass("unpublish")) {
+                    $(this).children(".tog").addClass("publish");
+                    $(this).children(".tog").removeClass("unpublish");
+                    $(this).parent(".d-flex").parent(".card-body").addClass("pubblica");
+                    $(this).parent(".d-flex").parent(".card-body").removeClass("nonPubblica");
+                    $(this).siblings(".togTitle").empty();
+                    $(this).siblings(".togTitle").append("Disattiva Evento");
+                } else {
+                    $(this).children(".tog").addClass("unpublish");
+                    $(this).children(".tog").removeClass("publish");
+                    $(this).parent(".d-flex").parent(".card-body").addClass("nonPubblica");
+                    $(this).parent(".d-flex").parent(".card-body").removeClass("pubblica");
+                    $(this).siblings(".togTitle").empty();
+                    $(this).siblings(".togTitle").append("Pubblica Evento");
+                }
+                var id = $(this).children(".tog").attr("id");
+
+                $.ajax({
+                    url: 'ChangeVisibility',
+                    method: "POST",
+                    data: { 'id': id }
+
+                })
+            })
+            $(".bi-pen-fill").click(function () {
+                var id = $(this).siblings(".btn-tog").children(".tog").attr("id");
+                location.href="/Eventi/Edit/"+ id
+            })
+        })
+    </script>
+
+

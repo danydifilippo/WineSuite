@@ -43,22 +43,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
       
-        $('.btnSave').click(function () {
-            var nr = $("input[type=number][name=Tariffa]").val();
-            var descr = $("input[type=text][name=DescrTariffa]").val();
-            $.ajax({
-                url: '/Tariffe/CreateNewPrice',
-                method: "POST",
-                data: { 'Tariffa': nr, 'DescrTariffa': descr },
-                success: function (t) {
-                    $(".tariffeIndex").append("<input class=\"col-10\" readonly name=\"Tar" + t.IdTariffa + "\" value=\"" + t.Tariffa + " € - " + t.DescrTariffa + "\"/>" +
-                        "<btn type=\"button\" id=\"" + t.IdTariffa + "\" class=\"trash\"><i class=\"bi bi-trash\"></i></btn>")
-                    $("#" + t.IdTariffa + "").click(function () {
-                        $(this).parent(".tariffeIndex").children("input[name=Tar" + t.IdTariffa + "]").remove();
-                        $(this).remove();
-                    })
-                },
-            });
-        });
+        
     })
 </script>

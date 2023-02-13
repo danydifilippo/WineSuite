@@ -6,117 +6,383 @@
 
 <h2>Edit</h2>
 
+<section class="container-fluid tableBack">
+    <div class="container">
+        <h2>Modifica Evento : "@Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label" })"</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Eventi</h4>
+
+        @using (Html.BeginForm("Edit", "Eventi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+    <div class="form-horizontal row">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdEvento)
+        @Html.HiddenFor(model => model.IdEvento, htmlAttributes: new { @class = "IdEvento", @id=Model.IdEvento })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Titolo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Titolo, "", new { @class = "text-danger" })
+        <div class="col-8">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Titolo, new { htmlAttributes = new { @class = "form-control titolo" } })
+                    @Html.ValidationMessageFor(model => model.Titolo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control descr" } })
+                    @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SottoDescrizione, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.SottoDescrizione, new { htmlAttributes = new { @class = "form-control descr2" } })
+                    @Html.ValidationMessageFor(model => model.SottoDescrizione, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdLuogo, "IdLuogo", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownList("IdLuogo", null, htmlAttributes: new { @class = "form-control luogo" })
+                    @Html.ValidationMessageFor(model => model.IdLuogo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    @Html.LabelFor(model => model.Giorno, htmlAttributes: new { @class = "control-label col-md-3 me-2" })
+                    @Html.LabelFor(model => model.Ora, htmlAttributes: new { @class = "control-label col-md-2 me-2" })
+                    @Html.LabelFor(model => model.NrPaxMax, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="row">
+                    <div class="col-md-3 me-2">
+                        @Html.EditorFor(model => model.Giorno, new { htmlAttributes = new { @class = "form-control giorno", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Giorno, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2 me-2">
+                        @Html.EditorFor(model => model.Ora, new { htmlAttributes = new { @class = "form-control ora", @type = "time" } })
+                        @Html.ValidationMessageFor(model => model.Ora, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.NrPaxMax, new { htmlAttributes = new { @class = "form-control pax", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.NrPaxMax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <div class="col-md-2">
+                    @if (Model.Pubblico == false)
+                    {@Html.LabelFor(model => model.Pubblico, htmlAttributes: new { @class = "control-label me-1" })}
+                else
+                { @Html.Label("Disattiva Evento", htmlAttributes: new { @class = "control-label me-1" })}
+
+                    @Html.CheckBoxFor(model => model.Pubblico, new { @checked = "checked", htmlAttributes = new { @class = "form-control public", @type = "checkbox" } })
+                    @Html.ValidationMessageFor(model => model.NrPaxMax, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
+        <div id="tariffe" class="col-4">
+            <h5>Inserisci Foto</h5>
+            <div>
+                @Html.DisplayName("Foto Vetrina")
+                <div class="col-6">
+                    <label class="input-group-text justify-content-center" for="FotoVetrina" id="Vetrina">
+                        <img src="~/Content/img/@Model.FotoVetrina" style="width:80%" />
+                    </label>
+                    @Html.TextBox("FotoVetrina", null, new { @class = "form-control img", @type = "file" })
+                    @Html.ValidationMessageFor(model => model.FotoVetrina, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+            <div class="mt-2 pics">
+                @Html.DisplayName("Foto Aggiuntive (max 3)")
+                <div class="d-flex" style="gap:10px">
+
+                    <div class="col-2">
+                        <label class="input-group-text justify-content-center" for="Foto1" id="Pic1">
+                            <img src="~/Content/img/@Model.Foto1" style="height:6vh" class="picture" />
+                        </label>
+                        @Html.TextBox("Foto1", null, new { @class = "form-control img", @type = "file" })
+                        @Html.ValidationMessageFor(model => model.Foto1, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="foto2" class="col-2">
+                        <label class="input-group-text justify-content-center" for="Foto2" id="Pic2">
+                            <img src="~/Content/img/@Model.Foto2" style="height:6vh" class="picture" />
+                        </label>
+                        @Html.TextBox("Foto2", null, new { @class = "form-control img", @type = "file" })
+                        @Html.ValidationMessageFor(model => model.Foto2, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="foto3" class="col-2">
+                        <label class="input-group-text justify-content-center" for="Foto3" id="Pic3">
+                            <img src="~/Content/img/@Model.Foto3" style="height:6vh" class="picture" />
+                        </label>
+                        @Html.TextBox("Foto3", null, new { @class = "form-control img", @type = "file" })
+                        @Html.ValidationMessageFor(model => model.Foto3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <h5>Inserisci Tariffe</h5>
+            <div>
+                @Html.Label("Lista Tariffe", htmlAttributes: new { @class = "control-label col-md-12" })
+                <button type="button" class="btn btn-info col-10 text-start" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    + Aggiungi una nuova Tariffa
+                </button>
+            </div>
+            <p class="m-0 fs-6">oppure</p>
+            <div class="col-10">
+                @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa1" })
+            </div>
+            <div class="col-10">
+                @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa2 d-none mt-2" })
+            </div>
+            <div class="col-10">
+                @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa3 d-none mt-2" })
+            </div>
+            <div class="col-10">
+                @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa4 d-none mt-2" })
+            </div>
+
+
+            <div style="font-size:0.8em" class="mt-2">
+                <div class="col-10 tariffeIndex" name="Tariffe">
+                    @Html.Label("Tariffe scelte", htmlAttributes: new { @class = "control-label col-md-12" })
+                    @foreach (var item in ViewBag.Prices)
+                    {
+                        <input class="col-11 tariffe" readonly name="Tar@item.IdTariffa" value="@item.Tariffa.ToString("c2") - @item.DescrTariffa" />
+                        <btn type="button" id="@item.IdTariffa" class="trash ms-1 fs-6 text-warning"><i class="bi bi-trash"></i></btn>
+                    }
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title fs-5" id="exampleModalLabel">Nuova Tariffa</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                @{ Html.RenderAction("AddNewPrice", "Tariffe");}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.SottoDescrizione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SottoDescrizione, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SottoDescrizione, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdLuogo, "IdLuogo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdLuogo", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdLuogo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FotoVetrina, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FotoVetrina, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FotoVetrina, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Foto1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Foto1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Foto1, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Foto2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Foto2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Foto2, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Foto3, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Foto3, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Foto3, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Giorno, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Giorno, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Giorno, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ora, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ora, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ora, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NrPaxMax, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NrPaxMax, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NrPaxMax, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10 mt-3 fw-bold">
+                <input type="button" value="MODIFICA EVENTO" class="btn btn-outline-info" id="EditEvent" />
             </div>
         </div>
     </div>
-}
+        }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        <div class="mt-2">
+            @Html.ActionLink("Annulla", "Index")
+        </div>
+
+    </div>
+</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var Arr = [];
+        $.each($(".tariffe"), function () {
+            var id = $(this).next(".trash").attr("id");
+            Arr.push(id)
+        })
+        $("input[type=file][name=FotoVetrina]").change(function () {
+            Vetrina = this.files[0];          
+            var reader = new FileReader
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(Vetrina);
+            function imageIsLoaded(a) {
+                $("#Vetrina").empty();
+                $("#Vetrina").append("<img src=\"" + a.target.result + "\" style=\"width:80%\"/>");
+            }
+        })
+        $("input[type=file][name=Foto1]").change(function () {
+            foto = this.files[0];
+            var reader = new FileReader
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(foto);
+            function imageIsLoaded(a) {
+                $("#Pic1").empty();
+                $("#Pic1").append("<img src=\"" + a.target.result + "\" style=\"height:6vh\" class=\"picture\"/>");
+            }
+        })
+        $("input[type=file][name=Foto2]").change(function () {
+            foto = this.files[0];
+            var reader = new FileReader
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(foto);
+            function imageIsLoaded(a) {
+                $("#Pic2").empty();
+                $("#Pic2").append("<img src=\"" + a.target.result + "\" style=\"height:6vh\" class=\"picture\"/>");
+            }
+        })
+        $("input[type=file][name=Foto3]").change(function () {
+            foto = this.files[0];
+            var reader = new FileReader
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(foto);
+            function imageIsLoaded(a) {
+                $("#Pic3").empty();
+                $("#Pic3").append("<img src=\"" + a.target.result + "\" style=\"height:6vh\" class=\"picture\"/>");
+            }
+        })
+        $(".tariffa1").change(function () {
+            var tar = $(".tariffa1 option:selected").text();
+            var id = $(".tariffa1 option:selected").val();
+            function isEqual(element) {
+                return element == id;
+            }
+            var a = Arr.findIndex(isEqual);
+            if (a == -1) {
+                $(".tariffeIndex").append("<input class=\"col-11 tariffe\" readonly name=\"Tar" + id + "\" value=\"" + tar + "\"/>" +
+                    "<btn type=\"button\" id=\"" + id + "\" class=\"trash ms-2 fs-6 text-warning\"><i class=\"bi bi-trash\"></i></btn>")
+                Arr.push(id)
+            } else {
+                alert("Tariffa già inserita")
+            }
+            $("#" + id + "").click(function () {
+                $(this).parent(".tariffeIndex").children("input[name=Tar" + id + "]").remove();
+                $(this).remove();
+                function Equal(element) {
+                    return element == id;
+                }
+                var i = Arr.findIndex(Equal);
+                Arr.splice(i, 1);
+                var idEvento = $(".IdEvento").attr("id")
+                $.ajax({
+                    url: '../DeletePrice',
+                    method: "POST",
+                    data: { "id": id, "idEvento": idEvento }   
+                })
+            })
+            $('.tariffa1').val("");
+        })
+
+        $(".trash").click(function () {
+            var id = $(this).attr("id");
+            $(this).prev("input").remove();
+            $(this).remove();
+            function isEqual(element) {
+                return element == id;
+            }
+            var i = Arr.findIndex(isEqual);
+            Arr.splice(i, 1);
+            var idEvento = $(".IdEvento").attr("id")
+            $.ajax({
+                url: '../DeletePrice',
+                method: "POST",
+                data: { "id": id, "idEvento": idEvento }
+            })
+        })
+
+        $('.btnSave').click(function () {
+            var nr = $("input[type=number][name=Tariffa]").val();
+            var descr = $("input[type=text][name=DescrTariffa]").val();
+            $.ajax({
+                url: '/Tariffe/CreateNewPrice',
+                method: "POST",
+                data: { 'Tariffa': nr, 'DescrTariffa': descr },
+                success: function (t) {
+                    $(".tariffeIndex").append("<input class=\"col-11 tariffe\" readonly name=\"Tar" + t.IdTariffa + "\" value=\"" + t.Tariffa + " € - " + t.DescrTariffa + "\"/>" +
+                        "<btn type=\"button\" id=\"" + t.IdTariffa + "\" class=\"trash ms-2 fs-6 text-warning\"><i class=\"bi bi-trash\"></i></btn>");
+                    Arr.push(t.IdTariffa);
+                    $("#" + t.IdTariffa + "").click(function () {
+                        $(this).parent(".tariffeIndex").children("input[name=Tar" + t.IdTariffa + "]").remove();
+                        $(this).remove();
+                        function isEqual(element) {
+                            return element == t.IdTariffa;
+                        }
+                        var i = Arr.findIndex(isEqual);
+                        Arr.splice(i, 1);
+                        var idEvento = $(".IdEvento").attr("id")
+                        $.ajax({
+                            url: '../DeletePrice',
+                            method: "POST",
+                            data: { "id": t.IdTariffa, "idEvento": idEvento }
+                        })
+                    })
+                },
+            });
+        });
+
+
+
+        $('#EditEvent').click(function () {
+
+
+            var fileData = new FormData();
+
+            $.each($(".img"), function (i, obj) {
+                $.each(obj.files, function (f, file) {
+                    fileData.append('Foto[' + i + ']', file);
+                });
+            });
+
+
+            fileData.append('Arr[]', Arr);
+
+            fileData.append('IdEvento', $(".IdEvento").attr("id"))
+            fileData.append('titolo', $(".titolo").val());
+            fileData.append('descr', $('[name="Descrizione"]').val());
+            fileData.append('descr2', $('[name="SottoDescrizione"]').val());
+            fileData.append('luogo', $(".luogo option:selected").val());
+            fileData.append('giorno', $(".giorno").val());
+            fileData.append('ora', $(".ora").val());
+            fileData.append('pax', $(".pax").val());
+
+            fileData.append('FotoVetrina', $("input[name = FotoVetrina").val())
+            fileData.append('Foto1', $("input[name = Foto1").val())
+            fileData.append('Foto2', $("input[name = Foto2").val())
+            fileData.append('Foto3', $("input[name = Foto3").val())
+            if ($("#Pubblico").is(":checked"))
+            {
+                fileData.append('public', "true");
+            }
+            else
+            {
+                fileData.append('public', "false");
+            };
+
+            console.log(fileData)
+
+            $.ajax({
+                url: '../Edit',
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: fileData,
+                success: function () {
+                    
+                    location.href = "/Eventi/Index";
+                },
+                error: function (response) {
+                 alert("Formato foto troppo grandi");
+                }
+
+            })
+        })
+
+})
+
+</script>

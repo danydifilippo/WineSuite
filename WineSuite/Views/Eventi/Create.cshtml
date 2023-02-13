@@ -21,7 +21,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.Titolo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Titolo, new { htmlAttributes = new { @class = "form-control titolo" } })
                         @Html.ValidationMessageFor(model => model.Titolo, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-8">
-                        @Html.TextAreaFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control descr" } })
                         @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SottoDescrizione, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-8">
-                        @Html.TextAreaFor(model => model.SottoDescrizione, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.SottoDescrizione, new { htmlAttributes = new { @class = "form-control descr2" } })
                         @Html.ValidationMessageFor(model => model.SottoDescrizione, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.IdLuogo, "IdLuogo", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-8">
-                        @Html.DropDownList("IdLuogo", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("IdLuogo", null, htmlAttributes: new { @class = "form-control luogo" })
                         @Html.ValidationMessageFor(model => model.IdLuogo, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -58,15 +58,15 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 me-2">
-                            @Html.EditorFor(model => model.Giorno, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.EditorFor(model => model.Giorno, new { htmlAttributes = new { @class = "form-control giorno", @type = "date" } })
                             @Html.ValidationMessageFor(model => model.Giorno, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-2 me-2">
-                            @Html.EditorFor(model => model.Ora, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
+                            @Html.EditorFor(model => model.Ora, new { htmlAttributes = new { @class = "form-control ora", @type = "time" } })
                             @Html.ValidationMessageFor(model => model.Ora, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-2">
-                            @Html.EditorFor(model => model.NrPaxMax, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                            @Html.EditorFor(model => model.NrPaxMax, new { htmlAttributes = new { @class = "form-control pax", @type = "number" } })
                             @Html.ValidationMessageFor(model => model.NrPaxMax, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                     <div class="form-group mt-3">
                         <div class="col-md-2">
                             @Html.LabelFor(model => model.Pubblico, htmlAttributes: new { @class = "control-label me-1" })
-                            @Html.CheckBoxFor(model => model.Pubblico, new { @checked = "checked", htmlAttributes = new { @class = "form-control", @type = "checkbox" } })
+                            @Html.CheckBoxFor(model => model.Pubblico, new { @checked = "checked", htmlAttributes = new { @class = "form-control public", @type = "checkbox" } })
                             @Html.ValidationMessageFor(model => model.NrPaxMax, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -86,28 +86,28 @@
                     @Html.DisplayName("Foto Vetrina")
                     <div class="col-6">
                         <label class="input-group-text justify-content-center" for="FotoVetrina" id="Vetrina"><i class="bi bi-camera2"></i></label>
-                        @Html.TextBox("FotoVetrina", null, new { @class = "form-control", @type = "file" })
+                        @Html.TextBox("FotoVetrina", null, new { @class = "form-control img", @type = "file" })
                         @Html.ValidationMessageFor(model => model.FotoVetrina, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="mt-2">
+                <div class="mt-2 pics d-none">
                     @Html.DisplayName("Foto Aggiuntive (max 3)")
                     <div class="d-flex" style="gap:10px">
 
                         <div class="col-2">
                             <label class="input-group-text justify-content-center" for="Foto1" id="Pic1"><i class="bi bi-camera-fill icon1"></i></label>
-                            @Html.TextBox("Foto1", null, new { @class = "form-control", @type = "file" })
+                            @Html.TextBox("Foto1", null, new { @class = "form-control img", @type = "file" })
                             @Html.ValidationMessageFor(model => model.Foto1, "", new { @class = "text-danger" })
                         </div>
                         <div id="foto2" class="col-2 d-none">
                             <label class="input-group-text justify-content-center" for="Foto2" id="Pic2"><i class="bi bi-camera-fill icon2"></i></label>
-                            @Html.TextBox("Foto2", null, new { @class = "form-control", @type = "file" })
+                            @Html.TextBox("Foto2", null, new { @class = "form-control img", @type = "file" })
                             @Html.ValidationMessageFor(model => model.Foto2, "", new { @class = "text-danger" })
                         </div>
                         <div id="foto3" class="col-2 d-none">
                             <label class="input-group-text justify-content-center" for="Foto3" id="Pic3"><i class="bi bi-camera-fill icon3"></i></label>
-                            @Html.TextBox("Foto3", null, new { @class = "form-control", @type = "file" })
+                            @Html.TextBox("Foto3", null, new { @class = "form-control img", @type = "file" })
                             @Html.ValidationMessageFor(model => model.Foto3, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -116,25 +116,28 @@
                 <h5>Inserisci Tariffe</h5>
                 <div>
                     @Html.Label("Lista Tariffe", htmlAttributes: new { @class = "control-label col-md-12" })
-                    <div class="col-10">
-                        @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa1" })
-                    </div>
-                    <div class="col-10">
-                        @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa2 d-none mt-2" })
-                    </div>
-                    <div class="col-10">
-                        @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa3 d-none mt-2" })
-                    </div>
-                    <div class="col-10">
-                        @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa4 d-none mt-2" })
-                    </div>
-                </div>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-info col-10 text-start" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         + Aggiungi una nuova Tariffa
                     </button>
-                        
-                <div style="font-size:0.8em" class="mt-2 form-group">
-                    <div class="col-10 tariffeIndex" name="Tariffe">
+                </div>
+                <p class="m-0 fs-6">oppure</p>
+                <div class="col-10">
+                    @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa1" })
+                </div>
+                <div class="col-10">
+                    @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa2 d-none mt-2" })
+                </div>
+                <div class="col-10">
+                    @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa3 d-none mt-2" })
+                </div>
+                <div class="col-10">
+                    @Html.DropDownList("IdTariffe", null, "Scegli una tariffa", htmlAttributes: new { @class = "form-control tariffa4 d-none mt-2" })
+                </div>
+
+
+                <div style="font-size:0.8em" class="mt-2">
+                    <div class="col-10 tariffeIndex d-none" name="Tariffe">
+                        @Html.Label("Tariffe scelte", htmlAttributes: new { @class = "control-label col-md-12" })
                     </div>
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -157,7 +160,7 @@
             </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10 mt-3 fw-bold">
-                        <input type="submit" value="SALVA EVENTO" class="btn btn-outline-info" name="saveEvent" />
+                        <input type="button" value="SALVA EVENTO" class="btn btn-outline-info" id="saveEvent" />
                     </div>
                 </div>
             </div>
@@ -179,59 +182,163 @@
     $(document).ready(function () {
         $("input[type=file][name=FotoVetrina]").change(function () {
             Vetrina = this.files[0];
-            $(".bi-camera2").toggleClass("d-none");
+            if (!$(".bi-camera2").hasClass("d-none"))
+            {
+                $(".bi-camera2").addClass("d-none");
+            }
             var reader = new FileReader
             reader.onload = imageIsLoaded;
             reader.readAsDataURL(Vetrina);
             function imageIsLoaded(a) {
+                $("#Vetrina").empty();
                 $("#Vetrina").append("<img src=\"" + a.target.result + "\" style=\"width:80%\"/>");                
+            }
+            if ($(".pics").hasClass("d-none")) {
+                $(".pics").toggleClass("d-none");
             }
         })
         $("input[type=file][name=Foto1]").change(function () {
             foto = this.files[0];
-            $(".icon1").toggleClass("d-none");
+            if (!$(".icon1").hasClass("d-none")) {
+                $(".icon1").addClass("d-none");
+            }
             var reader = new FileReader
             reader.onload = imageIsLoaded;
             reader.readAsDataURL(foto);
             function imageIsLoaded(a) {
+                $("#Pic1").empty();
                 $("#Pic1").append("<img src=\"" + a.target.result + "\" style=\"height:6vh\" class=\"picture\"/>");
             }
-            $("#foto2").toggleClass("d-none");
+            if ($("#foto2").hasClass("d-none")) {
+                $("#foto2").toggleClass("d-none");
+            }
         })
         $("input[type=file][name=Foto2]").change(function () {
             foto = this.files[0];
-            $(".icon2").toggleClass("d-none");
+            if (!$(".icon2").hasClass("d-none")) {
+                $(".icon2").addClass("d-none");
+            }
             var reader = new FileReader
             reader.onload = imageIsLoaded;
             reader.readAsDataURL(foto);
             function imageIsLoaded(a) {
+                $("#Pic2").empty();
                 $("#Pic2").append("<img src=\"" + a.target.result + "\" style=\"height:6vh\" class=\"picture\"/>");
             }
-            $("#foto3").toggleClass("d-none");
+            if ($("#foto3").hasClass("d-none")) {
+                $("#foto3").toggleClass("d-none");
+            }
         })
         $("input[type=file][name=Foto3]").change(function () {
             foto = this.files[0];
-            $(".icon3").toggleClass("d-none");
+            if (!$(".icon3").hasClass("d-none")) {
+                $(".icon3").addClass("d-none");
+            }
             var reader = new FileReader
             reader.onload = imageIsLoaded;
             reader.readAsDataURL(foto);
             function imageIsLoaded(a) {
+                $("#Pic3").empty();
                 $("#Pic3").append("<img src=\"" + a.target.result + "\" style=\"height:6vh\" class=\"picture\"/>");
             }
         })
+        var Arr = [];
         $(".tariffa1").change(function () {
             var tar = $(".tariffa1 option:selected").text();
             var id = $(".tariffa1").val();
-            $(".tariffeIndex").append("<input class=\"col-10\" readonly name=\"Tar" + id + "\" value=\"" + tar + "\"/>" +
-                "<btn type=\"button\" id=\"" + id + "\" class=\"trash\"><i class=\"bi bi-trash\"></i></btn>")
+            $(".tariffeIndex").removeClass("d-none")
+            $(".tariffeIndex").append("<input class=\"col-11 tariffe\" readonly name=\"Tar" + id + "\" value=\"" + tar + "\"/>" +
+                "<btn type=\"button\" id=\"" + id + "\" class=\"trash ms-2 fs-6 text-warning\"><i class=\"bi bi-trash\"></i></btn>")
+            Arr.push(id)
             $("#" + id + "").click(function () {
                 $(this).parent(".tariffeIndex").children("input[name=Tar" + id + "]").remove();
                 $(this).remove();
+                function isEqual(element) {
+                    return element == id;
+                }
+                var i = Arr.findIndex(isEqual);
+                Arr.splice(i, 1);
+            })
+            $('.tariffa1').val("");
+        })
+        $('.btnSave').click(function () {
+            var nr = $("input[type=number][name=Tariffa]").val();
+            var descr = $("input[type=text][name=DescrTariffa]").val();
+            $.ajax({
+                url: '/Tariffe/CreateNewPrice',
+                method: "POST",
+                data: { 'Tariffa': nr, 'DescrTariffa': descr },
+                success: function (t) {
+                    $(".tariffeIndex").removeClass("d-none")
+                    $(".tariffeIndex").append("<input class=\"col-11 tariffe\" readonly name=\"Tar" + t.IdTariffa + "\" value=\"" + t.Tariffa + " € - " + t.DescrTariffa + "\"/>" +
+                        "<btn type=\"button\" id=\"" + t.IdTariffa + "\" class=\"trash ms-2 fs-6 text-warning\"><i class=\"bi bi-trash\"></i></btn>")
+                    Arr.push(t.IdTariffa)
+                    $("#" + t.IdTariffa + "").click(function () {
+                        $(this).parent(".tariffeIndex").children("input[name=Tar" + t.IdTariffa + "]").remove();
+                        $(this).remove();
+                        function isEqual(element) {
+                            return element == t.IdTariffa;
+                        }
+                        var i = Arr.findIndex(isEqual);
+                        Arr.splice(i, 1);
+                        
+                    })
+                },
+            });
+        });
+
+
+
+        $('#saveEvent').click(function () {
+
+            var fileData = new FormData();
+           
+            $.each($(".img"), function (i, obj) {
+                $.each(obj.files, function (f, file) {
+                    fileData.append('Foto[' + i + ']', file);
+                });
+            });
+
+           
+                fileData.append('Arr[]', Arr);
+           
+
+
+            fileData.append('titolo', $(".titolo").val());
+            fileData.append('descr', $('[name="Descrizione"]').val());
+            fileData.append('descr2', $('[name="SottoDescrizione"]').val());
+            fileData.append('luogo', $(".luogo option:selected").val());
+            fileData.append('giorno', $(".giorno").val());
+            fileData.append('ora', $(".ora").val());
+            fileData.append('pax', $(".pax").val());
+            if ($("#Pubblico").is(":checked"))
+            {
+                fileData.append('public', "true");
+            }
+            else
+            {
+                fileData.append('public', "false");
+            };
+            
+
+            
+
+
+            $.ajax({
+                url: 'Create',
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: fileData,
+                success: function () {
+                    location.href = "/Eventi/Index";
+                },
+                error: function () { alert("Formato foto troppo grandi"); }
+                
             })
         })
-        $
-       
 
-    })
+})
 
 </script>
