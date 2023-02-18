@@ -4,11 +4,10 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 
 <section class="container-fluid tableBack">
     <div class="container">
-        <h2>Modifica Evento : "@Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label" })"</h2>
+        <h2>Modifica Evento : "@Model.Titolo"</h2>
 
 
         @using (Html.BeginForm("Edit", "Eventi", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -354,6 +353,7 @@
             fileData.append('Foto1', $("input[name = Foto1").val())
             fileData.append('Foto2', $("input[name = Foto2").val())
             fileData.append('Foto3', $("input[name = Foto3").val())
+
             if ($("#Pubblico").is(":checked"))
             {
                 fileData.append('public', "true");

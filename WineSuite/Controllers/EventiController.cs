@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,29 +18,37 @@ namespace WineSuite.Controllers
     {
         private ModelDbContext db = new ModelDbContext();
 
-        // GET: Eventi
+        // GET: Eventi/index Admin
         public ActionResult Index()
         {
-            var eventi = db.Eventi.Include(e => e.Luogo);
+            var eventi = db.Eventi.Include(e => e.Luogo).Where(x=>x.Eliminato == false);
             return View(eventi.ToList());
         }
 
-        // GET: Eventi/Details/5
+        // GET: Eventi/index User
+        public ActionResult Events()
+        {
+            var eventi = db.Eventi.Include(e => e.Luogo).Where(x => x.Eliminato == false && x.Pubblico== true);
+           
+            return View(eventi.ToList());
+        }
+
+        // GET: Eventi/index User
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Eventi eventi = db.Eventi.Find(id);
-            if (eventi == null)
+            Eventi evento = db.Eventi.Find(id);
+            if (evento == null)
             {
                 return HttpNotFound();
             }
-            return View(eventi);
+            ViewBag.Prices = evento.Tariffe.OrderByDescending(x=>x.Tariffa);
+            return View(evento);
         }
 
-       
 
         // GET: Eventi/Create
         public ActionResult Create()
@@ -48,8 +57,6 @@ namespace WineSuite.Controllers
             ViewBag.IdTariffe = Tariffe.ListaTariffe;
             return View();
         }
-
-       
 
         // POST: Eventi/Create
 
@@ -128,6 +135,7 @@ namespace WineSuite.Controllers
 
         }
 
+        // chiamata Ajax: Cambia proprietà booleana Pubblico
         public ActionResult ChangeVisibility(int id)
         {
             Convert.ToInt32(id);
@@ -146,7 +154,22 @@ namespace WineSuite.Controllers
             return Redirect("/Eventi/Index");
         }
 
-        // JSON : Delete Tariffa
+        // chiamata Ajax: Cambia proprietà booleana Eliminato
+        public ActionResult DeleteVisibility(string id)
+        {
+            int ID = Convert.ToInt32(id);
+            Eventi evento = db.Eventi.Find(ID);
+            evento.Eliminato = true;
+
+            db.Entry(evento).State = EntityState.Modified;
+            db.SaveChanges();
+
+            RedirectToAction("Index");
+
+            return RedirectToAction("Index");
+        }
+
+        // Chiamata Ajax : Delete Tariffa
 
         public ActionResult DeletePrice(string id, string idEvento)
         {
@@ -193,60 +216,51 @@ namespace WineSuite.Controllers
             ev.Ora = TimeSpan.Parse(form["ora"]);
             ev.Pubblico = Convert.ToBoolean(form["public"]);
             ev.NrPaxMax = Convert.ToInt32(form["pax"]);
-            var fv = form["FotoVetrina"].ToString();
-            var f1 = form["Foto1"].ToString();
-            var f2 = form["Foto2"].ToString();
-            var f3 = form["Foto3"].ToString();
+            var fv = form["FotoVetrina"].ToString().Replace("C:\\fakepath\\", "");
+            var f1 = form["Foto1"].ToString().Replace("C:\\fakepath\\","");
+            var f2 = form["Foto2"].ToString().Replace("C:\\fakepath\\", "");
+            var f3 = form["Foto3"].ToString().Replace("C:\\fakepath\\", "");
 
+            if (fv != "")
+            {
+                ev.FotoVetrina = fv; 
+            }
 
+            if (f1 != "")
+            {
+                ev.Foto1 = f1;
+            }
+
+            if (f2 != "")
+            {
+                ev.Foto2 = f2;
+            }
+
+            if (f3 != "")
+            {
+                ev.Foto3 = f3;
+            }
 
             if (Request.Files.Count > 0)
             {
                 HttpFileCollectionBase files = Request.Files;
-                
+
                 for (int i = 0; i < files.Count; i++)
                 {
-                    HttpPostedFileBase file = files[0];
+                    HttpPostedFileBase file = files[i];
 
-                    //if (Vetrina == file.FileName)
-                    //{
-                        
-                    //    var Path = Server.MapPath("/Content/img/" + file.FileName);
-                    //    file.SaveAs(Path);
-                    //    Vetrina = file.FileName;
-                    //}
-                    //if (i == 1 && Foto1 != file.FileName)
-                    //{
-                    //    var Path = Server.MapPath("/Content/img/" + file.FileName);
-                    //    file.SaveAs(Path);
-                    //    Foto1 = file.FileName;
-                    //}
-                    //if (i == 2 && Foto2 != file.FileName)
-                    //{
-                    //    var Path = Server.MapPath("/Content/img/" + file.FileName);
-                    //    file.SaveAs(Path);
-                    //    Foto2 = file.FileName;
-                    //}
-                    //if (i == 3 && Foto3 != file.FileName)
-                    //{
-                    //    var Path = Server.MapPath("/Content/img/" + file.FileName);
-                    //    file.SaveAs(Path);
-                    //    Foto3 = file.FileName;
-                    //}
+                    var Path = Server.MapPath("/Content/img/" + file.FileName);
+                    file.SaveAs(Path);
+
                 }
-
             }
-
 
             db.Entry(ev).State = EntityState.Modified;
             db.SaveChanges();
 
             if (form["Arr[]"] != null)
             {
-
                 Array a = form["Arr[]"].ToString().Split(',');
-
-
 
                 foreach (var item in a)
                     {
@@ -255,41 +269,25 @@ namespace WineSuite.Controllers
                         ev.Tariffe.Add(t);
                         db.SaveChanges();
                     }
-
-               
-
             }
 
             return Redirect("/Eventi/Index");
-
         }
 
       
-        // GET: Eventi/Delete/5
-        public ActionResult Delete(int? id)
+        // Json: DeleteEvent / il post è il DeleteVisibility
+        public JsonResult DeleteEvent(string id)
         {
-            if (id == null)
+            int Id = Convert.ToInt32(id);
+            Eventi eventi = db.Eventi.Find(Id);
+            EventiJson ev = new EventiJson
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Eventi eventi = db.Eventi.Find(id);
-            if (eventi == null)
-            {
-                return HttpNotFound();
-            }
-            return View(eventi);
+                Titolo = eventi.Titolo,
+            };
+            
+            return Json(ev, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Eventi/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Eventi eventi = db.Eventi.Find(id);
-            db.Eventi.Remove(eventi);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

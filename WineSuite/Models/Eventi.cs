@@ -58,6 +58,8 @@ namespace WineSuite.Models
         [Display(Name = "Pubblica Evento")]
         public bool Pubblico { get; set; }
 
+        public bool Eliminato { get; set; }
+
         public virtual Luogo Luogo { get; set; }
 
 

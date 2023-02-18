@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WineSuite.Models.Prenotazione>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Eventi.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utenti.Ruolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotPaxPrenotate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotDaPagare)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotArrivati)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotPagContanti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotPagPos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotPagato)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Eventi.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utenti.Ruolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotDaPagare)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotArrivati)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotPagContanti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotPagPos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotPagato)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdPrenotazione }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdPrenotazione }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdPrenotazione })
+        </td>
+    </tr>
+}
+
+</table>

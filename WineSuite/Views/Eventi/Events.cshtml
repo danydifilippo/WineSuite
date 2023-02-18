@@ -1,0 +1,76 @@
+﻿
+
+@{
+    ViewBag.Title = "Events";
+}
+
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" style="background-color: darkslategray; margin: auto; width: 70vw">
+    <div class="carousel-inner">
+        <div class="carousel-item pic1 car-img active">
+
+        </div>
+        <div class="carousel-item car-img  pic2">
+
+        </div>
+        <div class="carousel-item car-img  pic3">
+
+        </div>
+        <div class="carousel-item car-img  pic4">
+
+        </div>
+    </div>
+</div>
+
+<div class="container cont-ev mt-5">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        if (i % 2 == 0)
+        {
+            <div class="row justify-content-between events">
+
+                <div class="col-6 mx-2" style="color: #c6e2fd; text-align: left; font-family: 'Lobster Two', cursive; align-self: center; padding: 2% ">
+                    <p style="font-size:30px">@Model[i].Titolo</p>
+                    <p style="font-size:15px">@Model[i].Descrizione</p>
+                    @*@if(User.Identity.Name == "Admin")
+                        {
+
+                        }*@
+                    <btn class="btn btn-warning text-end float-end prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
+                </div>
+                <div class="col-6 events-img"
+                     style="background-image: url('/Content/img/@Model[i].FotoVetrina');">
+                </div>
+
+            </div>
+            <hr class="separator" />
+        }
+        else
+        {
+            <div class="row justify-content-between events">
+                <div class="col-6 events-img"
+                     style="background-image: url('/Content/img/@Model[i].FotoVetrina')">
+                </div>
+                <div class="col-6 mx-2" style="color: #c6e2fd; text-align: right; font-family: 'Lobster Two', cursive; align-self: center">
+                    <p style="font-size:30px">@Model[i].Titolo</p>
+                    <p style="font-size:15px">@Model[i].Descrizione</p>
+                    <btn class="btn btn-warning text-end float-start prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
+                </div>
+            </div>
+            <hr class="separator" />
+        }
+    }
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".prenota").click(function () {
+            var id = $(this).attr("id")
+            location.href = "../Eventi/Details/" + id
+        })
+    })
+
+</script>

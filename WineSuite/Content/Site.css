@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     width: 100%;
     height: 100%;
     background-position-x: center;
@@ -10,6 +11,13 @@
     background-repeat: no-repeat
 }
 
+.video-box {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat
+}
+}
+
 .body-content {
     width: 100%;
     height: 100%;
@@ -19,9 +27,9 @@
 .navbar {
     --bs-navbar-padding-y: 1rem;
     --bs-navbar-color: white;
-    --bs-navbar-hover-color: #4eb6bf;
+    --bs-navbar-hover-color: #93cdff;
     --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
-    --bs-navbar-active-color: #4eb6bf;
+    --bs-navbar-active-color: #93cdff;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
@@ -52,7 +60,7 @@ textarea{
 
 a {
     text-decoration: none;
-    color: #4eb6bf;
+    color: #93cdff;
     font-weight: bold
 }
 
@@ -134,14 +142,14 @@ a:hover{
 }
 
 .active {
-    border-top-color: #4eb6bf;
+    border-top-color: #56abf5;
     border-top: 2px solid;
 }
 
-    .nav-link:hover {
-        border-top-color: #4eb6bf;
-        border-top: 2px solid;
-    }
+.nav-link:hover {
+    border-top-color: #56abf5;
+    border-top: 2px solid;
+}
 
 .title {
     font-size: 5rem;
@@ -168,8 +176,12 @@ tbody {
 :root {
     --bs-body-color: #bbddff;
     --bs-warning-rgb: 255, 122, 142;
+    --bs-black-rgb: 35, 60, 60;
 }
 
+.bg-black {
+    --bs-bg-opacity: 0.62;
+}
 
 .sectionhome {
     position: relative;
@@ -195,7 +207,7 @@ h3 {
     top: -25px;
     width: 5rem;
     height: 5rem;
-    border: 0.55rem solid #4eb6bf;
+    border: 0.55rem solid #93cdff;
     border-radius: 50%;
     animation: pulse-border 1s linear infinite;
 }
@@ -238,7 +250,10 @@ h3 {
 }
 
 .btn-tog {
-    background-color: #263d51
+    background-color: #56abf5
+}
+.togP {
+    background-color: #003b6e
 }
 
 .publish, .unpublish{
@@ -261,19 +276,18 @@ h3 {
 }
 
 .pubblica {
-    color: #263d51;
-    background-color: #cdd7e1;
+    color: #003b6e;
+    background-color: #93cdff;
     font-weight: 700;
 }
 
 .nonPubblica {
-    color: #eaf2ff;
-    background-color: #9bb9d7;
+    color: #748299;
+    background-color: #cdd7e1;
 }
 
 .card{
     background-color: transparent;
-    border-radius:10cm
 }
 
 .card-title{
@@ -291,3 +305,113 @@ h3 {
     border-bottom-left-radius: 10px;
 }
 
+.modal {
+    --bs-modal-color: #405f6a;
+}
+
+.btn-secondary {
+    --bs-btn-bg: #405f6a;
+    --bs-btn-border-color: #405f6a;
+    --bs-btn-hover-bg: #405f6a;
+    --bs-btn-hover-border-color: #405f6a;
+}
+
+.fw-normal{
+    font-size: 14px
+}
+
+.car-img {
+    width: 70vw;
+    height: 80vh;
+}
+.img-ev{
+    height:60vh;
+    background-position:center;
+    background-size:auto;
+}
+.carousel-item {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    border: 0;
+}
+
+.pic1 {
+    background-image: url('img/11.jpg');
+}
+.pic2 {
+    background-image: url('img/9.jpg');
+}
+.pic3 {
+    background-image: url('img/41.jpg');
+}
+.pic1 {
+    background-image: url('img/51.jpg');
+}
+.pic4 {
+    background-image: url('img/28.jpg');
+}
+.separator {
+    height: 5px;
+    border-top: 1px solid #c6e2fd;
+    opacity: 2;
+    text-align: center
+}
+
+.cont-ev {
+    width: 70vw;
+}
+
+.btn-warning {
+    --bs-btn-bg: #ffd4ea;
+    --bs-btn-border-color: #ffd4ea;
+    --bs-btn-hover-border-color: #FFA7D3;
+    --bs-btn-active-bg: #ffd4ea;
+    --bs-btn-active-border-color: #ffd4ea;
+    --bs-btn-active-shadow: #ffd4ea;
+    --bs-btn-hover-bg: #FFA7D3;
+}
+
+.events {
+    background-color: #233c3c9e;
+}
+
+.events-img {
+    height: 410px;
+    width: 410px;
+    background-position-x: center;
+    background-size: cover;
+}
+
+.tar-square {
+    border-right: 1px solid #ffd4ea;
+    border-left: 1px solid #ffd4ea;
+    font-size: 14px;
+    text-align: center;
+    line-height: normal
+}
+
+.input-nr, .note {
+    background-color: transparent;
+    border: 0.5px solid #ffd4ea;
+    color: #ffd4ea;
+}
+.note {
+    width: 20vw;
+}
+
+.TarPic {
+    background-color: #ffd4ea;
+    color: #4a6464;
+    width: 6.5vw;
+    padding: 1.1rem;
+    text-align: center;
+    font-size: 17px;
+    margin: auto;
+    margin-bottom: 0;
+    margin-top: 0
+}
+
+.list-group-item {
+    color: #29505c;
+}

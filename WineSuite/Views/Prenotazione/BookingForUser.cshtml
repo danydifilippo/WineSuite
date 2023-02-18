@@ -1,0 +1,163 @@
+﻿@model IEnumerable<WineSuite.Models.Prenotazione>
+
+@{
+    ViewBag.Title = "BookingForUser";
+}
+
+<div class="container cont-ev bg-black">
+    <h2 class="text-center">Le mie prenotazioni</h2>
+    <div id="msgDelete"></div>
+    @if (Model.Count() == 0)
+    {
+        <div class="p-3 text-center"><p>Al momento non ci sono prenotazioni a tuo nome</p>
+        <p>Dai un'occhiata alla nostra pagina <a href="/Eventi/Events">Eventi</a></p>
+    </div>
+    }
+    else
+    {
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Nr")
+            </th>
+            <th>
+                @Html.DisplayName("Evento")
+            </th>
+            <th>
+                @Html.DisplayName("Del")
+            </th>
+            <th class="text-center">
+                @Html.DisplayName("Prenotanti")
+            </th>
+            <th>
+                @Html.DisplayName("Totale")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPrenotazione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Eventi.Titolo)
+                </td>
+                <td>
+                    @Convert.ToDateTime(item.Eventi.Giorno).ToString("dd/MM/yyyy")
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotDaPagare) €
+                </td>
+                <td>
+
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: #ffbddf; cursor:pointer">Dettagli</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #ffdbf2c9">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:#405f6a; font-weight:700">Prenotazione</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group fw-bold text-white" style="--bs-list-group-bg: #fde7f2">
+                                        <li class="list-group-item">Nr <span class="fw-normal">@item.IdPrenotazione del @Convert.ToDateTime(item.DataPrenotazione).ToString("dd/MM/yyyy")</span> </li>
+                                        <li class="list-group-item">Evento: <span class="fw-normal">@item.Eventi.Titolo</span></li>
+                                        <li class="list-group-item">Nr Partecipanti: <span class="fw-normal">@item.TotPaxPrenotate</span></li>
+                                        <li class="list-group-item">
+                                            <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                Dettagli opzioni scelte
+                                            </button>
+                                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show fw-normal" aria-labelledby="panelsStayOpen-headingOne">
+                                                <div class="accordion-body m-2" style="font-size:13px">
+                                                    @foreach (var i in ViewBag.ListaTarPren)
+                                                    {
+                                                        if (i.IdPrenotazione == item.IdPrenotazione)
+                                                        {
+                                                            if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                                                            {
+                                                                <p>@i.NrPax bambini</p>
+                                                            }
+                                                            else if (i.Tariffe.DescrTariffa.Contains("Calice") && i.NrPax > 0)
+                                                            {
+                                                                <p>@i.NrPax adulti - @i.Tariffe.DescrTariffa </p>
+                                                            }
+                                                            else if (i.Tariffe.DescrTariffa.Contains("Calici") && i.NrPax > 0)
+                                                            {
+                                                                <p>@i.NrPax adulti -@i.Tariffe.DescrTariffa </p>
+                                                            }
+
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    |
+
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="color: #f1578a; cursor:pointer">Elimina</a>
+                    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #f1578a96">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:white; font-weight:700">Sicuro di voler eliminare questa prenotazione?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group fw-bold text-white" style="--bs-list-group-bg: #fde7f2">
+                                        <li class="list-group-item">Nr <span class="fw-normal">@item.IdPrenotazione del @Convert.ToDateTime(item.DataPrenotazione).ToString("dd/MM/yyyy")</span> </li>
+                                        <li class="list-group-item">Evento: <span class="fw-normal">@item.Eventi.Titolo</span></li>
+                                        <li class="list-group-item">Nr Partecipanti: <span class="fw-normal">@item.TotPaxPrenotate</span></li>
+                                        <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="@item.IdPrenotazione" class="btn btn-outline-light btnDelete" data-bs-dismiss="modal">Elimina</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".btnDelete").click(function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: '/Prenotazione/Delete/' +id,
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function () {
+                    $("#msgDelete").append("<div class=\"alert alert-info\">Prenotazione nr " + id +" eliminata con successo.</div>")
+                    setTimeout(function () {
+                        location.href = "/Prenotazione/BookingForUser";
+                    }, 3000); 
+                },
+            })
+        })
+    })
+</script>

@@ -1,0 +1,90 @@
+﻿@model WineSuite.Models.Prenotazione
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Prenotazione</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Eventi.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eventi.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Ruolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Ruolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotPaxPrenotate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotPaxPrenotate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotDaPagare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotDaPagare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotArrivati)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotArrivati)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotPagContanti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotPagContanti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotPagPos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotPagPos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotPagato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotPagato)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPrenotazione }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

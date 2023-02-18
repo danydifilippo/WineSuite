@@ -22,6 +22,10 @@ namespace WineSuite.Models
 
         public int IdEvento { get; set; }
 
+        [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? DataPrenotazione { get; set; }
+
         public string Note { get; set; }
 
         public int? TotPaxPrenotate { get; set; }
