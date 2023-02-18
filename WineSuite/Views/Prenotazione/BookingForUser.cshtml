@@ -9,7 +9,7 @@
     <div id="msgDelete"></div>
     @if (Model.Count() == 0)
     {
-        <div class="p-3 text-center"><p>Al momento non ci sono prenotazioni a tuo nome</p>
+        <div class="p-3 text-center"><p>Al momento non ci sono prenotazioni</p>
         <p>Dai un'occhiata alla nostra pagina <a href="/Eventi/Events">Eventi</a></p>
     </div>
     }
@@ -155,7 +155,7 @@
                     $("#msgDelete").append("<div class=\"alert alert-info\">Prenotazione nr " + id +" eliminata con successo.</div>")
                     setTimeout(function () {
                         location.href = "/Prenotazione/BookingForUser";
-                    }, 3000); 
+                    }, 2500); 
                 },
             })
         })

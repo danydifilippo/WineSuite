@@ -23,39 +23,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100;200;300;400;500;600;700&family=Lobster+Two:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <div class="main">
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid row">
-                        <div class="col-5 start">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-start">
-                                <li><a class="nav-link @(path.StartsWith("/Home/About") ? "active" : "")" href="/Home/About">L'Azienda</a></li>
-                                <li><a class="nav-link @(path.StartsWith("/Home/Contact") ? "active" : "")" href="/Home/Contact">Contattaci</a></li>
-                                <li><a class="nav-link @(path.StartsWith("/Home/Login") ? "active" : "")" href="/Home/Login">Login</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-2">
-                            <a class="navbar-brand nav justify-content-center" href="/Home/Index">
-                                <img src="~/Content/img/logo.png" width="150" />
-                            </a>
-                        </div>
-                        <div class="col-5">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-end">
-                                <li><a class="nav-link @(path.StartsWith("/Eventi") ? "active" : "")" href="/Eventi/Events">Eventi</a></li>
-                                <li><a class="nav-link @(path.StartsWith("/Home/Prodotti") ? "active" : "")" href="/Home/Prodotti">I nostri vini</a></li>
-                                <li><a class="nav-link @(path.StartsWith("/Home/BookingsForUser") ? "active" : "")" href="/Home/BookingsForUser">Prenotazioni</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+    <div class="main">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid row">
+                <div class="col-5 start">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-start">
+                        <li><a class="nav-link @(path.StartsWith("/Home/About") ? "active" : "")" href="/Home/About">L'Azienda</a></li>
+                        <li><a class="nav-link @(path.StartsWith("/Home/Contact") ? "active" : "")" href="/Home/Contact">Contattaci</a></li>
+                        <li><a id="login" class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login</a></li>
 
-                <div class="container-fluid body-content">
-                    @RenderBody()
+                    </ul>
                 </div>
-                    <hr />
-                    <footer class="text-center">
-                        <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET By Daniela - @Html.ActionLink("Entra come amministratore", "Index", "Eventi")</p>
-                    </footer>
-       </div>
+                <div class="col-2">
+                    <a class="navbar-brand nav justify-content-center" href="/Home/Index">
+                        <img src="~/Content/img/logo.png" width="150" />
+                    </a>
+                </div>
+                <div class="col-5">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-end">
+                        <li><a class="nav-link @(path.StartsWith("/Eventi") ? "active" : "")" href="/Eventi/Events">Eventi</a></li>
+                        <li><a class="nav-link @(path.StartsWith("/Home/Prodotti") ? "active" : "")" href="/Home/Prodotti">I nostri vini</a></li>
+                        <li><a class="nav-link @(path.StartsWith("/Prenotazione/BookingForUser") ? "active" : "")" href="/Prenotazione/BookingForUser">Prenotazioni</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="21" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Login</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid body-content">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET By Daniela - @Html.ActionLink("Entra come amministratore", "Index", "Eventi")</p>
+        </footer>
+    </div>
         @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#login").click(function () {
+            $.each($(".nav-link", function () {
+                $(this).attr("class", "nav-link")
+            });
+            $("#login").attr("class", "nav-link active")
+        })
+        $(".nav-link").click(function () {
+            $("#login").removeClass("active")
+        })
+    })
+</script>

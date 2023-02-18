@@ -16,7 +16,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat
 }
-}
+
 
 .body-content {
     width: 100%;
@@ -189,12 +189,12 @@ tbody {
 }
 
 h1 {
-    color: #ff92a2;
+    color: #93cdff;
     font-size: 50px
 }
 
 h3 {
-    color: #ff7a8e;
+    color: #93cdff;
 }
 
 .video-box {
@@ -213,7 +213,27 @@ h3 {
 }
 
 .start-50:hover {
-    color: #4eb6bf;
+    color: #56abf5;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.xclose {
+    position: absolute;
+    right: -4px;
+    font-size: 21px;
+    top:-10px;
+    color:white;
+    background-color:transparent;
+    border-color: transparent
+}
+
+.modb {
+    height: 45vh;
+    background-color: black
 }
 .border1 {
     animation-delay: 2s;
