@@ -1,0 +1,90 @@
+﻿@model WineSuite.Models.Utenti
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container" id="register">
+    <div id="userReg"><i class="bi bi-person-plus-fill"></i></div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row d-flex flex-nowrap justify-content-center">
+        <div class="input-group mb-1 w-50">
+            <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Nome" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                <label for="floatingInput">Nome</label>
+            </div>
+        </div>
+
+        <div class="input-group mb-1 w-50">
+            <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Cognome" } })
+                @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                <label for="floatingInput">Cognome</label>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex flex-nowrap justify-content-center">
+        <div class="input-group mb-1 w-50">
+            <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-phone-vibrate-fill"></i></span>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Contatto, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Telefono" } })
+                @Html.ValidationMessageFor(model => model.Contatto, "", new { @class = "text-danger" })
+                <label for="floatingInput">Telefono</label>
+            </div>
+        </div>
+
+        <div class="input-group mb-1 w-50">
+            <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "E-mail" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <label for="floatingInput">E-mail</label>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex flex-nowrap justify-content-center">
+        <div class="input-group mb-1 w-50">
+            <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-person-fill-lock"></i></span>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Username" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                <label for="floatingInput">Username</label>
+            </div>
+        </div>
+
+        <div class="input-group mb-1 w-50">
+            <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+            <div class="form-floating mb-3">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Username" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <label for="floatingInput">Password</label>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="col-12 mb-1 text-center">
+        <input type="submit" value="Registrati" class="btn btn-outline-light w-50" />
+    </div>
+
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

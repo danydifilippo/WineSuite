@@ -62,7 +62,13 @@ namespace WineSuite.Models
             modelBuilder.Entity<Tariffe>()
                 .HasMany(e => e.Rel_Tariffa_Prenotazione)
                 .WithRequired(e => e.Tariffe)
-                .WillCascadeOnDelete(false);
+                //.WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.IdTariffa);
+
+            modelBuilder.Entity<Tariffe>()
+               .HasMany(e => e.Rel_Tariffa_Prenotazione1)
+               .WithOptional(e => e.Tariffe1)
+               .HasForeignKey(e => e.Tariffa_Opzionata);
 
             modelBuilder.Entity<Utenti>()
                 .Property(e => e.Contatto)

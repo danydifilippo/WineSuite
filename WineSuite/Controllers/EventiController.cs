@@ -34,6 +34,7 @@ namespace WineSuite.Controllers
         }
 
         // GET: Eventi/index User
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)

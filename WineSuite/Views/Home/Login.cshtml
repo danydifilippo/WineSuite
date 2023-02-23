@@ -1,0 +1,65 @@
+﻿@model WineSuite.Models.Utenti
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@if(ViewBag.Prenota != null)
+            {
+                <div class="alert alert-info">@ViewBag.Prenota</div>
+            }
+
+<div class="container" id="login">
+    <div id="userLogin"><i class="bi bi-person-circle"></i></div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="input-group mb-1">
+                <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-person-fill-lock"></i></span>
+                <div class="form-floating mb-3">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Username" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    <label for="floatingInput">Username</label>
+                </div>
+            </div>
+
+            <div class="input-group mb-1">
+                <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+                <div class="form-floating mb-3">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Username" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    <label for="floatingInput">Password</label>
+                </div>
+            </div>
+        </div>
+
+                <div class="col-12 mb-1 text-center">
+                    <input type="submit" value="Entra" class="btn btn-outline-light w-50" />
+                </div>
+
+     }
+
+            <div class="text-center">
+                <div id="oppureLogin">oppure</div>
+                @Html.ActionLink("Registrati", "Register")
+            </div>
+
+</div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $(".alert").addClass("d-none");
+        }, 2800);
+    })
+</script>

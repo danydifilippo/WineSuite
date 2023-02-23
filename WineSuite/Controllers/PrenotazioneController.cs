@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,15 +17,61 @@ namespace WineSuite.Controllers
 {
     public class PrenotazioneController : Controller
     {
+        
         private ModelDbContext db = new ModelDbContext();
 
         // GET: Prenotazione
+        [Authorize(Roles ="admin")]
         public ActionResult Index()
         {
-            var prenotazione = db.Prenotazione.Include(p => p.Eventi).Include(p => p.Utenti);
-            return View(prenotazione.ToList());
+            var eventi = db.Eventi.ToList();
+            foreach(var e in eventi)
+            {
+                e.TotPrenotazioni = db.Prenotazione.GroupBy(x=>x.IdEvento == e.IdEvento).Count() ;
+                e.TotPaxPrenotate = db.Prenotazione.Where(x => x.IdEvento == e.IdEvento).Sum(x => x.TotPaxPrenotate);
+                e.TotPaxArrivate = db.Prenotazione.Where(x => x.IdEvento == e.IdEvento).Sum(x => x.TotArrivati);
+                if (e.TotPaxArrivate == null)
+                {
+                    e.TotPaxArrivate = 0;
+                }
+                e.TotPagato = db.Prenotazione.Where(x => x.IdEvento == e.IdEvento).Sum(x => x.TotPagato);
+                if (e.TotPagato == null)
+                {
+                    e.TotPagato = 0;
+                }
+                e.TotContanti = db.Prenotazione.Where(x => x.IdEvento == e.IdEvento).Sum(x => x.TotPagContanti);
+                e.TotPos = db.Prenotazione.Where(x => x.IdEvento == e.IdEvento).Sum(x => x.TotPagPos);
+                if (e.TotContanti == null)
+                {
+                    e.TotContanti = 0;
+                }
+                if (e.TotPos == null)
+                {
+                    e.TotPos = 0;
+                }
+            }
+
+            return View(eventi);
         }
 
+        public ActionResult ManageBooking(int? id)
+        {
+            var prenotazioni = db.Prenotazione.Include(x=>x.Eventi).Include(x=>x.Utenti).Where(x=>x.IdEvento== id).OrderBy(x=>x.Utenti.Cognome);
+            var e = db.Eventi.Find(id);
+            ViewBag.Titolo = e.Titolo;
+            ViewBag.Id = e.IdEvento;
+            List<Rel_Tariffa_Prenotazione> tariffe = new List<Rel_Tariffa_Prenotazione>();
+            foreach(var p in prenotazioni)
+            {
+                List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
+                   Where(x => x.IdPrenotazione == p.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
+                tariffe.AddRange(r);
+            }
+            ViewBag.Tariffe = tariffe.ToList();
+            return View(prenotazioni.ToList());
+        }
+
+        [Authorize]
         // GET: Prenotazione/Details/5
         public ActionResult Details(int? id)
         {
@@ -42,10 +90,11 @@ namespace WineSuite.Controllers
         // GET: Prenotazione/BookingForUser
         public ActionResult BookingForUser()
         {
-            //string UserName = User.Identity.Name;
-            //Utenti u = db.Utenti.Where(x => x.Username == UserName).FirstOrDefault();
+            if (User.Identity.IsAuthenticated) { 
+            string UserName = User.Identity.Name;
+            Utenti u = db.Utenti.Where(x => x.Username == UserName).FirstOrDefault();
 
-            List<Prenotazione> prenotazioni = db.Prenotazione.Where(x => x.IdUtente == 1).OrderByDescending(x=>x.IdPrenotazione).ToList();
+            List<Prenotazione> prenotazioni = db.Prenotazione.Where(x => x.IdUtente == u.IdUtente).OrderByDescending(x=>x.IdPrenotazione).ToList();
 
             List<Rel_Tariffa_Prenotazione> Lista = new List<Rel_Tariffa_Prenotazione>();
             foreach(var item in prenotazioni)
@@ -58,6 +107,12 @@ namespace WineSuite.Controllers
             ViewBag.ListaTarPren = Lista;
 
             return View(prenotazioni);
+
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: Prenotazione/Create
@@ -66,12 +121,11 @@ namespace WineSuite.Controllers
 
         public ActionResult Create(FormCollection form)
         {
-
-            //Utenti u = db.Utenti.Where(x => x.Username == form["Utente"].ToString()).FirstOrDefault();
+            var user = form["Utente"].ToString();
+            Utenti u = db.Utenti.Where(x => x.Username == user).FirstOrDefault();
             Prenotazione p = new Prenotazione();
 
-            //IdUtente = u.IdUtente,
-            p.IdUtente = 1;
+            p.IdUtente = u.IdUtente;          
             p.IdEvento = Convert.ToInt32(form["IdEvento"]);
             p.Note = form["Note"].ToString();
             p.TotDaPagare = Convert.ToDecimal(form["TotDaPag"]);
@@ -123,11 +177,10 @@ namespace WineSuite.Controllers
         }
 
         // POST: Prenotazione/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPrenotazione,IdUtente,IdEvento,Note,TotPaxPrenotate,TotDaPagare,TotArrivati,TotPagContanti,TotPagPos,TotPagato")] Prenotazione prenotazione)
+        public ActionResult Edit(Prenotazione prenotazione)
         {
             if (ModelState.IsValid)
             {

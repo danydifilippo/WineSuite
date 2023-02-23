@@ -5,7 +5,7 @@
 }
 
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" style="background-color: darkslategray; margin: auto; width: 70vw">
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="background-color: darkslategray; margin: auto; width: 70vw">
     <div class="carousel-inner">
         <div class="carousel-item pic1 car-img active">
 
@@ -32,12 +32,16 @@
                 <div class="col-6 mx-2" style="color: #c6e2fd; text-align: left; font-family: 'Lobster Two', cursive; align-self: center; padding: 2% ">
                     <p style="font-size:30px">@Model[i].Titolo</p>
                     <p style="font-size:15px">@Model[i].Descrizione</p>
-                    @*@if(User.Identity.Name == "Admin")
-                        {
+                    @if (User.Identity.IsAuthenticated)
+                    {
 
-                        }*@
-                    <btn class="btn btn-warning text-end float-end prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
-                </div>
+                        <btn class="btn btn-warning text-end float-end prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
+                    }
+                    else
+                    {
+                        <btn class="btn btn-warning text-end float-end login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
+                    }
+                    </div>
                 <div class="col-6 events-img"
                      style="background-image: url('/Content/img/@Model[i].FotoVetrina');">
                 </div>
@@ -54,7 +58,15 @@
                 <div class="col-6 mx-2" style="color: #c6e2fd; text-align: right; font-family: 'Lobster Two', cursive; align-self: center">
                     <p style="font-size:30px">@Model[i].Titolo</p>
                     <p style="font-size:15px">@Model[i].Descrizione</p>
-                    <btn class="btn btn-warning text-end float-start prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <btn class="btn btn-warning text-end float-start prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
+                    }
+                    else
+                    {
+                        <btn class="btn btn-warning text-end float-start login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
+                    }
                 </div>
             </div>
             <hr class="separator" />
@@ -70,6 +82,10 @@
         $(".prenota").click(function () {
             var id = $(this).attr("id")
             location.href = "../Eventi/Details/" + id
+        })
+        $(".login").click(function () {
+            var id = $(this).attr("id")
+            location.href = "../Home/Login/" + id
         })
     })
 

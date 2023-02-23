@@ -1,0 +1,173 @@
+﻿@model IEnumerable<WineSuite.Models.Prenotazione>
+
+@{
+    ViewBag.Title = "ManageBooking";
+}
+
+<div class="container tableBook py-4">
+    <h2>Evento: @ViewBag.Titolo </h2>
+
+    
+    <table class="table text-center table-bordered">
+        <tr class="rowTitle">
+            <th>
+                @Html.DisplayName("Nominativo")
+            </th>
+            <th>
+                Nr Pren.
+            </th>
+            <th>
+                @Html.DisplayName("Data Pren")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayName("Pax")
+            </th>
+            <th>
+                @Html.DisplayName("Prenotazione")
+            </th>
+            <th>
+                @Html.DisplayName("Arrivati")
+            </th>
+            <th>
+                @Html.DisplayName("Tariffe opzionate")
+            </th>
+            <th>
+                @Html.DisplayName("Tot")
+            </th>
+            <th>
+                @Html.DisplayName("Sconto")
+            </th>
+            <th>
+                @Html.DisplayName("Cash")
+            </th>
+            <th>
+                @Html.DisplayName("Pos")
+            </th>
+            <th>
+                @Html.DisplayName("Incassato")
+            </th>
+            <th>
+                @Html.DisplayName("Stato")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="rowItem" id="@item.IdPrenotazione">
+                <td>
+                    @item.Utenti.Cognome @item.Utenti.Nome
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPrenotazione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataPrenotazione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
+                </td>
+                <td>
+                    @foreach (var i in ViewBag.Tariffe)
+                    {
+                        if (i.IdPrenotazione == item.IdPrenotazione)
+                        {
+                            if (i.IdTariffe.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
+                            {
+                                <p class="mb-0">@i.NrPax pax: 1 calice </p>
+                            }
+                            else if (i.IdTariffe.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                            {
+                                <p class="mb-0">@i.NrPax pax: 2 calici </p>
+                            }
+                            else if (i.IdTariffe.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                            {
+                                <p class="mb-0">@i.NrPax pax: 3 calici </p>
+                            }
+                            else if (i.IdTariffe.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                            {
+                                <p class="mb-0"> @i.NrPax bamb. </p>
+                            }
+
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var i in ViewBag.Tariffe)
+                    {
+                        if (i.IdPrenotazione == item.IdPrenotazione)
+                        {
+                            if (i.Tariffa_Opzionata.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
+                            {
+                                <p class="mb-0">@i.NrPax_Arrivate pax: 1 calice </p>
+                            }
+                            else if (i.Tariffa_Opzionata.IdTariffe.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                            {
+                                <p class="mb-0">@i.NrPax_Arrivate pax: 2 calici </p>
+                            }
+                            else if (i.Tariffa_Opzionata.IdTariffe.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                            {
+                                <p class="mb-0">@i.NrPax_Arrivate pax: 3 calici </p>
+                            }
+                            else if (i.Tariffa_Opzionata.IdTariffe.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                            {
+                                <p class="mb-0"> @i.NrPax_Arrivate bamb. </p>
+                            }
+
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotArrivati)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotPagContanti)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotPagPos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotPagato)
+                </td>
+                @if (item.Stato == false)
+                {
+                    <td class="stato coming">
+                        "In arrivo"
+                    </td>
+                }
+                else
+                {
+                    <td class="stato arrived">
+                        "Arrivati"
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.each($(".stato"), function () {
+
+        if ($(".stato").hasClass("coming")) {
+            $(this).parent(".rowItem").addClass("inArrivo")         
+        } else if ($(".stato").hasClass("arrived")) {
+            $(this).parent(".rowItem").addClass("arrivati") 
+            }
+
+        })
+        $(".rowItem").click(function () {
+            var id = $(this).attr("id");
+            location.href="/Prenotazione/Edit/" + id
+        })
+    })
+</script>

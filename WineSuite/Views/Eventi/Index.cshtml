@@ -82,6 +82,7 @@
         $(document).ready(function () {
             $(".btn-tog").click(function () {
                 if ($(this).children(".tog").hasClass("unpublish")) {
+                    $(this).addClass("togP");
                     $(this).children(".tog").addClass("publish");
                     $(this).children(".tog").removeClass("unpublish");
                     $(this).parent(".d-flex").parent(".card-body").addClass("pubblica");
@@ -89,6 +90,7 @@
                     $(this).siblings(".togTitle").empty();
                     $(this).siblings(".togTitle").append("Disattiva Evento");
                 } else {
+                    $(this).removeClass("togP");
                     $(this).children(".tog").addClass("unpublish");
                     $(this).children(".tog").removeClass("publish");
                     $(this).parent(".d-flex").parent(".card-body").addClass("nonPubblica");
@@ -113,7 +115,7 @@
             $(".bi-trash3-fill").click(function () {
                 idE = $(this).parent(".text-end").siblings(".Toggler").children(".btn-tog").children(".tog").attr("id");
                 $.ajax({
-                    url: 'DeleteEvent',
+                    url: '/Eventi/DeleteEvent',
                     method: "GET",
                     data: { 'id': idE },
                     success: function (a) {

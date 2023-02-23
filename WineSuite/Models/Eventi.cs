@@ -62,6 +62,23 @@ namespace WineSuite.Models
 
         public virtual Luogo Luogo { get; set; }
 
+        [Display(Name = "Tot Prenotazioni")]
+        public int? TotPrenotazioni { get; set; }
+
+        [Display(Name = "Tot Pax")]
+        public int? TotPaxPrenotate { get; set; }
+
+        [Display(Name = "Arrivati")]
+        public int? TotPaxArrivate { get; set; }
+
+        [Display(Name = "Incassato")]
+        public decimal? TotPagato { get; set; }
+
+        [Display(Name = "Tot Contanti")]
+        public decimal? TotContanti { get; set; }
+
+        [Display(Name = "Tot Pos")]
+        public decimal? TotPos { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prenotazione> Prenotazione { get; set; }

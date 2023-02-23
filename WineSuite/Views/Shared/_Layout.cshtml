@@ -14,6 +14,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -21,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100;200;300;400;500;600;700&family=Lobster+Two:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div class="main">
@@ -30,7 +32,14 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-start">
                         <li><a class="nav-link @(path.StartsWith("/Home/About") ? "active" : "")" href="/Home/About">L'Azienda</a></li>
                         <li><a class="nav-link @(path.StartsWith("/Home/Contact") ? "active" : "")" href="/Home/Contact">Contattaci</a></li>
-                        <li><a id="login" class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a class="nav-link @(path.StartsWith("/Home/Logout") ? "active" : "")" href="/Home/Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                        <li><a class="nav-link @(path.StartsWith("/Home/Login") ? "active" : "")" href="/Home/Login">Login</a></li>
+                        }
 
                     </ul>
                 </div>
@@ -41,31 +50,30 @@
                 </div>
                 <div class="col-5">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-end">
-                        <li><a class="nav-link @(path.StartsWith("/Eventi") ? "active" : "")" href="/Eventi/Events">Eventi</a></li>
-                        <li><a class="nav-link @(path.StartsWith("/Home/Prodotti") ? "active" : "")" href="/Home/Prodotti">I nostri vini</a></li>
-                        <li><a class="nav-link @(path.StartsWith("/Prenotazione/BookingForUser") ? "active" : "")" href="/Prenotazione/BookingForUser">Prenotazioni</a></li>
+                        @if (User.Identity.Name == "admin")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Eventi
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Eventi/Index">Gestisci Eventi</a></li>
+                                    <li><a class="dropdown-item" href="/Eventi/Events">Eventi</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="nav-link @(path.StartsWith("/Prenotazione") ? "active" : "")" href="/Prenotazione/Index">Prenotazioni</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="nav-link @(path.StartsWith("/Eventi") ? "active" : "")" href="/Eventi/Events">Eventi</a></li>
+                            <li><a class="nav-link @(path.StartsWith("/Prenotazione") ? "active" : "")" href="/Prenotazione/BookingForUser">Prenotazioni</a></li>
+                        }
+                        <li><a class="nav-link @(path.StartsWith("/Home/About") ? "active" : "")" href="/Home/About#selezione">I nostri vini</a></li>
+
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="21" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Login</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="container-fluid body-content">
             @RenderBody()
@@ -79,17 +87,3 @@
 </body>
 </html>
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#login").click(function () {
-            $.each($(".nav-link", function () {
-                $(this).attr("class", "nav-link")
-            });
-            $("#login").attr("class", "nav-link active")
-        })
-        $(".nav-link").click(function () {
-            $("#login").removeClass("active")
-        })
-    })
-</script>

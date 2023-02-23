@@ -43,6 +43,7 @@ namespace WineSuite.Models
 
         [Column(TypeName = "money")]
         public decimal? TotPagato { get; set; }
+        public bool Stato { get; set; }
 
         public virtual Eventi Eventi { get; set; }
 

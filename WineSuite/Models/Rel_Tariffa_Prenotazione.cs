@@ -9,23 +9,22 @@ namespace WineSuite.Models
     [Table("Rel_Tariffa-Prenotazione")]
     public partial class Rel_Tariffa_Prenotazione
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int IdTariffa { get; set; }
+        public int? IdTariffa { get; set; }
 
         [Key]
-        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdPrenotazione { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int NrPax { get; set; }
+        public int? NrPax { get; set; }
+
+        public int? Tariffa_Opzionata { get; set; }
+
+        public int? NrPax_Arrivate { get; set; }
 
         public virtual Prenotazione Prenotazione { get; set; }
 
         public virtual Tariffe Tariffe { get; set; }
+
+        public virtual Tariffe Tariffe1 { get; set; }
     }
 }

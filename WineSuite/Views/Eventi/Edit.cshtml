@@ -92,7 +92,7 @@
                 @Html.DisplayName("Foto Vetrina")
                 <div class="col-6">
                     <label class="input-group-text justify-content-center" for="FotoVetrina" id="Vetrina">
-                        <img src="~/Content/img/@Model.FotoVetrina" style="width:80%" />
+                        <img src="~/Content/img/@Model.FotoVetrina" style="height:6vh" class="picture"/>
                     </label>
                     @Html.TextBox("FotoVetrina", null, new { @class = "form-control img", @type = "file" })
                     @Html.ValidationMessageFor(model => model.FotoVetrina, "", new { @class = "text-danger" })

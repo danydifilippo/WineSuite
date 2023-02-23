@@ -33,7 +33,7 @@
             </button>
         </div>
         <div class="col-7">
-            <p style="font-size: 30px; font-family: 'Lobster Two', cursive;">@Model.Titolo</p>
+            <p style="font-size:30px; font-family: 'Lobster Two', cursive;">@Model.Titolo</p>
             <p style="font-size:15px">@Model.Descrizione</p>
             <p style="font-size:12px">@Model.SottoDescrizione</p>
             <p style="font-size:12px">Evento del @Model.Giorno.ToShortDateString() alle ore @Model.Ora.ToString(@"hh\:mm") </p>
@@ -55,7 +55,7 @@
 
                         @item.Tariffa.ToString("c2")
                     </p>
-                    <p style="background-color:transparent">@item.DescrTariffa</p>
+                    <p style="background-color:transparent" class="px-3">@item.DescrTariffa</p>
                     <span class="spanInp" id="@Model.IdEvento">Nr <input type="number" name="Pax" id="@item.IdTariffa" class="col-3 input-nr" min="0" /></span>
                 </div>
             }
@@ -64,11 +64,11 @@
         </div>
     <div class="text-center">
         <div class="row justify-content-center" style="color: #ffd4ea;">
-            <label class="control-label col-2 text-end">Note:</label>
-            <textarea cols="1" rows="1" class="form-control note" name="Note" id="Note"></textarea>
+            <label class="control-label align-self-center col-1 text-end">Note:</label>
+            <textarea cols="1" rows="1" class="form-control col-6 note" name="Note" id="Note"></textarea>
         </div>
         <br />
-        <btn type="button" class="btn btn-warning mb-5" @*id=@(User.Identity.Name)*@>PRENOTA</btn>
+        <btn type="button" class="btn btn-warning mb-5" id=@(User.Identity.Name)>PRENOTA</btn>
     </div>
 </div>
 
@@ -83,7 +83,7 @@
             var Tar = [];
             var Pax = [];
             var PaxEmpty = 0
-            /*var Utente = $(this).attr("id")*/
+            var Utente = $(this).attr("id")
             $.each($("input[type=number][name=Pax]"), function () {
 
                 idEvento = $(this).parent(".spanInp").attr("id");
@@ -111,7 +111,7 @@
                 fileData.append("Pax[]", Pax);
                 fileData.append("TotDaPag", TotDaPag);
                 fileData.append("TotPren", TotPren);
-                /* fileData.append("Utente", Utente);*/
+                 fileData.append("Utente", Utente);
                 fileData.append("Note", $('[name = "Note"]').val());
                 $.ajax({
                     url: '/Prenotazione/Create',
