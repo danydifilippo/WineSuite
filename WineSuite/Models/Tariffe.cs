@@ -5,6 +5,7 @@ namespace WineSuite.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Drawing;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.UI.WebControls;
@@ -18,7 +19,7 @@ namespace WineSuite.Models
         public Tariffe()
         {
             Rel_Tariffa_Prenotazione = new HashSet<Rel_Tariffa_Prenotazione>();
-            Rel_Tariffa_Prenotazione1 = new HashSet<Rel_Tariffa_Prenotazione>();
+            Rel_TariffeScelte_Pren = new HashSet<Rel_TariffeScelte_Pren>();
             Eventi = new HashSet<Eventi>();
         }
 
@@ -57,8 +58,9 @@ namespace WineSuite.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rel_Tariffa_Prenotazione> Rel_Tariffa_Prenotazione { get; set; }
 
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rel_Tariffa_Prenotazione> Rel_Tariffa_Prenotazione1 { get; set; }
+        public virtual ICollection<Rel_TariffeScelte_Pren> Rel_TariffeScelte_Pren { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Eventi> Eventi { get; set; }

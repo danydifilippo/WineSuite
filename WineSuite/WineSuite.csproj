@@ -169,9 +169,13 @@
     <Compile Include="Migrations\202302221440488_AddNewColumnStato.designer.cs">
       <DependentUpon>202302221440488_AddNewColumnStato.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202302231152043_Update.cs" />
-    <Compile Include="Migrations\202302231152043_Update.designer.cs">
-      <DependentUpon>202302231152043_Update.cs</DependentUpon>
+    <Compile Include="Migrations\202302231617417_AddTableRel_Tariffescelte.cs" />
+    <Compile Include="Migrations\202302231617417_AddTableRel_Tariffescelte.designer.cs">
+      <DependentUpon>202302231617417_AddTableRel_Tariffescelte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302231700164_AddScontoInPren.cs" />
+    <Compile Include="Migrations\202302231700164_AddScontoInPren.designer.cs">
+      <DependentUpon>202302231700164_AddScontoInPren.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomRole.cs" />
@@ -181,6 +185,7 @@
     <Compile Include="Models\ModelDbContext.cs" />
     <Compile Include="Models\Prenotazione.cs" />
     <Compile Include="Models\Rel_Tariffa_Prenotazione.cs" />
+    <Compile Include="Models\Rel_TariffeScelte_Pren.cs" />
     <Compile Include="Models\Tariffe.cs" />
     <Compile Include="Models\Utenti.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,8 +220,10 @@
     <Content Include="Content\img\campania_rosso.png" />
     <Content Include="Content\img\evento1.jpeg" />
     <Content Include="Content\img\fiano_borgognotta.png" />
+    <Content Include="Content\img\Immagi.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\bg1.jpeg" />
+    <Content Include="Content\img\logoWS.png" />
     <Content Include="Content\img\numero3.png" />
     <Content Include="Content\img\paestum_rosso.png" />
     <Content Include="Content\img\red.jpeg" />
@@ -343,8 +350,11 @@
     <EmbeddedResource Include="Migrations\202302221440488_AddNewColumnStato.resx">
       <DependentUpon>202302221440488_AddNewColumnStato.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302231152043_Update.resx">
-      <DependentUpon>202302231152043_Update.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202302231617417_AddTableRel_Tariffescelte.resx">
+      <DependentUpon>202302231617417_AddTableRel_Tariffescelte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302231700164_AddScontoInPren.resx">
+      <DependentUpon>202302231700164_AddScontoInPren.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

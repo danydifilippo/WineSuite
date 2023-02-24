@@ -126,6 +126,11 @@ a:hover{
     line-height: normal
 }
 
+#Vetrina {
+    height: 150px;
+    width: 150px;
+}
+
 .bi-camera-fill{
     padding:0.5em
 }
@@ -191,8 +196,18 @@ a:hover{
     --bs-btn-active-bg: #56abf5;
     --bs-btn-active-border-color: #56abf5;
 }
-#LinkAzienda{
-    color:white
+
+.btn-light {
+    --bs-btn-bg: #ffd4ea;
+    --bs-btn-border-color: white;
+    --bs-btn-hover-bg: #fdc2f3;
+    --bs-btn-hover-border-color: #fdc2f3;
+    --bs-btn-active-bg: #ffd4ea;
+    --bs-btn-active-border-color: #ffd4ea;
+    font-size: 0.9rem;
+}
+#LinkAzienda {
+    color: white
 }
     #LinkAzienda:hover {
         color: #4a6464
@@ -620,10 +635,10 @@ input:-webkit-autofill:focus {
 
 /**/
 
-.tableBook {
+.tableBook, .contTable {
     background-color: #f0ffffa8;
     color: #154166;
-    width: 1000px
+    width: 1100px
 }
 
 .rowTitle {
@@ -643,4 +658,25 @@ input:-webkit-autofill:focus {
 .arrivati {
     background-color: #83a9cf;
     color: #004f91
+}
+
+.logoText{
+    font-size: 25px
+}
+
+.titleEditBook{
+    padding-left: 12%
+}
+
+.contTable{
+    width:750px
+}
+
+.tarRow {
+    font-size: 13px
+}
+
+.tarInput {
+    font-size:inherit;
+    height:70%
 }

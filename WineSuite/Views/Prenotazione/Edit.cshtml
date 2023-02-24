@@ -4,103 +4,194 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Prenotazione</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdPrenotazione)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdUtente, "IdUtente", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdUtente", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdUtente, "", new { @class = "text-danger" })
-            </div>
+<div class="container contTable pb-4">
+    <div class="row">
+        <div class="col-3 p-2" style="background-color:white; height:fit-content">
+                <img src="~/Content/img/logoWS.png" style="width:100%"/>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdEvento, "IdEvento", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdEvento", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdEvento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotPaxPrenotate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotPaxPrenotate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotPaxPrenotate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotDaPagare, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotDaPagare, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotDaPagare, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotArrivati, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotArrivati, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotArrivati, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotPagContanti, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotPagContanti, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotPagContanti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotPagPos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotPagPos, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotPagPos, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotPagato, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotPagato, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotPagato, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+            <h2 class="col-9 text-start mt-3 titleEditBook">@Model.Utenti.Cognome @Model.Utenti.Nome </h2>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IdPrenotazione)
+
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div>
+                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-nowrap justify-content-between">
+                <div class="form-group w-auto">
+                    @Html.LabelFor(model => model.TotPaxPrenotate, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.EditorFor(model => model.TotPaxPrenotate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TotPaxPrenotate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group w-auto">
+                    @Html.Label("Tot Prenotazione", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.TotDaPagare, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", Value = string.Format("{0:C}", Model.TotDaPagare) } })
+                        @{Html.EnableClientValidation(true);}
+                    </div>
+                </div>
+                <div class="form-group w-auto">
+                    @Html.LabelFor(model => model.Sconto, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control" } })
+                        @{Html.EnableClientValidation(true);}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group w-auto">
+                @Html.Label("Tariffe", htmlAttributes: new { @class = "control-label col-md-8" })
+                @Html.Label("Nr Pax", htmlAttributes: new { @class = "control-label col-md-3 ps-2" })
+                <div class="row tarRow">
+
+                    @foreach (var item in ViewBag.ListaTariffe)
+                    {
+                        <div class="col-5">
+                            <p class="ps-2 mb-0">@item.DescrTariffa</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="mb-0">@item.Tariffa.ToString("c2") </p>
+                        </div>
+                        <div class="col-3">
+                            @foreach (var i in ViewBag.ListaTarPren)
+                            {
+                                if (i.Tariffe.DescrTariffa == item.DescrTariffa)
+                                {
+                                    <input type="number" value=@i.NrPax class="form-control tarInput" name=@item.Tariffa id=@Model.IdPrenotazione />
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group w-auto">
+                    @Html.Label("Tot Degustazione", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.TotDaPagare, new { htmlAttributes = new { @class = "form-control", @id = "totale" } })
+                        @{Html.EnableClientValidation(true);}
+                    </div>
+                </div>
+
+                <div class="form-group w-auto">
+                    @Html.Label("Pag. Contanti", htmlAttributes: new { @class = "control-label pagLabel" })
+                    <div class="pagam">
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.TotPagContanti, new { htmlAttributes = new { @class = "form-control pag", @type="number"} })
+                        @{Html.EnableClientValidation(true);}
+                    </div>
+                </div>
+
+                <div class="form-group w-auto">
+                    @Html.Label("Pag. Carta", htmlAttributes: new { @class = "control-label pagLabel" })
+                    <div class="pagam">
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.TotPagPos, new { htmlAttributes = new { @class = "form-control pag", @type = "number" } })
+                        @{Html.EnableClientValidation(true);}
+                    </div>
+                </div>
+
+                <div class="form-group w-auto">
+                    @Html.Label("Ancora Da Saldare", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.Editor("Saldo", new { htmlAttributes = new { @class = "form-control", @id="saldo" } })
+                    </div>
+                </div>
+
+                <div class="form-group w-auto">
+                    @Html.LabelFor(model => model.TotPagato, htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @{Html.EnableClientValidation(false);}
+                        @Html.EditorFor(model => model.TotPagato, new { htmlAttributes = new { @class = "form-control", @id="TotPagato" } })
+                        @{Html.EnableClientValidation(false);}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group w-auto d-flex gap-3">
+                <div>
+                    <input type="submit" value="Modifica solo Prenotazione" class="btn btn-light fs-6" />
+                </div>
+                <div>
+                    <input type="submit" value="Salva e Conferma Arrivo" class="btn btn-info fs-6" id="aziendaBtn" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="m-2">
+        <a href="/Prenotazione/ManageBooking/@Model.IdEvento" style="color: #154166">Annulla</a>
+    </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var arr=[];
+        $.each($(".tarInput"), function () {
+            var nrpax = parseInt($(this).val())
+            var id = parseInt($(this).attr("id"))
+            var Tar = parseInt($(this).attr("name"))
+            arr.push({ "nrpax" : nrpax, "id" : id, "Tar" : Tar })
+        })
+        console.log(arr)
+        obj = 
+        $(".tarInput").change(function () {
+            var tot = 0;
+            var Tar = parseInt($(this).attr("name"));
+            var nrpax = parseInt($(this).val())
+            $.each($(".tarInput"), function () {
+                var result = ($(this).val()) * parseInt($(this).attr("name"));
+                tot += result
+            })
+            $("#totale").val(tot);
+            var i = arr.find(x => x.Tar == Tar)
+            i.nrpax = nrpax
+        })
+        console.log(arr)
+        $(".pag").change(function () {
+            var totPag = 0;
+            $.each($(".pag"), function () {
+                var nr = $(this).val()
+                if (nr != "") {
+                    totPag += parseInt(nr)
+
+                }
+            })
+            var totSaldo = (parseInt($("#totale").val())) - totPag
+            $("#TotPagato").val(totPag);
+            if ($("#TotPagato").val() != $("#totale").val()) {
+                $("#TotPagato").css("background-color", "#bbddffb0")
+            } else { 
+                $("#TotPagato").css("background-color", "#b3ffb3b3")
+            }
+            $("#saldo").val(totSaldo);
+            if ($("#saldo").val() != 0) {
+                $("#saldo").css("background-color", "#f53f5f7a")
+            } else { $("#saldo").css("background-color", "#ffffff85") }
+        })
+
+
+        
+    })
+</script>

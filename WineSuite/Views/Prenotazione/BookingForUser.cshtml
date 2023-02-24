@@ -9,7 +9,7 @@
     @if (!User.Identity.IsAuthenticated)
     {
         <div class="p-3 text-center pt-4">
-            <p>Effettua il <a href="/Home/Login">Login</a> per poter accedere alla pagina 'Prenotazioni'</p>
+            <p>Effettua il <a href="/Home/Login" style="color:hotpink;" onMouseOut="this.style.color='hotpink'" onMouseOver="this.style.color='deeppink'">Login</a> per poter accedere alla pagina 'Prenotazioni'</p>
         </div>
     }
     else

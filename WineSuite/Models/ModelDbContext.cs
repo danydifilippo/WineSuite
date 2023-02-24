@@ -18,6 +18,7 @@ namespace WineSuite.Models
         public virtual DbSet<Tariffe> Tariffe { get; set; }
         public virtual DbSet<Utenti> Utenti { get; set; }
         public virtual DbSet<Rel_Tariffa_Prenotazione> Rel_Tariffa_Prenotazione { get; set; }
+        public virtual DbSet<Rel_TariffeScelte_Pren> Rel_TariffeScelte_Pren { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -55,6 +56,11 @@ namespace WineSuite.Models
                 .WithRequired(e => e.Prenotazione)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Prenotazione>()
+                .HasMany(e => e.Rel_TariffeScelte_Pren)
+                .WithRequired(e => e.Prenotazione)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Tariffe>()
                 .Property(e => e.Tariffa)
                 .HasPrecision(19, 4);
@@ -62,13 +68,12 @@ namespace WineSuite.Models
             modelBuilder.Entity<Tariffe>()
                 .HasMany(e => e.Rel_Tariffa_Prenotazione)
                 .WithRequired(e => e.Tariffe)
-                //.WillCascadeOnDelete(false);
-                .HasForeignKey(e => e.IdTariffa);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Tariffe>()
-               .HasMany(e => e.Rel_Tariffa_Prenotazione1)
-               .WithOptional(e => e.Tariffe1)
-               .HasForeignKey(e => e.Tariffa_Opzionata);
+                .HasMany(e => e.Rel_TariffeScelte_Pren)
+                .WithRequired(e => e.Tariffe)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Utenti>()
                 .Property(e => e.Contatto)

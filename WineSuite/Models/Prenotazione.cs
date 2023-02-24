@@ -13,6 +13,7 @@ namespace WineSuite.Models
         public Prenotazione()
         {
             Rel_Tariffa_Prenotazione = new HashSet<Rel_Tariffa_Prenotazione>();
+            Rel_TariffeScelte_Pren = new HashSet<Rel_TariffeScelte_Pren>();
         }
 
         [Key]
@@ -31,17 +32,24 @@ namespace WineSuite.Models
         public int? TotPaxPrenotate { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal? TotDaPagare { get; set; }
 
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        public decimal? Sconto { get; set; }
         public int? TotArrivati { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal? TotPagContanti { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal? TotPagPos { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal? TotPagato { get; set; }
         public bool Stato { get; set; }
 
@@ -51,5 +59,8 @@ namespace WineSuite.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rel_Tariffa_Prenotazione> Rel_Tariffa_Prenotazione { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rel_TariffeScelte_Pren> Rel_TariffeScelte_Pren { get; set; }
     }
 }

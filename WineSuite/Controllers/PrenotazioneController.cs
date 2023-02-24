@@ -67,7 +67,15 @@ namespace WineSuite.Controllers
                    Where(x => x.IdPrenotazione == p.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
                 tariffe.AddRange(r);
             }
+            List<Rel_TariffeScelte_Pren> tariffeScelte = new List<Rel_TariffeScelte_Pren>();
+            foreach (var pr in prenotazioni)
+            {
+                List<Rel_TariffeScelte_Pren> t = db.Rel_TariffeScelte_Pren.Include(x => x.Tariffe).Include(x => x.Prenotazione).
+                   Where(x => x.IdPrenotazione == pr.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
+                tariffeScelte.AddRange(t);
+            }
             ViewBag.Tariffe = tariffe.ToList();
+            ViewBag.TariffeScelte = tariffeScelte.ToList();
             return View(prenotazioni.ToList());
         }
 
@@ -166,13 +174,25 @@ namespace WineSuite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Prenotazione prenotazione = db.Prenotazione.Find(id);
+            Prenotazione prenotazione = db.Prenotazione.Include(x=>x.Rel_TariffeScelte_Pren).Where(x=>x.IdPrenotazione == id).FirstOrDefault();
             if (prenotazione == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdEvento = new SelectList(db.Eventi, "IdEvento", "Titolo", prenotazione.IdEvento);
-            ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Ruolo", prenotazione.IdUtente);
+            
+            List<Rel_Tariffa_Prenotazione> Lista = new List<Rel_Tariffa_Prenotazione>();
+                List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
+                    Where(x => x.IdPrenotazione == prenotazione.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
+                Lista.AddRange(r);
+
+            var idE = prenotazione.IdEvento;
+            Eventi evento = db.Eventi.Find(idE);
+
+
+            ViewBag.ListaTarPren = Lista;
+            ViewBag.ListaTariffe = evento.Tariffe ;
+
+
             return View(prenotazione);
         }
 

@@ -90,11 +90,11 @@
             <h5>Inserisci Foto</h5>
             <div>
                 @Html.DisplayName("Foto Vetrina")
-                <div class="col-6">
+                <div class="col-6 vetrina">
                     <label class="input-group-text justify-content-center" for="FotoVetrina" id="Vetrina">
-                        <img src="~/Content/img/@Model.FotoVetrina" style="height:6vh" class="picture"/>
+                        <img src="~/Content/img/@Model.FotoVetrina" style="height:80%" class="picture"/>
                     </label>
-                    @Html.TextBox("FotoVetrina", null, new { @class = "form-control img", @type = "file" })
+                    @Html.TextBox("FotoVetrina", null, new { @class = "form-control", @type = "file" })
                     @Html.ValidationMessageFor(model => model.FotoVetrina, "", new { @class = "text-danger" })
                 </div>
             </div>
