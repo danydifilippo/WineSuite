@@ -179,6 +179,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomRole.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Eventi.cs" />
     <Compile Include="Models\EventiJson.cs" />
     <Compile Include="Models\Luogo.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Models\Rel_Tariffa_Prenotazione.cs" />
     <Compile Include="Models\Rel_TariffeScelte_Pren.cs" />
     <Compile Include="Models\Tariffe.cs" />
+    <Compile Include="Models\TarPrenJson.cs" />
     <Compile Include="Models\Utenti.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

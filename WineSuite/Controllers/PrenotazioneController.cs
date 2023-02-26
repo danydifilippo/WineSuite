@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -196,6 +197,29 @@ namespace WineSuite.Controllers
             return View(prenotazione);
         }
 
+        [HttpPost]
+        public ActionResult AddNewPrices(FormCollection form)
+        {
+            var rel = form["arr[]"].ToString();
+
+            List<TarPrenJson> b = JsonConvert.DeserializeObject<List<TarPrenJson>>(rel);
+
+
+            foreach(var item in b)
+            {
+                Rel_Tariffa_Prenotazione r = new Rel_Tariffa_Prenotazione();
+
+                r.IdPrenotazione = item.id;
+                r.IdTariffa = item.Tar;
+                r.NrPax = item.nrpax;
+                db.Rel_Tariffa_Prenotazione.Add(r);
+                db.SaveChanges();
+            };
+
+            return Redirect("/Prenotazione/Index");
+        }
+
+
         // POST: Prenotazione/Edit/5
 
         [HttpPost]
@@ -208,10 +232,13 @@ namespace WineSuite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.IdEvento = new SelectList(db.Eventi, "IdEvento", "Titolo", prenotazione.IdEvento);
             ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Ruolo", prenotazione.IdUtente);
             return View(prenotazione);
         }
+
+
 
 
         // POST: Prenotazione/Delete/5

@@ -73,6 +73,7 @@
                             {
                                 if (i.Tariffe.DescrTariffa == item.DescrTariffa)
                                 {
+                                    <div class="d-none" id=@item.IdTariffa></div>
                                     <input type="number" value=@i.NrPax class="form-control tarInput" name=@item.Tariffa id=@Model.IdPrenotazione />
                                 }
                             }
@@ -151,24 +152,25 @@
         $.each($(".tarInput"), function () {
             var nrpax = parseInt($(this).val())
             var id = parseInt($(this).attr("id"))
-            var Tar = parseInt($(this).attr("name"))
-            arr.push({ "nrpax" : nrpax, "id" : id, "Tar" : Tar })
+            var idTar = parseInt($(this).siblings(".d-none").attr("id"))
+            arr.push({ "nrpax" : nrpax, "id" : id, "Tar" : idTar })
         })
         console.log(arr)
-        obj = 
         $(".tarInput").change(function () {
             var tot = 0;
             var Tar = parseInt($(this).attr("name"));
+            var idTar = parseInt($(this).siblings(".d-none").attr("id"))
             var nrpax = parseInt($(this).val())
             $.each($(".tarInput"), function () {
                 var result = ($(this).val()) * parseInt($(this).attr("name"));
                 tot += result
             })
             $("#totale").val(tot);
-            var i = arr.find(x => x.Tar == Tar)
+            var i = arr.find(x => x.Tar == idTar)
             i.nrpax = nrpax
+            console.log(i)
         })
-        console.log(arr)
+
         $(".pag").change(function () {
             var totPag = 0;
             $.each($(".pag"), function () {
@@ -188,9 +190,22 @@
             $("#saldo").val(totSaldo);
             if ($("#saldo").val() != 0) {
                 $("#saldo").css("background-color", "#f53f5f7a")
-            } else { $("#saldo").css("background-color", "#ffffff85") }
-        })
+            } else {
+                $("#saldo").css("background-color", "#ffffff85")
+                var fileData = new FormData();
+                var Arr = JSON.stringify(arr)
+                fileData.append("arr[]",  Arr)
 
+                $.ajax({
+                    url: '/Prenotazione/AddNewPrices/',
+                    method: "POST",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: fileData
+                })
+            }
+        })
 
         
     })

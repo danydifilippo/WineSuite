@@ -33,7 +33,7 @@
             <div class="input-group mb-1">
                 <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
                 <div class="form-floating mb-3">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "text", id = "floatingInput", placeholder = "Username" } })
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-3 text-white", type = "password", id = "floatingInput", placeholder = "Username" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     <label for="floatingInput">Password</label>
                 </div>

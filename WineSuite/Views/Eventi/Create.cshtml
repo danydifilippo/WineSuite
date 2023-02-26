@@ -334,7 +334,10 @@
                 success: function () {
                     location.href = "/Eventi/Index";
                 },
-                error: function () { alert("Formato foto troppo grandi"); }
+                error: function (richiesta, stato, errori) {
+                    alert("E' evvenuto un errore. Stato della chiamata: " + stato);
+                }
+                /*error: function () { alert("Formato foto troppo grandi"); }*/
                 
             })
         })
