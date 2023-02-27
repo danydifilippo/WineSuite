@@ -207,13 +207,24 @@ namespace WineSuite.Controllers
 
             foreach(var item in b)
             {
-                Rel_Tariffa_Prenotazione r = new Rel_Tariffa_Prenotazione();
+                Rel_TariffeScelte_Pren r = new Rel_TariffeScelte_Pren();
 
                 r.IdPrenotazione = item.id;
                 r.IdTariffa = item.Tar;
                 r.NrPax = item.nrpax;
-                db.Rel_Tariffa_Prenotazione.Add(r);
+
+                var newtar = db.Rel_TariffeScelte_Pren.Where(x => x.IdTariffa == item.Tar && x.IdPrenotazione == item.id).FirstOrDefault();
+                if (newtar == null)
+                {
+                db.Rel_TariffeScelte_Pren.Add(r);
                 db.SaveChanges();
+                }
+                else
+                {
+                    newtar.NrPax = item.nrpax;
+                    db.Entry(newtar).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             };
 
             return Redirect("/Prenotazione/Index");
@@ -223,23 +234,76 @@ namespace WineSuite.Controllers
         // POST: Prenotazione/Edit/5
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Prenotazione prenotazione)
+        public ActionResult Edit(Prenotazione prenotazione, string save)
         {
-            if (ModelState.IsValid)
+
+                Prenotazione p = db.Prenotazione.Find(prenotazione.IdPrenotazione);
+                if (p.Note != prenotazione.Note)
+                {
+                    p.Note = prenotazione.Note;
+                }
+                if (p.Sconto != prenotazione.Sconto)
+                {
+                    p.Sconto = prenotazione.Sconto;
+                }
+
+            var c = db.Rel_Tariffa_Prenotazione.Where(x => x.IdPrenotazione == p.IdPrenotazione).ToList();
+            var r = db.Rel_TariffeScelte_Pren.Where(x => x.IdPrenotazione == p.IdPrenotazione).ToList();
+
+            if (prenotazione.totpag != p.TotDaPagare)
             {
-                db.Entry(prenotazione).State = EntityState.Modified;
+                p.TotDaPagare = prenotazione.totpag;
+                
+
+                if (save != null)
+                {
+                    if (r != null)
+                    {
+                        foreach (var item in c)
+                        {
+                            db.Rel_Tariffa_Prenotazione.Remove(item);
+                            db.SaveChanges();
+                        }
+
+                        p.TotPaxPrenotate = 0;
+                        foreach (var i in r)
+                        {
+                            Rel_Tariffa_Prenotazione t = new Rel_Tariffa_Prenotazione();
+
+                            t.IdPrenotazione = i.IdPrenotazione;
+                            t.IdTariffa = i.IdTariffa;
+                            t.NrPax = i.NrPax;
+                            p.TotPaxPrenotate += i.NrPax;
+                            db.Rel_Tariffa_Prenotazione.Add(t);
+                            db.SaveChanges();
+                        }
+                        db.Entry(p).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                    }
+               
+                }
+
+            }
+            if (save == null)
+            {
+                p.Stato = true;
+                foreach (var i in r)
+                {                  
+                    p.TotArrivati += i.NrPax;
+                }
+                p.TotPagPos = prenotazione.TotPagPos;
+                p.TotPagContanti = prenotazione.TotPagContanti;
+                p.TotPagato = prenotazione.TotPagato;
+                db.Entry(p).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.IdEvento = new SelectList(db.Eventi, "IdEvento", "Titolo", prenotazione.IdEvento);
-            ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Ruolo", prenotazione.IdUtente);
-            return View(prenotazione);
+               
+                return Redirect("/Prenotazione/ManageBooking/" + p.IdEvento);
         }
 
-
-
+      
 
         // POST: Prenotazione/Delete/5
         [HttpPost]

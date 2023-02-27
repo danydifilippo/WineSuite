@@ -64,30 +64,6 @@ namespace WineSuite.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Contact(Email e)
-        {
-            MailAddress mittente = new MailAddress(e.Mittente);
-            MailAddress destinatario = new MailAddress("danydifilippo@gmail.com");
-
-            MailMessage messaggio= new MailMessage();
-            messaggio.Subject = "Inviata dal sito";
-            messaggio.Body = e.Messaggio;
-            messaggio.From = destinatario;
-            messaggio.To.Add(destinatario);
-
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
-            client.Port = 587;
-            client.Credentials = new NetworkCredential("danydifilippo@gmail.com", "everytime");
-
-           
-            client.Send(messaggio);
 
             return View();
         }

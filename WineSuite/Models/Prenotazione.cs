@@ -53,6 +53,10 @@ namespace WineSuite.Models
         public decimal? TotPagato { get; set; }
         public bool Stato { get; set; }
 
+        [NotMapped]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        public decimal totpag { get; set; }
+
         public virtual Eventi Eventi { get; set; }
 
         public virtual Utenti Utenti { get; set; }

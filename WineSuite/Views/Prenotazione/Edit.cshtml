@@ -86,7 +86,7 @@
                     @Html.Label("Tot Degustazione", htmlAttributes: new { @class = "control-label" })
                     <div>
                         @{Html.EnableClientValidation(false);}
-                        @Html.EditorFor(model => model.TotDaPagare, new { htmlAttributes = new { @class = "form-control", @id = "totale" } })
+                        <input type="number" value=@Model.TotDaPagare name="totpag" class="form-control" id="totale" />
                         @{Html.EnableClientValidation(true);}
                     </div>
                 </div>
@@ -128,7 +128,7 @@
             <hr />
             <div class="form-group w-auto d-flex gap-3">
                 <div>
-                    <input type="submit" value="Modifica solo Prenotazione" class="btn btn-light fs-6" />
+                    <input type="submit" value="Modifica solo Prenotazione" class="btn btn-light fs-6" name="save"  />
                 </div>
                 <div>
                     <input type="submit" value="Salva e Conferma Arrivo" class="btn btn-info fs-6" id="aziendaBtn" />
@@ -167,8 +167,19 @@
             })
             $("#totale").val(tot);
             var i = arr.find(x => x.Tar == idTar)
-            i.nrpax = nrpax
-            console.log(i)
+            i.nrpax = nrpax 
+            var fileData = new FormData();
+            var Arr = JSON.stringify(arr)
+            fileData.append("arr[]", Arr)
+
+            $.ajax({
+                url: '/Prenotazione/AddNewPrices/',
+                method: "POST",
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: fileData
+            })
         })
 
         $(".pag").change(function () {
@@ -179,6 +190,7 @@
                     totPag += parseInt(nr)
 
                 }
+
             })
             var totSaldo = (parseInt($("#totale").val())) - totPag
             $("#TotPagato").val(totPag);
@@ -192,21 +204,9 @@
                 $("#saldo").css("background-color", "#f53f5f7a")
             } else {
                 $("#saldo").css("background-color", "#ffffff85")
-                var fileData = new FormData();
-                var Arr = JSON.stringify(arr)
-                fileData.append("arr[]",  Arr)
-
-                $.ajax({
-                    url: '/Prenotazione/AddNewPrices/',
-                    method: "POST",
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    data: fileData
-                })
+               
             }
         })
-
         
     })
 </script>

@@ -7,24 +7,26 @@ using System.Web;
 
 namespace WineSuite.Models
 {
-    [Table("Rel_TariffeScelte_Pren")]
-    public class Rel_TariffeScelte_Pren
+    public partial class Rel_TariffeScelte_Pren
     {
-
-     
-        public int IdTariffa { get; set; }
-
         [Key]
-        [Column(Order = 1)]
+        public int idRel { get; set; }
+
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdPrenotazione { get; set; }
 
 
-        public int NrPax { get; set; }
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int IdTariffa { get; set; }
 
+        [Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int NrPax { get; set; }
+       
         public virtual Prenotazione Prenotazione { get; set; }
 
         public virtual Tariffe Tariffe { get; set; }
     }
-
 }

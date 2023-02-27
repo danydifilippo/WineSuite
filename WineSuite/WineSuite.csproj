@@ -177,9 +177,12 @@
     <Compile Include="Migrations\202302231700164_AddScontoInPren.designer.cs">
       <DependentUpon>202302231700164_AddScontoInPren.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302270924094_Change_Rel.cs" />
+    <Compile Include="Migrations\202302270924094_Change_Rel.designer.cs">
+      <DependentUpon>202302270924094_Change_Rel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomRole.cs" />
-    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Eventi.cs" />
     <Compile Include="Models\EventiJson.cs" />
     <Compile Include="Models\Luogo.cs" />
@@ -357,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302231700164_AddScontoInPren.resx">
       <DependentUpon>202302231700164_AddScontoInPren.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302270924094_Change_Rel.resx">
+      <DependentUpon>202302270924094_Change_Rel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

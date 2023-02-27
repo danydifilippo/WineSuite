@@ -7,51 +7,5 @@
     <div id="userReg"><i class="bi bi-person-plus-fill"></i></div>
 
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-
-            <hr />
-
-
-            <div class="row d-flex flex-nowrap justify-content-center">
-                <div class="input-group mb-1 w-50">
-                    <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Nome" name="Nome">
-                        <label for="floatingInput">Nome</label>
-                    </div>
-                </div>
-
-                <div class="input-group mb-1 w-50">
-                    <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="Mittente">
-                        <label for="floatingInput">E-Mail</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex flex-nowrap justify-content-center">
-                <div class="input-group mb-1 w-50">
-                    <span class="input-group-text col-2" id="basic-addon1"><i class="bi bi-phone-vibrate-fill"></i></span>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control" id="floatingInput" name="Messaggio"></textarea>
-
-                        <label for="floatingInput">Messaggio</label>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-            <div class="col-12 mb-1 text-center">
-                <input type="submit" value="Invia" class="btn btn-outline-light w-50" />
-            </div>
-
-        </div>
-            }
 
     </div>
