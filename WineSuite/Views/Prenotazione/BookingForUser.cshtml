@@ -62,13 +62,15 @@
                             @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TotDaPagare) €
+                            @Html.DisplayFor(modelItem => item.TotDaPagare)
                         </td>
                         <td>
+                            <input class="d-none data" id=@item.DataPrenotazione />
+                            <p class="d-none titleEv">@item.Eventi.Titolo</p>
+                            <input class="d-none paxpr" id=@item.TotPaxPrenotate />
+                            <a class="Details" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: #ffbddf; cursor:pointer">Dettagli</a>
 
-                            <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: #ffbddf; cursor:pointer">Dettagli</a>
-
-                            <!-- Modal -->
+                            <!-- Modal Details-->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #ffdbf2c9">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -77,37 +79,38 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <ul class="list-group fw-bold text-white" style="--bs-list-group-bg: #fde7f2">
-                                                <li class="list-group-item">Nr <span class="fw-normal">@item.IdPrenotazione del @Convert.ToDateTime(item.DataPrenotazione).ToString("dd/MM/yyyy")</span> </li>
-                                                <li class="list-group-item">Evento: <span class="fw-normal">@item.Eventi.Titolo</span></li>
-                                                <li class="list-group-item">Nr Partecipanti: <span class="fw-normal">@item.TotPaxPrenotate</span></li>
-                                                <li class="list-group-item">Dettagli opzioni scelte:
-                                                              
-                                                                <div class="fw-normal mt-2">
-                                                                    
-                                                                        @foreach (var i in ViewBag.ListaTarPren)
-                                                                        {
-                                                                            if (i.IdPrenotazione == item.IdPrenotazione)
-                                                                            {
-                                                                                if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
-                                                                                {
-                                                                                    <p>@i.NrPax bambini</p>
-                                                                                }
-                                                                                else if (i.Tariffe.DescrTariffa.Contains("Calice") && i.NrPax > 0)
-                                                                                {
-                                                                                    <p>@i.NrPax adulti - @i.Tariffe.DescrTariffa </p>
-                                                                                }
-                                                                                else if (i.Tariffe.DescrTariffa.Contains("Calici") && i.NrPax > 0)
-                                                                                {
-                                                                                    <p>@i.NrPax adulti -@i.Tariffe.DescrTariffa </p>
-                                                                                }
+                                            <ul class="list-group fw-bold text-white UlDetails" style="--bs-list-group-bg: #fde7f2">
+                                                <li class="list-group-item">Nr <span class="fw-normal spanid"></span> </li>
+                                                <li class="list-group-item">Evento: <span class="fw-normal spanev"></span></li>
+                                                <li class="list-group-item">Nr Partecipanti: <span class="fw-normal spanpax"></span></li>
+                                                <li class="list-group-item">
+                                                    Dettagli opzioni scelte:
 
-                                                                            }
-                                                                        }
-                                                                   
-                                                                </div>
-                                                  
-                                                      
+                                                    <div class="fw-normal mt-2 detOpz">
+
+                                                        @foreach (var i in ViewBag.ListaTarPren)
+                                                        {
+                                                            if (i.IdPrenotazione == item.IdPrenotazione)
+                                                            {
+                                                                if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                                                                {
+                                                                    <p>@i.NrPax bambini</p>
+                                                                }
+                                                                else if (i.Tariffe.DescrTariffa.Contains("Calice") && i.NrPax > 0)
+                                                                {
+                                                                    <p>@i.NrPax adulti - @i.Tariffe.DescrTariffa </p>
+                                                                }
+                                                                else if (i.Tariffe.DescrTariffa.Contains("Calici") && i.NrPax > 0)
+                                                                {
+                                                                    <p>@i.NrPax adulti -@i.Tariffe.DescrTariffa </p>
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    </div>
+
+
                                                 </li>
                                                 <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
                                             </ul>
@@ -119,8 +122,12 @@
                                 </div>
                             </div>
                             |
+                            <!-- Modal Finish-->
 
-                            <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="color: #f1578a; cursor:pointer">Elimina</a>
+                            <input class="d-none totpg" id=@Convert.ToDecimal(item.TotDaPagare).ToString("c2") />
+                            <a class="DeleteBt" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="color: #f1578a; cursor:pointer">Elimina</a>
+
+                            <!-- Modal Delete-->
                             <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #f1578a96">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -130,19 +137,21 @@
                                         </div>
                                         <div class="modal-body">
                                             <ul class="list-group fw-bold text-white" style="--bs-list-group-bg: #fde7f2">
-                                                <li class="list-group-item">Nr <span class="fw-normal">@item.IdPrenotazione del @Convert.ToDateTime(item.DataPrenotazione).ToString("dd/MM/yyyy")</span> </li>
-                                                <li class="list-group-item">Evento: <span class="fw-normal">@item.Eventi.Titolo</span></li>
-                                                <li class="list-group-item">Nr Partecipanti: <span class="fw-normal">@item.TotPaxPrenotate</span></li>
-                                                <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
+                                                <li class="list-group-item">Nr <span class="fw-normal" id="spanid"></span></li>
+                                                <li class="list-group-item">Evento: <span class="fw-normal" id="spanev"></span></li>
+                                                <li class="list-group-item">Nr Partecipanti: <span class="fw-normal" id="spanpax"></span></li>
+                                                <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal" id="spantot"></span></li>
                                             </ul>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" id="@item.IdPrenotazione" class="btn btn-outline-light btnDelete" data-bs-dismiss="modal">Elimina</button>
+                                            <input  class="d-none idpren" />
+                                            <button type="button" class="btn btn-outline-light btnDelete" data-bs-dismiss="modal">Elimina</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Modal Finish-->
                         </td>
                     </tr>
                 }
@@ -155,8 +164,39 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".btnDelete").click(function () {
+        $(".Details").click(function () {
+            $(".idSp").remove();
+            $(".spanev").empty()
+            $(".spanpax").empty()
             var id = $(this).attr("id");
+            var data = $(this).siblings(".data").attr("id");
+            var title = $(this).siblings(".titleEv").text();
+            var pax = $(this).siblings(".paxpr").attr("id");
+            $(".spanid").append("<span class=\"idSp\">" + id + " del " + data + "</span>");
+            $(".spanev").append("" + title + "");
+            $(".spanpax").append("" + pax + "");
+        })
+
+        $(".DeleteBt").click(function () {
+            $("#idSp").remove();
+            $(".idpren").empty()
+            $("#spanev").empty()
+            $("#spanpax").empty()
+            $("#spantot").empty()
+            var id = $(this).attr("id");
+            var data = $(this).siblings(".data").attr("id");
+            var title = $(this).siblings(".titleEv").text();
+            var pax = $(this).siblings(".paxpr").attr("id");
+            var totpg = $(this).siblings(".totpg").attr("id");
+            $("#spanid").append("<span class=\"idSp\">" + id + " del " + data + "");
+            $(".idpren").append("" + id + "");
+            $("#spanev").append("" + title + "");
+            $("#spanpax").append("" + pax + "");
+            $("#spantot").append("" + totpg + "");
+        })
+        $(".btnDelete").click(function () {
+            var id = $(this).siblings(".idpren").text();
+            alert(id)
             $.ajax({
                 url: '/Prenotazione/Delete/' +id,
                 method: "POST",
@@ -167,13 +207,13 @@
                     $("#msgDelete").append("<div class=\"alert alert-info\">Prenotazione nr " + id +" eliminata con successo.</div>")
                     setTimeout(function () {
                         location.href = "/Prenotazione/BookingForUser";
-                    }, 2500); 
+                    }, 2500);
                 },
             })
         })
         $(".collaps").click(function () {
             if ($(this).parent(".accordion-header").siblings(".accordion-collapse").toggleClass("d-none")) {
-                
+
             }
         })
     })

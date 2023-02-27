@@ -42,15 +42,15 @@
                     @Html.Label("Tot Prenotazione", htmlAttributes: new { @class = "control-label" })
                     <div>
                         @{Html.EnableClientValidation(false);}
-                        @Html.EditorFor(model => model.TotDaPagare, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", Value = string.Format("{0:C}", Model.TotDaPagare) } })
+                        @Html.EditorFor(model => model.TotDaPagare, new { htmlAttributes = new { @class = "form-control", @id="TotPren", @readonly = "readonly", Value = string.Format("{0:C}", Model.TotDaPagare) } })
                         @{Html.EnableClientValidation(true);}
                     </div>
                 </div>
                 <div class="form-group w-auto">
-                    @Html.LabelFor(model => model.Sconto, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.Sconto, htmlAttributes: new { @class = "control-label"})
                     <div>
                         @{Html.EnableClientValidation(false);}
-                        @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control", @id = "sconto", @type="number" } })
                         @{Html.EnableClientValidation(true);}
                     </div>
                 </div>
@@ -155,7 +155,6 @@
             var idTar = parseInt($(this).siblings(".d-none").attr("id"))
             arr.push({ "nrpax" : nrpax, "id" : id, "Tar" : idTar })
         })
-        console.log(arr)
         $(".tarInput").change(function () {
             var tot = 0;
             var Tar = parseInt($(this).attr("name"));
@@ -165,7 +164,10 @@
                 var result = ($(this).val()) * parseInt($(this).attr("name"));
                 tot += result
             })
-            $("#totale").val(tot);
+            if ($("#sconto").val() > 0) {
+                tot -= $("#sconto").val();
+            }
+            $("#totale").val(tot) 
             var i = arr.find(x => x.Tar == idTar)
             i.nrpax = nrpax 
             var fileData = new FormData();
@@ -180,6 +182,24 @@
                 cache: false,
                 data: fileData
             })
+        })
+
+        $("#sconto").change(function () {  
+            if ($("#totale").val() == 0) {
+                var TotSc = parseInt($("#TotPren").val()) - $(this).val();
+                $("#totale").val(TotSc)
+            } else {
+                var tot = 0;
+                $.each($(".tarInput"), function () {
+                    var result = ($(this).val()) * parseInt($(this).attr("name"));
+                    tot += result
+                })
+                if ($("#sconto").val() > 0) {
+                    tot -= $("#sconto").val();
+                }
+                $("#totale").val(tot)              
+            }
+            
         })
 
         $(".pag").change(function () {

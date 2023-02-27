@@ -250,7 +250,7 @@ namespace WineSuite.Controllers
             var c = db.Rel_Tariffa_Prenotazione.Where(x => x.IdPrenotazione == p.IdPrenotazione).ToList();
             var r = db.Rel_TariffeScelte_Pren.Where(x => x.IdPrenotazione == p.IdPrenotazione).ToList();
 
-            if (prenotazione.totpag != p.TotDaPagare)
+            if (prenotazione.totpag>0 && prenotazione.totpag != p.TotDaPagare)
             {
                 p.TotDaPagare = prenotazione.totpag;
                 
@@ -283,23 +283,26 @@ namespace WineSuite.Controllers
                     }
                
                 }
-
-            }
-            if (save == null)
-            {
-                p.Stato = true;
-                foreach (var i in r)
-                {                  
-                    p.TotArrivati += i.NrPax;
+                else if (save == null)
+                {
+                    p.Stato = true;
+                    foreach (var i in r)
+                    {
+                        p.TotArrivati += i.NrPax;
+                    }
+                    p.TotPagPos = prenotazione.TotPagPos;
+                    p.TotPagContanti = prenotazione.TotPagContanti;
+                    p.TotPagato = prenotazione.TotPagato;
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
-                p.TotPagPos = prenotazione.TotPagPos;
-                p.TotPagContanti = prenotazione.TotPagContanti;
-                p.TotPagato = prenotazione.TotPagato;
-                db.Entry(p).State = EntityState.Modified;
-                db.SaveChanges();
             }
-
-               
+                else
+                {
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                         
                 return Redirect("/Prenotazione/ManageBooking/" + p.IdEvento);
         }
 

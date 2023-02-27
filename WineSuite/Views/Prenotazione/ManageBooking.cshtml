@@ -101,7 +101,7 @@
                     @Html.DisplayFor(modelItem => item.TotArrivati)
                 </td>
                 <td>
-                    @*@foreach (var i in ViewBag.TariffeScelte)
+                    @foreach (var i in ViewBag.TariffeScelte)
                     {
                         if (i.IdPrenotazione == item.IdPrenotazione)
                         {
@@ -109,21 +109,21 @@
                             {
                                 <p class="mb-0">@i.NrPax pax: 1 calice </p>
                             }
-                            else if (i.IdTariffe.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                            else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
                             {
                                 <p class="mb-0">@i.NrPax pax: 2 calici </p>
                             }
-                            else if (i.IdTariffe.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                            else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
                             {
                                 <p class="mb-0">@i.NrPax pax: 3 calici </p>
                             }
-                            else if (i.IdTariffe.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                            else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
                             {
                                 <p class="mb-0"> @i.NrPax bamb. </p>
                             }
 
                         }
-                    }*@
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TotDaPagare)

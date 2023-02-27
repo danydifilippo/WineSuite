@@ -137,50 +137,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202301301335166_Init.cs" />
-    <Compile Include="Migrations\202301301335166_Init.designer.cs">
-      <DependentUpon>202301301335166_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301301351278_PubblicaInEventi.cs" />
-    <Compile Include="Migrations\202301301351278_PubblicaInEventi.designer.cs">
-      <DependentUpon>202301301351278_PubblicaInEventi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302021548108_AddAddressInPlace.cs" />
-    <Compile Include="Migrations\202302021548108_AddAddressInPlace.designer.cs">
-      <DependentUpon>202302021548108_AddAddressInPlace.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302131658109_AddColEliminato.cs" />
-    <Compile Include="Migrations\202302131658109_AddColEliminato.designer.cs">
-      <DependentUpon>202302131658109_AddColEliminato.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302170836110_AddColumnDateBooking.cs" />
-    <Compile Include="Migrations\202302170836110_AddColumnDateBooking.designer.cs">
-      <DependentUpon>202302170836110_AddColumnDateBooking.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302211406159_AddNewColumnsEventi.cs" />
-    <Compile Include="Migrations\202302211406159_AddNewColumnsEventi.designer.cs">
-      <DependentUpon>202302211406159_AddNewColumnsEventi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302221435495_AddNewColumnStato_in_Prenotazioni.cs" />
-    <Compile Include="Migrations\202302221435495_AddNewColumnStato_in_Prenotazioni.designer.cs">
-      <DependentUpon>202302221435495_AddNewColumnStato_in_Prenotazioni.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302221440488_AddNewColumnStato.cs" />
-    <Compile Include="Migrations\202302221440488_AddNewColumnStato.designer.cs">
-      <DependentUpon>202302221440488_AddNewColumnStato.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302231617417_AddTableRel_Tariffescelte.cs" />
-    <Compile Include="Migrations\202302231617417_AddTableRel_Tariffescelte.designer.cs">
-      <DependentUpon>202302231617417_AddTableRel_Tariffescelte.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302231700164_AddScontoInPren.cs" />
-    <Compile Include="Migrations\202302231700164_AddScontoInPren.designer.cs">
-      <DependentUpon>202302231700164_AddScontoInPren.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202302270924094_Change_Rel.cs" />
-    <Compile Include="Migrations\202302270924094_Change_Rel.designer.cs">
-      <DependentUpon>202302270924094_Change_Rel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomRole.cs" />
     <Compile Include="Models\Eventi.cs" />
@@ -212,7 +168,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\img\11.jpg" />
     <Content Include="Content\img\26.jpg" />
     <Content Include="Content\img\28.jpg" />
     <Content Include="Content\img\41.jpg" />
@@ -224,17 +179,17 @@
     <Content Include="Content\img\campania_fiano.png" />
     <Content Include="Content\img\campania_rosso.png" />
     <Content Include="Content\img\evento1.jpeg" />
+    <Content Include="Content\img\events.jpg" />
     <Content Include="Content\img\fiano_borgognotta.png" />
-    <Content Include="Content\img\Immagi.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\bg1.jpeg" />
     <Content Include="Content\img\logoWS.png" />
     <Content Include="Content\img\numero3.png" />
+    <Content Include="Content\img\overlay-pattern2.png" />
     <Content Include="Content\img\paestum_rosso.png" />
     <Content Include="Content\img\red.jpeg" />
     <Content Include="Content\img\rosee.png" />
     <Content Include="Content\img\sfndo_glass.jpg" />
-    <Content Include="Content\img\sfondo.png" />
     <Content Include="Content\img\sfondo_porta.png" />
     <Content Include="Content\img\spumante_brut.png" />
     <Content Include="Content\video\video1.mp4" />
@@ -329,41 +284,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202301301335166_Init.resx">
-      <DependentUpon>202301301335166_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301301351278_PubblicaInEventi.resx">
-      <DependentUpon>202301301351278_PubblicaInEventi.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302021548108_AddAddressInPlace.resx">
-      <DependentUpon>202302021548108_AddAddressInPlace.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302131658109_AddColEliminato.resx">
-      <DependentUpon>202302131658109_AddColEliminato.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302170836110_AddColumnDateBooking.resx">
-      <DependentUpon>202302170836110_AddColumnDateBooking.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302211406159_AddNewColumnsEventi.resx">
-      <DependentUpon>202302211406159_AddNewColumnsEventi.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302221435495_AddNewColumnStato_in_Prenotazioni.resx">
-      <DependentUpon>202302221435495_AddNewColumnStato_in_Prenotazioni.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302221440488_AddNewColumnStato.resx">
-      <DependentUpon>202302221440488_AddNewColumnStato.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302231617417_AddTableRel_Tariffescelte.resx">
-      <DependentUpon>202302231617417_AddTableRel_Tariffescelte.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302231700164_AddScontoInPren.resx">
-      <DependentUpon>202302231700164_AddScontoInPren.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202302270924094_Change_Rel.resx">
-      <DependentUpon>202302270924094_Change_Rel.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
