@@ -64,6 +64,7 @@ namespace WineSuite.Controllers
             List<Rel_Tariffa_Prenotazione> tariffe = new List<Rel_Tariffa_Prenotazione>();
             foreach(var p in prenotazioni)
             {
+                p.TotDaPagare -= p.Sconto;
                 List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
                    Where(x => x.IdPrenotazione == p.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
                 tariffe.AddRange(r);
@@ -179,8 +180,8 @@ namespace WineSuite.Controllers
             if (prenotazione == null)
             {
                 return HttpNotFound();
-            }
-            
+            }           
+
             List<Rel_Tariffa_Prenotazione> Lista = new List<Rel_Tariffa_Prenotazione>();
                 List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
                     Where(x => x.IdPrenotazione == prenotazione.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
@@ -286,10 +287,12 @@ namespace WineSuite.Controllers
                 else if (save == null)
                 {
                     p.Stato = true;
+                    var Pax = 0;
                     foreach (var i in r)
                     {
-                        p.TotArrivati += i.NrPax;
+                        Pax += i.NrPax;
                     }
+                    p.TotArrivati = Pax;
                     p.TotPagPos = prenotazione.TotPagPos;
                     p.TotPagContanti = prenotazione.TotPagContanti;
                     p.TotPagato = prenotazione.TotPagato;

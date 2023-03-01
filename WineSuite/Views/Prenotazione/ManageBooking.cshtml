@@ -146,7 +146,7 @@
                         "In arrivo"
                     </td>
                 }
-                else
+                else if (item.Stato == true)
                 {
                     <td class="stato arrived">
                         "Arrivati"
@@ -163,14 +163,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $.each($(".stato"), function () {
-
-        if ($(".stato").hasClass("coming")) {
-            $(this).parent(".rowItem").addClass("inArrivo")         
-        } else if ($(".stato").hasClass("arrived")) {
-            $(this).parent(".rowItem").addClass("arrivati") 
-            }
-
-        })
+                if($(this).hasClass("coming")) {
+                    $(this).parent(".rowItem").addClass("inArrivo");
+                };
+                if ($(this).hasClass("arrived")) {
+                    $(this).parent(".rowItem").addClass("arrivati");
+                }
+            })
         $(".rowItem").click(function () {
             var id = $(this).attr("id");
             location.href="/Prenotazione/Edit/" + id

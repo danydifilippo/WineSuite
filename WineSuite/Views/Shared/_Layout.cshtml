@@ -79,9 +79,19 @@
             @RenderBody()
         </div>
         <hr />
-        <footer class="text-center">
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET By Daniela - @Html.ActionLink("Entra come amministratore", "Index", "Eventi")</p>
-        </footer>
+        <footer class="text-center position-relative">
+            <p>
+                &copy; @DateTime.Now.Year - Applicazione ASP.NET By Daniela -
+                @if (User.Identity.Name == "admin")
+                {
+                    @Html.ActionLink("Entra come amministratore", "Index", "Eventi")
+
+                }
+                else
+                {
+                @Html.ActionLink("Entra come amministratore", "Login", "Home")}
+            </p>
+            </footer>
     </div>
         @RenderSection("scripts", required: false)
 </body>
