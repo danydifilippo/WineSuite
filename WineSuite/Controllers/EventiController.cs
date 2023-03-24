@@ -29,7 +29,25 @@ namespace WineSuite.Controllers
         public ActionResult Events()
         {
             var eventi = db.Eventi.Include(e => e.Luogo).Where(x => x.Eliminato == false && x.Pubblico== true);
-           
+
+            List<Tariffe_Eventi> tar = new List<Tariffe_Eventi>();
+
+            foreach(var e in eventi)
+            {
+                var ev = e.Tariffe.OrderByDescending(x => x.Tariffa);
+                foreach(var i in ev)
+                {
+                    Tariffe_Eventi t = new Tariffe_Eventi
+                    {
+                        IdEvento = e.IdEvento,
+                        IdTariffa = i.IdTariffa,
+                        Tariffa = i.Tariffa,
+                        DescrTariffa = i.DescrTariffa
+                    };
+                    tar.Add(t);
+                }
+            }
+           ViewBag.prices = tar;
             return View(eventi.ToList());
         }
 

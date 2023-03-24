@@ -186,7 +186,7 @@ a:hover{
 }
 
 .home {
-    height: 100vh;
+    height: 100%;
     background-color: #00000094;
     position: absolute;
     top: 0;
@@ -710,3 +710,14 @@ input:-webkit-autofill:focus {
     font-size:inherit;
     height:70%
 }
+@media screen and (min-width: 1440px) {
+    .body-content {
+        min-height: 69vh;0
+    }
+
+@media screen and (min-width: 2200px) {
+    .body-content {
+        min-height: 81vh;
+    }
+}
+

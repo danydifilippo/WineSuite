@@ -232,7 +232,7 @@ namespace WineSuite.Controllers
         }
 
 
-        // POST: Prenotazione/Edit/5
+        // POST: Prenotazione/Edit/Admin
 
         [HttpPost]
         public ActionResult Edit(Prenotazione prenotazione, string save)
@@ -309,7 +309,15 @@ namespace WineSuite.Controllers
                 return Redirect("/Prenotazione/ManageBooking/" + p.IdEvento);
         }
 
-      
+        // GET: Prenotazione/Edit/Admin
+
+        public ActionResult EditBook(int id)
+        {
+            Prenotazione prenotazione = db.Prenotazione.Find(id);
+            return PartialView("_EditBook", prenotazione);
+        }
+
+
 
         // POST: Prenotazione/Delete/5
         [HttpPost]

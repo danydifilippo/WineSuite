@@ -146,6 +146,7 @@
     <Compile Include="Models\Prenotazione.cs" />
     <Compile Include="Models\Rel_Tariffa_Prenotazione.cs" />
     <Compile Include="Models\Rel_TariffeScelte_Pren.cs" />
+    <Compile Include="Models\Tariffe-Eventi.cs" />
     <Compile Include="Models\Tariffe.cs" />
     <Compile Include="Models\TarPrenJson.cs" />
     <Compile Include="Models\Utenti.cs" />
@@ -276,6 +277,7 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Prenotazione\Index.cshtml" />
     <Content Include="Views\Prenotazione\ManageBooking.cshtml" />
+    <Content Include="Views\Prenotazione\_EditBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

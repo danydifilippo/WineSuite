@@ -29,9 +29,31 @@
         {
             <div class="row justify-content-between events">
 
-                <div class="col-6 mx-2" style="color: #c6e2fd; text-align: left; font-family: 'Lobster Two', cursive; align-self: center; padding: 2% ">
+                <div class="col-6 mx-2" style="color: #c6e2fd; text-align: justify; font-family: 'Lobster Two', cursive; align-self: center; padding: 2% ">
                     <p style="font-size:30px">@Model[i].Titolo</p>
                     <p style="font-size:15px">@Model[i].Descrizione</p>
+                    @foreach (var evento in ViewBag.prices)
+                    {
+                        if (evento.IdEvento == Model[i].IdEvento)
+                        {
+                            if (evento.DescrTariffa.Contains("Bambini"))
+                            {
+                                <span style="color: #ffd4ea; font-size: 13px">
+                                    Bambini:
+                                    @evento.Tariffa.ToString("c2") | 
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="color: #ffd4ea; font-size: 13px">
+                                    Adulti:
+                                    @evento.Tariffa.ToString("c2") | 
+                                </span>
+                            }
+                        }
+
+                    }
+
                     @if (User.Identity.IsAuthenticated)
                     {
 
@@ -41,7 +63,7 @@
                     {
                         <btn class="btn btn-warning text-end float-end login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
                     }
-                    </div>
+                </div>
                 <div class="col-6 events-img"
                      style="background-image: url('/Content/img/@Model[i].FotoVetrina');">
                 </div>
@@ -55,18 +77,41 @@
                 <div class="col-6 events-img"
                      style="background-image: url('/Content/img/@Model[i].FotoVetrina')">
                 </div>
-                <div class="col-6 mx-2" style="color: #c6e2fd; text-align: right; font-family: 'Lobster Two', cursive; align-self: center">
+                <div class="col-6 mx-2" style="color: #c6e2fd; text-align: justify; font-family: 'Lobster Two', cursive; align-self: center; padding: 2% ">
                     <p style="font-size:30px">@Model[i].Titolo</p>
                     <p style="font-size:15px">@Model[i].Descrizione</p>
+                    @foreach (var evento in ViewBag.prices)
+                    {
+                        if (evento.IdEvento == Model[i].IdEvento)
+                        {
+                            if (evento.DescrTariffa.Contains("Bambini"))
+                            {
+                                <span style="color: #ffd4ea; font-size: 13px">
+                                    Bambini:
+                                    @evento.Tariffa.ToString("c2") |
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="color: #ffd4ea; font-size: 13px">
+                                    Adulti:
+                                    @evento.Tariffa.ToString("c2") |
+                                </span>
+                            }
+                        }
+
+                    }
+
                     @if (User.Identity.IsAuthenticated)
                     {
 
-                        <btn class="btn btn-warning text-end float-start prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
+                        <btn class="btn btn-warning text-end float-end prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
                     }
                     else
                     {
-                        <btn class="btn btn-warning text-end float-start login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
+                        <btn class="btn btn-warning text-end float-end login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
                     }
+
                 </div>
             </div>
             <hr class="separator" />

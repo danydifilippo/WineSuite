@@ -74,86 +74,90 @@
                                     {
                                         if (i.Tariffe.DescrTariffa.Contains("Calice") && i.NrPax > 0)
                                         {
-                                        <p>@i.NrPax adulti - @i.Tariffe.DescrTariffa | </p>
+                                            <p>@i.NrPax adulti - @i.Tariffe.DescrTariffa | </p>
                                         }
                                         else if (i.Tariffe.DescrTariffa.Contains("Calici") && i.NrPax > 0)
                                         {
-                                        <p>@i.NrPax adulti -@i.Tariffe.DescrTariffa |</p>
+                                            <p>@i.NrPax adulti -@i.Tariffe.DescrTariffa |</p>
                                         }
                                         else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
                                         {
-                                        <p>@i.NrPax bambini</p>
+                                            <p>@i.NrPax bambini</p>
                                         }
                                     }
                                 }
                             </div>
-                                <input class="d-none paxpr" id=@item.TotPaxPrenotate />
-                                <a class="Details" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: #ffbddf; cursor:pointer">Dettagli</a>
 
-                                <!-- Modal Details-->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #ffdbf2c9">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:#405f6a; font-weight:700">Prenotazione</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <ul class="list-group fw-bold text-white UlDetails" style="--bs-list-group-bg: #fde7f2">
-                                                    <li class="list-group-item">Nr <span class="fw-normal spanid"></span> </li>
-                                                    <li class="list-group-item">Evento: <span class="fw-normal spanev"></span></li>
-                                                    <li class="list-group-item">Nr Partecipanti: <span class="fw-normal spanpax"></span></li>
-                                                    <li class="list-group-item">
-                                                        Dettagli opzioni scelte:
+                            <!-- Modal Finish-->
+                            <input class="d-none paxpr" id=@item.TotPaxPrenotate />
+                            <a class="Details" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: #ffbddf; cursor:pointer">Dettagli</a>
 
-                                                        <div class="fw-normal mt-2 detOpz">
+                            <!-- Modal Details-->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #ffdbf2c9">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:#405f6a; font-weight:700">Prenotazione</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group fw-bold text-white UlDetails" style="--bs-list-group-bg: #fde7f2">
+                                                <li class="list-group-item">Nr <span class="fw-normal spanid"></span> </li>
+                                                <li class="list-group-item">Evento: <span class="fw-normal spanev"></span></li>
+                                                <li class="list-group-item">Nr Partecipanti: <span class="fw-normal spanpax"></span></li>
+                                                <li class="list-group-item">
+                                                    Dettagli opzioni scelte:
 
-                                                          
-                                                        </div>
+                                                    <div class="fw-normal mt-2 detOpz">
 
 
-                                                    </li>
-                                                    <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                            </div>
+                                                    </div>
+
+
+                                                </li>
+                                                <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
+                                                <li id="EditPartial"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary edit">Modifica Prenotazione</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                         </div>
                                     </div>
                                 </div>
-                                |
-                                <!-- Modal Finish-->
+                            </div>
+                            |
+                            <!-- Modal Finish-->
 
-                                <input class="d-none totpg" id=@Convert.ToDecimal(item.TotDaPagare).ToString("c2") />
-                                <a class="DeleteBt" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="color: #f1578a; cursor:pointer">Elimina</a>
+                            <input class="d-none totpg" id=@Convert.ToDecimal(item.TotDaPagare).ToString("c2") />
+                            <a class="DeleteBt" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="color: #f1578a; cursor:pointer">Elimina</a>
 
-                                <!-- Modal Delete-->
-                                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #f1578a96">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:white; font-weight:700">Sicuro di voler eliminare questa prenotazione?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <ul class="list-group fw-bold text-white" style="--bs-list-group-bg: #fde7f2">
-                                                    <li class="list-group-item">Nr <span class="fw-normal" id="spanid"></span></li>
-                                                    <li class="list-group-item">Evento: <span class="fw-normal" id="spanev"></span></li>
-                                                    <li class="list-group-item">Nr Partecipanti: <span class="fw-normal" id="spanpax"></span></li>
-                                                    <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal" id="spantot"></span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input class="d-none idpren" />
-                                                <button type="button" class="btn btn-outline-light btnDelete" data-bs-dismiss="modal">Elimina</button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                            </div>
+                            <!-- Modal Delete-->
+                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="--bs-modal-bg: #f1578a96">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:white; font-weight:700">Sicuro di voler eliminare questa prenotazione?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="list-group fw-bold text-white" style="--bs-list-group-bg: #fde7f2">
+                                                <li class="list-group-item">Nr <span class="fw-normal" id="spanid"></span></li>
+                                                <li class="list-group-item">Evento: <span class="fw-normal" id="spanev"></span></li>
+                                                <li class="list-group-item">Nr Partecipanti: <span class="fw-normal" id="spanpax"></span></li>
+                                                <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal" id="spantot"></span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input class="d-none idpren" />
+                                            <button type="button" class="btn btn-outline-light btnDelete" data-bs-dismiss="modal">Elimina</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal Finish-->
-                            </td>
+                            </div>
+                            <!-- Modal Finish-->
+                        </td>
                     </tr>
                 }
 
@@ -179,7 +183,17 @@
             $(".spanev").append("" + title + "");
             $(".spanpax").append("" + pax + "");
             $(".detOpz").append("" + detprz + "");
+
+            $(".edit").click(function () {
+                $.ajax({
+                    url: '/Prenotazione/EditBook/' + id,
+                    method: "GET"
+                })
+               /* $("#EditPartial").*/
+            })
         })
+
+
 
         $(".DeleteBt").click(function () {
             $("#idSp").remove();
