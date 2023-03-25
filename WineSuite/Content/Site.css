@@ -417,10 +417,10 @@ iframe {
 }
 
 .btn-secondary {
-    --bs-btn-bg: #405f6a;
-    --bs-btn-border-color: #405f6a;
-    --bs-btn-hover-bg: #405f6a;
-    --bs-btn-hover-border-color: #405f6a;
+    --bs-btn-bg: #29505c;
+    --bs-btn-border-color: #29505c;
+    --bs-btn-hover-bg: #29505c;
+    --bs-btn-hover-border-color: #29505c;
 }
 
 .fw-normal{
@@ -710,11 +710,16 @@ input:-webkit-autofill:focus {
     font-size:inherit;
     height:70%
 }
+
+.EditPartial {
+    background-color: #29505c;
+    color: #ffd4ea;
+}
 @media screen and (min-width: 1440px) {
     .body-content {
-        min-height: 69vh;0
+        min-height: 69vh;
     }
-
+}
 @media screen and (min-width: 2200px) {
     .body-content {
         min-height: 81vh;

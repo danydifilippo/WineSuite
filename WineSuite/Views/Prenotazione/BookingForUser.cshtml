@@ -88,7 +88,6 @@
                                 }
                             </div>
 
-                            <!-- Modal Finish-->
                             <input class="d-none paxpr" id=@item.TotPaxPrenotate />
                             <a class="Details" id=@item.IdPrenotazione data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: #ffbddf; cursor:pointer">Dettagli</a>
 
@@ -97,7 +96,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:#405f6a; font-weight:700">Prenotazione</h1>
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: #29505c; font-weight: 700">Prenotazione</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -116,12 +115,19 @@
 
                                                 </li>
                                                 <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal">@Convert.ToDecimal(item.TotDaPagare).ToString("c2")</span></li>
-                                                <li id="EditPartial"></li>
+                                                <li class="list-group-item EditPartial d-none">
+
+                                                        <p class="editPar" style="color: #ffd4ea; font-size:12px; margin-left:10px">
+                                                            <label>Note:</label>
+                                                            <input class="col-8 note" name="Note" style="width:24vw"/>
+                                                    </p>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary edit">Modifica Prenotazione</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                            <button type="button" class="btn btn-secondary edit">Modifica Prenotazione</button>
+                                            <button type="button" class="btn btn-secondary saveEdit d-none">Salva Modifiche</button>
+                                            <button type="button" class="btn btn-info" data-bs-dismiss="modal" style="color: #29505c; font-weight:700">Chiudi</button>
                                         </div>
                                     </div>
                                 </div>
@@ -148,6 +154,7 @@
                                                 <li class="list-group-item">Tot. Prenotazione: <span class="fw-normal" id="spantot"></span></li>
                                             </ul>
                                         </div>
+                                        
                                         <div class="modal-footer">
                                             <input class="d-none idpren" />
                                             <button type="button" class="btn btn-outline-light btnDelete" data-bs-dismiss="modal">Elimina</button>
@@ -170,10 +177,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".Details").click(function () {
+            var arr = [];
             $(".idSp").remove();
             $(".spanev").empty()
             $(".spanpax").empty()
             $(".detOpz").empty()
+            $(".editImp").empty()
             var id = $(this).attr("id");
             var data = $(this).siblings(".data").attr("id");
             var title = $(this).siblings(".titleEv").text();
@@ -183,13 +192,52 @@
             $(".spanev").append("" + title + "");
             $(".spanpax").append("" + pax + "");
             $(".detOpz").append("" + detprz + "");
+            if(!$(".EditPartial").hasClass("d-none")) {
+                $(".EditPartial").addClass("d-none");
+                $(".saveEdit").addClass("d-none");
+                $(".edit").removeClass("d-none");
+            };
+            
+                $.ajax({
+                    url: 'EditBook',
+                    method: "GET",
+                    data: {'id': id },
+                    success: function (p) {
+                        $.each(p, function (index, val) {
+                            $(".EditPartial").append("<div class=\"container row editImp\" style=\"font-size:12px\"><span id=\""+val.IdTariffa+"\" class=\"col-7\">" + val.Tariffa + " € - " + val.DescrTariffa + "</span> <span class=\"col-5\"><input type=\"number\" " +
+                                " name=\"Pax\" class=\"col-4 input-nr\" min=\"0\" value=" + val.NrPax + " /></span></div >")
+                        })
+                    }
+                })
 
             $(".edit").click(function () {
-                $.ajax({
-                    url: '/Prenotazione/EditBook/' + id,
-                    method: "GET"
+                $(".EditPartial").removeClass("d-none");
+                $(".saveEdit").removeClass("d-none");
+                $(this).addClass("d-none");
+            })
+            $(".saveEdit").click(function () {
+                var file = new FormData()
+                var note = $(this).parent(".modal-footer").siblings(".modal-body").children(".UlDetails").children(".EditPartial").children(".editPar").children(".note").val();
+                $.each($(this).parent(".modal-footer").siblings(".modal-body").children(".UlDetails").children(".EditPartial").children(".editImp"), function () {
+                    var idT = $(this).children(".col-7").attr("id");
+                    var nrp = $(this).children(".col-5").children("input[name=Pax]").val();
+                    arr.push(idT);
+                    arr.push(nrp)
                 })
-               /* $("#EditPartial").*/
+                file.append('note', note);
+                file.append('id', id);
+                file.append('arr[]', arr);
+                $.ajax({
+                    url: 'SaveEdit',
+                    method: "POST",
+                    data: file,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function () {
+                        location.href = "/Prenotazione/BookingForUser";
+                    },
+                })
             })
         })
 

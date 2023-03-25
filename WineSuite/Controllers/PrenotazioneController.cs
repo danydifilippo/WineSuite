@@ -311,13 +311,55 @@ namespace WineSuite.Controllers
 
         // GET: Prenotazione/Edit/Admin
 
-        public ActionResult EditBook(int id)
+        public JsonResult EditBook(int id)
         {
-            Prenotazione prenotazione = db.Prenotazione.Find(id);
-            return PartialView("_EditBook", prenotazione);
+            List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
+                    Where(x => x.IdPrenotazione == id).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
+
+            List<TariffeJson> listatj = new List<TariffeJson>();
+
+            foreach(var t in r)
+            {
+                TariffeJson tj = new TariffeJson
+                {
+                    IdTariffa = t.IdTariffa,
+                    DescrTariffa = t.Tariffe.DescrTariffa,
+                    Tariffa = t.Tariffe.Tariffa,
+                    NrPax = t.NrPax
+                };
+                listatj.Add(tj);
+            }
+           
+            return Json(listatj,JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult SaveEdit(FormCollection form)
+        {
+            Array a = form["arr[]"].ToString().Split(',');
+            var rel = a.ToString();
+            int id = Convert.ToInt32(form["id"]);
+            string note = form["note"].ToString();
 
+            var tp = db.Rel_Tariffa_Prenotazione.Where(x=>x.IdPrenotazione == id).ToList();
+
+            for(var i = 0; i<rel.Length; i++)
+            {
+                foreach(var item in tp)
+                {
+                    if (rel[i] == item.IdTariffa)
+                    {
+                        i++;
+                        item.NrPax = Convert.ToInt32(rel[i]);
+                        db.Entry(item).State =EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+                i++;
+            };
+
+            return RedirectToAction("/Prenotazione/BookingForUser");
+        }
 
         // POST: Prenotazione/Delete/5
         [HttpPost]
