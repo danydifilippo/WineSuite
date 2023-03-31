@@ -55,6 +55,8 @@ namespace WineSuite.Controllers
             return View(eventi);
         }
 
+        // Gestisci Prenotazione /Lato Admin
+
         public ActionResult ManageBooking(int? id)
         {
             var prenotazioni = db.Prenotazione.Include(x=>x.Eventi).Include(x=>x.Utenti).Where(x=>x.IdEvento== id).OrderBy(x=>x.Utenti.Cognome);
@@ -64,7 +66,6 @@ namespace WineSuite.Controllers
             List<Rel_Tariffa_Prenotazione> tariffe = new List<Rel_Tariffa_Prenotazione>();
             foreach(var p in prenotazioni)
             {
-                p.TotDaPagare -= p.Sconto;
                 List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
                    Where(x => x.IdPrenotazione == p.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
                 tariffe.AddRange(r);
@@ -205,14 +206,21 @@ namespace WineSuite.Controllers
 
             List<TarPrenJson> b = JsonConvert.DeserializeObject<List<TarPrenJson>>(rel);
 
+            int id = 0;
+            int pax = 0;
+            decimal tot = 0;
 
             foreach(var item in b)
             {
                 Rel_TariffeScelte_Pren r = new Rel_TariffeScelte_Pren();
 
+                id = item.id;
                 r.IdPrenotazione = item.id;
                 r.IdTariffa = item.Tar;
                 r.NrPax = item.nrpax;
+                pax += item.nrpax;
+                Tariffe t = db.Tariffe.Find(item.Tar);
+                tot += (t.Tariffa * item.nrpax);
 
                 var newtar = db.Rel_TariffeScelte_Pren.Where(x => x.IdTariffa == item.Tar && x.IdPrenotazione == item.id).FirstOrDefault();
                 if (newtar == null)
@@ -226,7 +234,16 @@ namespace WineSuite.Controllers
                     db.Entry(newtar).State = EntityState.Modified;
                     db.SaveChanges();
                 }
+
             };
+
+            Prenotazione p = db.Prenotazione.Find(id);
+            p.TotDaPagare = tot;
+            p.TotPaxPrenotate = pax;
+
+            db.Entry(p).State = EntityState.Modified;
+            db.SaveChanges();
+
 
             return Redirect("/Prenotazione/Index");
         }
@@ -235,11 +252,11 @@ namespace WineSuite.Controllers
         // POST: Prenotazione/Edit/Admin
 
         [HttpPost]
-        public ActionResult Edit(Prenotazione prenotazione, string save)
+        public ActionResult Edit(Prenotazione prenotazione, string save, string nome)
         {
 
                 Prenotazione p = db.Prenotazione.Find(prenotazione.IdPrenotazione);
-                if (p.Note != prenotazione.Note)
+                if (prenotazione.Note != p.Note)
                 {
                     p.Note = prenotazione.Note;
                 }
@@ -258,7 +275,7 @@ namespace WineSuite.Controllers
 
                 if (save != null)
                 {
-                    if (r != null)
+                    if (r.Count>0)
                     {
                         foreach (var item in c)
                         {
@@ -278,8 +295,7 @@ namespace WineSuite.Controllers
                             db.Rel_Tariffa_Prenotazione.Add(t);
                             db.SaveChanges();
                         }
-                        db.Entry(p).State = EntityState.Modified;
-                        db.SaveChanges();
+
 
                     }
                
@@ -296,22 +312,50 @@ namespace WineSuite.Controllers
                     p.TotPagPos = prenotazione.TotPagPos;
                     p.TotPagContanti = prenotazione.TotPagContanti;
                     p.TotPagato = prenotazione.TotPagato;
-                    db.Entry(p).State = EntityState.Modified;
-                    db.SaveChanges();
+                    
                 }
             }
-                else
-                {
+
                     db.Entry(p).State = EntityState.Modified;
                     db.SaveChanges();
-                }
                          
-                return Redirect("/Prenotazione/ManageBooking/" + p.IdEvento);
+                return RedirectToAction("ManageBooking/" + p.IdEvento);
         }
 
-        // GET: Prenotazione/Edit/Admin
 
-        public JsonResult EditBook(int id)
+        // GET: Prenotazione/ChangeName/Admin
+
+        public JsonResult ChangeName(string nome)
+        {
+            var Nominativo = db.Utenti.ToList();
+
+            List<UtentiJson> ClientList = new List<UtentiJson>();
+ 
+            foreach (var item in Nominativo)
+            {
+                string NomeCompleto = item.Cognome + " " + item.Nome;
+                string FullName = item.Nome + " " + item.Cognome;
+                if (NomeCompleto.ToUpper() == nome.ToUpper() || FullName.ToUpper() == nome.ToUpper())
+                {
+                    UtentiJson u = new UtentiJson
+                    {
+                        IdUtente = item.IdUtente,
+                        Nome = item.Nome,
+                        Cognome = item.Cognome,
+                        Contatto = item.Contatto,
+                        Email = item.Email
+                    };
+                    ClientList.Add(u);
+                }
+            }
+
+                return Json(ClientList, JsonRequestBehavior.AllowGet);        
+           
+        }
+
+            // GET: Prenotazione/Edit/Admin
+
+            public JsonResult EditBook(int id)
         {
             List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
                     Where(x => x.IdPrenotazione == id).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
@@ -337,28 +381,43 @@ namespace WineSuite.Controllers
         public ActionResult SaveEdit(FormCollection form)
         {
             Array a = form["arr[]"].ToString().Split(',');
-            var rel = a.ToString();
             int id = Convert.ToInt32(form["id"]);
             string note = form["note"].ToString();
+            Prenotazione p = db.Prenotazione.Find(id);
+            if(note != "" && p.Note != note)
+            {
+                p.Note = note;
+                db.Entry(p).State = EntityState.Modified;
+                db.SaveChanges();
+            }
 
             var tp = db.Rel_Tariffa_Prenotazione.Where(x=>x.IdPrenotazione == id).ToList();
 
-            for(var i = 0; i<rel.Length; i++)
+            for(var i = 0; i<a.Length; i++)
             {
                 foreach(var item in tp)
                 {
-                    if (rel[i] == item.IdTariffa)
+                    if ( Convert.ToInt32(a.GetValue(i)) == item.IdTariffa)
                     {
                         i++;
-                        item.NrPax = Convert.ToInt32(rel[i]);
-                        db.Entry(item).State =EntityState.Modified;
-                        db.SaveChanges();
+                        if(item.NrPax != Convert.ToInt32(a.GetValue(i)))
+                        {
+                            db.Rel_Tariffa_Prenotazione.Remove(item);
+                            Rel_Tariffa_Prenotazione rtp = new Rel_Tariffa_Prenotazione
+                            {
+                                IdPrenotazione = id,
+                                IdTariffa = item.IdTariffa,
+                                NrPax = Convert.ToInt32(a.GetValue(i))
+                            };
+                            db.Rel_Tariffa_Prenotazione.Add(rtp);
+                            db.SaveChanges();
+                        };
+                        i++;
                     }
                 }
-                i++;
             };
 
-            return RedirectToAction("/Prenotazione/BookingForUser");
+            return RedirectToAction("/BookingForUser");
         }
 
         // POST: Prenotazione/Delete/5

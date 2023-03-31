@@ -151,6 +151,7 @@
     <Compile Include="Models\TariffeJson.cs" />
     <Compile Include="Models\TarPrenJson.cs" />
     <Compile Include="Models\Utenti.cs" />
+    <Compile Include="Models\UtentiJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

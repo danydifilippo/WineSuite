@@ -21,6 +21,8 @@ namespace WineSuite.Models
 
         public int IdUtente { get; set; }
 
+        public string Nome { get; set; } 
+
         public int IdEvento { get; set; }
 
         [Column(TypeName = "date")]
