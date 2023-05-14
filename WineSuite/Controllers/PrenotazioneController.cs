@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +10,14 @@ using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Security;
+using System.Web.WebPages;
 using WineSuite.Models;
 
 namespace WineSuite.Controllers
@@ -59,13 +65,37 @@ namespace WineSuite.Controllers
 
         public ActionResult ManageBooking(int? id)
         {
-            var prenotazioni = db.Prenotazione.Include(x=>x.Eventi).Include(x=>x.Utenti).Where(x=>x.IdEvento== id).OrderBy(x=>x.Utenti.Cognome);
+            ModelDbContext db1 = new ModelDbContext();
+            var pren = db1.Prenotazione.Where(x=>x.IdEvento== id).ToList();
+            foreach (var pn in pren)
+            {
+                if (pn.Nome == null)
+                {
+                    pn.Nome = pn.Utenti.Cognome + " " + pn.Utenti.Nome;
+                    db1.Entry(pn).State = EntityState.Modified;
+                    db1.SaveChanges();
+                }
+               
+            }
+
+            var prenotazioni = db.Prenotazione.OrderBy(x => x.Nome).Where(x => x.IdEvento == id);
             var e = db.Eventi.Find(id);
             ViewBag.Titolo = e.Titolo;
             ViewBag.Id = e.IdEvento;
             List<Rel_Tariffa_Prenotazione> tariffe = new List<Rel_Tariffa_Prenotazione>();
             foreach(var p in prenotazioni)
             {
+                if(p.Nome == null)
+                {
+                    p.Nome = p.Utenti.Cognome + " " + p.Utenti.Nome;                    
+                }
+                if (p.Sconto != null)
+                {
+                    if (!p.Sconto.Contains("%") && !p.Sconto.Contains("€"))
+                    {
+                        p.ScontoEuro = Convert.ToDecimal(p.Sconto);
+                    }
+                }
                 List<Rel_Tariffa_Prenotazione> r = db.Rel_Tariffa_Prenotazione.Include(x => x.Tariffe).Include(x => x.Prenotazione).
                    Where(x => x.IdPrenotazione == p.IdPrenotazione).OrderByDescending(x => x.Tariffe.Tariffa).ToList();
                 tariffe.AddRange(r);
@@ -79,7 +109,7 @@ namespace WineSuite.Controllers
             }
             ViewBag.Tariffe = tariffe.ToList();
             ViewBag.TariffeScelte = tariffeScelte.ToList();
-            return View(prenotazioni.ToList());
+            return View(prenotazioni.OrderBy(x=>x.Nome).ToList());
         }
 
         [Authorize]
@@ -195,7 +225,12 @@ namespace WineSuite.Controllers
             ViewBag.ListaTarPren = Lista;
             ViewBag.ListaTariffe = evento.Tariffe ;
 
-
+            if (prenotazione.Sconto!= null) {
+                if (!prenotazione.Sconto.Contains("%") && !prenotazione.Sconto.Contains("€"))
+                    {
+                    prenotazione.ScontoEuro = Convert.ToDecimal(prenotazione.Sconto);
+                    }
+            }
             return View(prenotazione);
         }
 
@@ -248,14 +283,75 @@ namespace WineSuite.Controllers
             return Redirect("/Prenotazione/Index");
         }
 
+        [HttpPost]
+        public JsonResult AddNewClient(string nome, string cognome, string email, string contatto)
+        {
+            Utenti u = new Utenti();
+            u.Nome = nome;
+            u.Cognome = cognome;
+            u.Email = email;
+            u.Ruolo = "user";
+            u.Contatto = contatto;
+            u.DataCreazione = DateTime.Now;
 
+            int index = email.IndexOf('@');
+            u.Username = email.Remove(index);
+            u.Password = Membership.GeneratePassword(8,0);
+            u.Body = "<body text=#29505c><div align=center><br/>Ti diamo il benvenuto nella community Tredaniele...<br/> " +
+            "Accedi al sito con le seguenti credenziali:<br/><br/>"+
+            "<b>Username: " + u.Username + "<br/>"+
+            "<b>Password: " + u.Password + "</div></body>";
+
+
+            try
+            {
+                MailMessage mm = new MailMessage();
+                mm.From = new MailAddress("danydifilippo@gmail.com");
+                mm.To.Add(email);
+                mm.Subject = "Tredaniele - Credenziali WineSuite";
+
+                AlternateView av = AlternateView.CreateAlternateViewFromString("<div align=center><img src=cid:mylogo style= height=100 width=100/></div><br/>" + u.Body, null, "text/html");
+                LinkedResource logo = new LinkedResource("C:/Users/pc acer/Downloads/img/logo3D.png");
+                mm.IsBodyHtml = true;
+                logo.ContentId = "mylogo";
+                av.LinkedResources.Add(logo);
+                mm.AlternateViews.Add(av);
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                NetworkCredential nc = new NetworkCredential("danydifilippo@gmail.com", "zrlzkfqblpvnhvwy");
+                smtp.Credentials = nc;
+
+                mm.Body = "<div align=center>" + logo.ContentId + "</div>";
+
+                smtp.Send(mm);
+
+                db.Utenti.Add(u);
+                db.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.errorMessage = ex.Message;
+            }
+
+            return Json (u, JsonRequestBehavior.AllowGet);
+        }
         // POST: Prenotazione/Edit/Admin
 
         [HttpPost]
-        public ActionResult Edit(Prenotazione prenotazione, string save, string nome)
+        public ActionResult Edit(Prenotazione prenotazione, string save)
         {
 
-                Prenotazione p = db.Prenotazione.Find(prenotazione.IdPrenotazione);
+            Prenotazione p = db.Prenotazione.Find(prenotazione.IdPrenotazione);
+
+            p.IdUtente = prenotazione.IdUtente;
+            if(prenotazione.Nome != null)
+            {
+                p.Nome = prenotazione.Nome;
+            }
+
                 if (prenotazione.Note != p.Note)
                 {
                     p.Note = prenotazione.Note;
@@ -268,10 +364,10 @@ namespace WineSuite.Controllers
             var c = db.Rel_Tariffa_Prenotazione.Where(x => x.IdPrenotazione == p.IdPrenotazione).ToList();
             var r = db.Rel_TariffeScelte_Pren.Where(x => x.IdPrenotazione == p.IdPrenotazione).ToList();
 
-            if (prenotazione.totpag>0 && prenotazione.totpag != p.TotDaPagare)
+            if (prenotazione.totpag > 0 && prenotazione.totpag != p.TotDaPagare)
             {
                 p.TotDaPagare = prenotazione.totpag;
-                
+            }   
 
                 if (save != null)
                 {
@@ -294,6 +390,8 @@ namespace WineSuite.Controllers
                             p.TotPaxPrenotate += i.NrPax;
                             db.Rel_Tariffa_Prenotazione.Add(t);
                             db.SaveChanges();
+                            db.Rel_TariffeScelte_Pren.Remove(i);
+                            db.SaveChanges();
                         }
 
 
@@ -314,7 +412,7 @@ namespace WineSuite.Controllers
                     p.TotPagato = prenotazione.TotPagato;
                     
                 }
-            }
+            
 
                     db.Entry(p).State = EntityState.Modified;
                     db.SaveChanges();

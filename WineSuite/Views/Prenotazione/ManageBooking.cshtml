@@ -4,172 +4,443 @@
     ViewBag.Title = "ManageBooking";
 }
 
-<div class="container tableBook py-4">
-    <h2>Evento: @ViewBag.Titolo </h2>
+<div class="container tableBack py-4 overflow-auto">
+    <h2 style="text-align:center">Evento: @ViewBag.Titolo </h2>
+    <div class="m-auto" style="width:fit-content">
+        <h4 style="color: #ff4dad">In Arrivo ( <span id="NrInComing"></span> )</h4>
+        <table class="table text-center table-bordered m-auto" style="width:max-content">
+            <tr class="rowTitle" style="color: #ff87c8">
+                <th>
+                    @Html.DisplayName("Nominativo")
+                </th>
+                <th style="padding-inline:0">
+                    Nr
+                </th>
+                <th>
+                    @Html.DisplayName("Data")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Note)
+                </th>
+                <th>
+                    @Html.DisplayName("Pax")
+                </th>
+                <th>
+                    @Html.DisplayName("Prenotazione")
+                </th>
+                <th>
+                    @Html.DisplayName("Arrivati")
+                </th>
+                <th>
+                    @Html.DisplayName("Tariffe")
+                </th>
+                <th>
+                    @Html.DisplayName("Tot")
+                </th>
+                <th>
+                    @Html.DisplayName("Sconto")
+                </th>
+                <th>
+                    @Html.DisplayName("Cash")
+                </th>
+                <th>
+                    @Html.DisplayName("Pos")
+                </th>
+                <th>
+                    @Html.DisplayName("Incassato")
+                </th>
+                <th>
+                    @Html.DisplayName("Stato")
+                </th>
+            </tr>
 
-    
-    <table class="table text-center table-bordered">
-        <tr class="rowTitle">
-            <th>
-                @Html.DisplayName("Nominativo")
-            </th>
-            <th>
-                Nr Pren.
-            </th>
-            <th>
-                @Html.DisplayName("Data Pren")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
-                @Html.DisplayName("Pax")
-            </th>
-            <th>
-                @Html.DisplayName("Prenotazione")
-            </th>
-            <th>
-                @Html.DisplayName("Arrivati")
-            </th>
-            <th>
-                @Html.DisplayName("Tariffe opzionate")
-            </th>
-            <th>
-                @Html.DisplayName("Tot")
-            </th>
-            <th>
-                @Html.DisplayName("Sconto")
-            </th>
-            <th>
-                @Html.DisplayName("Cash")
-            </th>
-            <th>
-                @Html.DisplayName("Pos")
-            </th>
-            <th>
-                @Html.DisplayName("Incassato")
-            </th>
-            <th>
-                @Html.DisplayName("Stato")
-            </th>
+            @foreach (var item in Model)
+            {
+                if (item.Stato == false)
+                {
+                    <tr class="rowItem" id="@item.IdPrenotazione" style="cursor:pointer">
+
+                        @if (item.Nome != null)
+                        {
+                            <td>
+                                @item.Nome
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @item.Utenti.Cognome @item.Utenti.Nome
+                            </td>
+                        }
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdPrenotazione)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataPrenotazione)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td class="totPrenotati">
+                            @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
+                        </td>
+                        <td>
+                            @foreach (var i in ViewBag.Tariffe)
+                            {
+                                if (i.IdPrenotazione == item.IdPrenotazione)
+                                {
+                                    if (i.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax pax (1 calice) </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax pax (2 calici) </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax pax (3 calici) </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0"> @i.NrPax bambini </p>
+                                    }
+
+                                }
+                            }
+                        </td>
+                        <td class="totArrivati">
+                            @Html.DisplayFor(modelItem => item.TotArrivati)
+                        </td>
+                        <td>
+                            @foreach (var i in ViewBag.TariffeScelte)
+                            {
+                                if (i.IdPrenotazione == item.IdPrenotazione)
+                                {
+                                    if (i.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax ad. x 1cal. </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax ad. x 2cal. </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax ad. x 3cal. </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0"> @i.NrPax bamb. </p>
+                                    }
+
+                                }
+                            }
+                        </td>
+                        <td class="totPrenot">
+                            @Html.DisplayFor(modelItem => item.TotDaPagare)
+                        </td>
+                        <td>
+                            @if (item.Sconto != null)
+                            {
+                                if (item.Sconto.Contains("%") || item.Sconto.Contains("€"))
+                                {
+                                    @Html.DisplayFor(modelItem => item.Sconto)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.ScontoEuro, string.Format("{0:C}", item.ScontoEuro))
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotPagContanti)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotPagPos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotPagato)
+                        </td>
+                        <td class="stato coming">
+                            "In arrivo"
+                        </td>
+                    </tr>
+                }
+            }
+            <tr class="rowItem">
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td id="TotPren" style="color: #ff4dad">
+                </td>
+                <td>
+                </td>
+                <td id="TotArriv" style="color: #ff4dad">
+                </td>
+                <td>
+                </td>
+                <td id="totPrenot" style="color: #ff4dad">
+                </td>
+                <td>
+                </td>
+                <td id="TotCash" style="color: #ff4dad">
+                </td>
+                <td id="totPos" style="color: #ff4dad">
+                </td>
+                <td id="TotPaid" style="color: #ff4dad">
+                </td>
+                <td>
+                </td>
+
+            </tr>
+
+        </table>
+        <br />
+        <h4 style="color: #00b8ff">Arrivati ( <span id="NrArrived"></span> )</h4>
+        <p class="ArrivedNote" style="color: #75d8ff">Non risultano persone arrivate</p>
+        <table class="table text-center table-bordered m-auto ArriveTable d-none" style="width:max-content">
+            <tr class="rowTitle" style="color: #75d8ff">
+                <th>
+                    @Html.DisplayName("Nominativo")
+                </th>
+                <th style="padding-inline:0">
+                    Nr
+                </th>
+                <th>
+                    @Html.DisplayName("Data")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Note)
+                </th>
+                <th>
+                    @Html.DisplayName("Pax")
+                </th>
+                <th>
+                    @Html.DisplayName("Prenotazione")
+                </th>
+                <th>
+                    @Html.DisplayName("Arrivati")
+                </th>
+                <th>
+                    @Html.DisplayName("Tariffe")
+                </th>
+                <th>
+                    @Html.DisplayName("Tot")
+                </th>
+                <th>
+                    @Html.DisplayName("Sconto")
+                </th>
+                <th>
+                    @Html.DisplayName("Cash")
+                </th>
+                <th>
+                    @Html.DisplayName("Pos")
+                </th>
+                <th>
+                    @Html.DisplayName("Incassato")
+                </th>
+                <th>
+                    @Html.DisplayName("Stato")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                if (item.Stato == true)
+                {
+                    <tr class="rowItem" id="@item.IdPrenotazione" style="cursor:pointer">
+
+                        @if (item.Nome != null)
+                        {
+                            <td>
+                                @item.Nome
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @item.Utenti.Cognome @item.Utenti.Nome
+                            </td>
+                        }
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdPrenotazione)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataPrenotazione)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td class="InComing">
+                            @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
+                        </td>
+                        <td>
+                            @foreach (var i in ViewBag.Tariffe)
+                            {
+                                if (i.IdPrenotazione == item.IdPrenotazione)
+                                {
+                                    if (i.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax pax (1 calice) </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax pax (2 calici) </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax pax (3 calici) </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0"> @i.NrPax bambini </p>
+                                    }
+
+                                }
+                            }
+                        </td>
+                        <td class="AlrComing">
+                            @Html.DisplayFor(modelItem => item.TotArrivati)
+                        </td>
+                        <td>
+                            @foreach (var i in ViewBag.TariffeScelte)
+                            {
+                                if (i.IdPrenotazione == item.IdPrenotazione)
+                                {
+                                    if (i.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax ad. x 1cal. </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax ad. x 2cal. </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0">@i.NrPax ad. x 3cal. </p>
+                                    }
+                                    else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
+                                    {
+                                        <p class="mb-0"> @i.NrPax bamb. </p>
+                                    }
+
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotDaPagare)
+                        </td>
+                        <td>
+                            @if (item.Sconto != null)
+                            {
+                                if (item.Sconto.Contains("%") || item.Sconto.Contains("€"))
+                                {
+                                    @Html.DisplayFor(modelItem => item.Sconto)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.ScontoEuro, string.Format("{0:C}", item.ScontoEuro))
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotPagContanti)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotPagPos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotPagato)
+                        </td>
+                        <td class="stato arrived">
+                            "Arrivati"
+                        </td>
+
+                    </tr>
+                }
+            }
+        <tr class="rowItem">
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td id="TotInComing" style="color: #00b8ff">
+            </td>
+            <td>
+            </td>
+            <td id="TotAlrComing" style="color: #00b8ff">
+            </td>
+            <td>
+            </td>
+            <td id="totDue" style="color: #00b8ff">
+            </td>
+            <td>
+            </td>
+            <td id="TotContanti" style="color: #00b8ff">
+            </td>
+            <td id="TotPos" style="color: #00b8ff">
+            </td>
+            <td id="TotPagato" style="color: #00b8ff">
+            </td>
+            <td>
+            </td>
+
         </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr class="rowItem" id="@item.IdPrenotazione" style="cursor:pointer">
-                <td>
-                    @item.Utenti.Cognome @item.Utenti.Nome
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdPrenotazione)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataPrenotazione)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
-                </td>
-                <td>
-                    @foreach (var i in ViewBag.Tariffe)
-                    {
-                        if (i.IdPrenotazione == item.IdPrenotazione)
-                        {
-                            if (i.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
-                            {
-                                <p class="mb-0">@i.NrPax ad. x 1cal. </p>
-                            }
-                            else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
-                            {
-                                <p class="mb-0">@i.NrPax ad. x 2cal. </p>
-                            }
-                            else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
-                            {
-                                <p class="mb-0">@i.NrPax ad. x 3cal. </p>
-                            }
-                            else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
-                            {
-                                <p class="mb-0"> @i.NrPax bamb. </p>
-                            }
+        </table>
+    </div>
 
-                        }
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotArrivati)
-                </td>
-                <td>
-                    @foreach (var i in ViewBag.TariffeScelte)
-                    {
-                        if (i.IdPrenotazione == item.IdPrenotazione)
-                        {
-                            if (i.Tariffe.DescrTariffa.Contains("1 Calice") && i.NrPax > 0)
-                            {
-                                <p class="mb-0">@i.NrPax ad. x 1cal. </p>
-                            }
-                            else if (i.Tariffe.DescrTariffa.Contains("2 Calici") && i.NrPax > 0)
-                            {
-                                <p class="mb-0">@i.NrPax ad. x 2cal. </p>
-                            }
-                            else if (i.Tariffe.DescrTariffa.Contains("3 Calici") && i.NrPax > 0)
-                            {
-                                <p class="mb-0">@i.NrPax ad. x 3cal. </p>
-                            }
-                            else if (i.Tariffe.DescrTariffa.Contains("Bambini") && i.NrPax > 0)
-                            {
-                                <p class="mb-0"> @i.NrPax bamb. </p>
-                            }
-
-                        }
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotDaPagare)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sconto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotPagContanti)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotPagPos)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotPagato)
-                </td>
-                @if (item.Stato == false)
-                {
-                    <td class="stato coming">
-                        "In arrivo"
-                    </td>
-                }
-                else if (item.Stato == true)
-                {
-                    <td class="stato arrived">
-                        "Arrivati"
-                    </td>
-                }
-            </tr>
-        }
-
-    </table>
-
-</div>
+    </div>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var prenotati = 0;
+        var arrivati = 0;
+        var InComing = 0;
+        var AlrComing = 0;
+        var totPrenot = 0;
         $.each($(".stato"), function () {
                 if($(this).hasClass("coming")) {
                     $(this).parent(".rowItem").addClass("inArrivo");
-                };
+                    prenotati += parseInt($(this).parent(".rowItem").children(".totPrenotati").text());
+                    if ($(this).parent(".rowItem").children(".totArrivati").val() != "") {
+                        arrivati += parseInt($(this).parent(".rowItem").children(".totArrivati").text());
+                    }
+                    totPrenot += parseFloat($(this).parent(".rowItem").children(".totPrenot").text())
+            };
                 if ($(this).hasClass("arrived")) {
                     $(this).parent(".rowItem").addClass("arrivati");
+                    InComing += parseInt($(this).parent(".rowItem").children(".InComing").text());
+                    AlrComing += parseInt($(this).parent(".rowItem").children(".AlrComing").text());
                 }
-            })
+        })
+        $("#NrArrived").text(AlrComing); 
+        $("#NrInComing").text(prenotati); 
+
+        if (AlrComing > 0) {
+            $(".ArriveTable").removeClass("d-none");
+            $(".ArrivedNote").addClass("d-none")
+            $("#TotPren").text(prenotati);
+            $("#TotArriv").text(arrivati);
+            $("#TotInComing").text(InComing);
+            $("#TotAlrComing").text(AlrComing);
+            $("#totPrenot").text((totPrenot).toFixed(2) + " €");
+        }
         $(".rowItem").click(function () {
             var id = $(this).attr("id");
             location.href="/Prenotazione/Edit/" + id

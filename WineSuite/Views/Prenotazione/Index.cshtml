@@ -2,19 +2,19 @@
 
 <section class="container-fluid tableBack">
     <div class="container">
-        <h2>Elenco Eventi e Degustazioni</h2>
+        <h2 style="color: #4ba4e7">Elenco Eventi e Degustazioni</h2>
         <p>
-            @Html.ActionLink("Inserisci un nuovo Evento", "Create", "Eventi")
+            @Html.ActionLink("+ Inserisci un nuovo Evento", "Create", "Eventi")
         </p>
         <table class="table">
-            <tr>
+            <tr style="color: #4ba4e7">
                 <th>
                     @Html.DisplayNameFor(model => model.Titolo)
                 </th>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.TotPaxPrenotate)
                 </th>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.TotPaxArrivate)
                 </th>
                 <th>
@@ -35,10 +35,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Titolo)
                     </td>
-                    <td>
+                    <td class="text-center">
                         @Html.DisplayFor(modelItem => item.TotPaxPrenotate)
                     </td>
-                    <td>
+                    <td class="text-center ">
                         @Html.DisplayFor(modelItem => item.TotPaxArrivate)
                     </td>
                     <td>
@@ -51,7 +51,7 @@
                         @Html.DisplayFor(modelItem => item.TotPagato) €
                     </td>
                     <td>
-                        @Html.ActionLink("Gestisci Prenotazioni >>>", "ManageBooking", new { id = item.IdEvento })
+                        @Html.ActionLink("Gestisci Prenotazioni >>>", "ManageBooking", new { id = item.IdEvento})
                     </td>
                 </tr>
             }

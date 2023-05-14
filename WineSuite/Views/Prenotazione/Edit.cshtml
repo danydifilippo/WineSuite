@@ -5,18 +5,28 @@
 }
 
 <div class="container contTable pb-4">
-    <div class="row">
-        <div class="col-3 p-2" style="background-color:white; height:fit-content">
-                <img src="~/Content/img/logoWS.png" style="width:100%"/>
-        </div>
-            <h2 class="col-9 text-start mt-3 titleEditBook">
-        <input type="text" value="@Model.Utenti.Cognome @Model.Utenti.Nome" id="Nome"/> </h2>
-        </div>
-    <div id="alertName"></div>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-3 p-2" style="background-color:white; height:fit-content">
+                <img src="~/Content/img/logoWS.png" style="width:100%" />
+            </div>
+            <h2 class="col-9 text-start mt-3 titleEditBook">
+                @if (Model.Nome == null)
+                {
+                    <input type="text" value="@Model.Utenti.Cognome @Model.Utenti.Nome" id="Nome" name="Nome" />
+                }
+                else
+                {
+                    <input type="text" value="@Model.Nome" id="Nome" name="Nome" />
+                }
+            </h2>
+        </div>
+        <div id="alertName"></div>
+
+        <input type="number" value="@Model.IdUtente" name="IdUtente" class="d-none" />
 
         <div class="form-horizontal">
             <hr />
@@ -32,11 +42,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex flex-nowrap justify-content-between">
+            <div class="row d-flex flex-nowrap justify-content-around">
                 <div class="form-group w-auto">
                     @Html.LabelFor(model => model.TotPaxPrenotate, htmlAttributes: new { @class = "control-label" })
                     <div>
-                        @Html.EditorFor(model => model.TotPaxPrenotate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.TotPaxPrenotate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.TotPaxPrenotate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -50,15 +60,30 @@
                     </div>
                 </div>
                 <div class="form-group w-auto">
-                    @Html.LabelFor(model => model.Sconto, htmlAttributes: new { @class = "control-label"})
+                    @Html.LabelFor(model => model.Sconto, htmlAttributes: new { @class = "control-label" })
                     <div>
                         @{Html.EnableClientValidation(false);}
-                        @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control", @id = "sconto", @type="number" } })
+                        @if (Model.Sconto != null)
+                        {
+                            if (Model.Sconto.Contains("%") || Model.Sconto.Contains("€"))
+                            {
+                                @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control", @id = "sconto" } })
+                            }
+                            else
+                            {
+                                @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control", @id = "sconto", Value = string.Format("{0:C}", Model.ScontoEuro) } })
+                            }
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control", @id = "sconto" } })
+                        }
                         @{Html.EnableClientValidation(true);}
+
                     </div>
                 </div>
             </div>
-            <div class="form-group w-auto">
+            <div class="form-group w-auto px-5 my-4 py-3 border border-white" style="background-color: #ffcfe7ad; border-radius: 20cm ">
                 @Html.Label("Tariffe", htmlAttributes: new { @class = "control-label col-md-8" })
                 @Html.Label("Nr Pax", htmlAttributes: new { @class = "control-label col-md-3 ps-2" })
                 <div class="row tarRow">
@@ -84,7 +109,7 @@
                     }
                 </div>
             </div>
-            <div class="row">
+            <div class="row d-flex flex-wrap justify-content-center">
                 <div class="form-group w-auto">
                     @Html.Label("Tot Degustazione", htmlAttributes: new { @class = "control-label" })
                     <div>
@@ -98,7 +123,7 @@
                     @Html.Label("Pag. Contanti", htmlAttributes: new { @class = "control-label pagLabel" })
                     <div class="pagam">
                         @{Html.EnableClientValidation(false);}
-                        @Html.EditorFor(model => model.TotPagContanti, new { htmlAttributes = new { @class = "form-control pag", @type="number"} })
+                        @Html.EditorFor(model => model.TotPagContanti, new { htmlAttributes = new { @class = "form-control pag", @type = "number" } })
                         @{Html.EnableClientValidation(true);}
                     </div>
                 </div>
@@ -115,7 +140,7 @@
                 <div class="form-group w-auto">
                     @Html.Label("Ancora Da Saldare", htmlAttributes: new { @class = "control-label" })
                     <div>
-                        @Html.Editor("Saldo", new { htmlAttributes = new { @class = "form-control", @id="saldo" } })
+                        @Html.Editor("Saldo", new { htmlAttributes = new { @class = "form-control", @id = "saldo" } })
                     </div>
                 </div>
 
@@ -123,15 +148,15 @@
                     @Html.LabelFor(model => model.TotPagato, htmlAttributes: new { @class = "control-label" })
                     <div>
                         @{Html.EnableClientValidation(false);}
-                        @Html.EditorFor(model => model.TotPagato, new { htmlAttributes = new { @class = "form-control", @id="TotPagato" } })
+                        @Html.EditorFor(model => model.TotPagato, new { htmlAttributes = new { @class = "form-control", @id = "TotPagato" } })
                         @{Html.EnableClientValidation(false);}
                     </div>
                 </div>
             </div>
             <hr />
-            <div class="form-group w-auto d-flex gap-3">
+            <div class="form-group w-auto d-flex gap-3 justify-content-center">
                 <div>
-                    <input type="submit" value="Modifica solo Prenotazione" class="btn btn-light fs-6" name="save"  />
+                    <input type="submit" value="Modifica solo Prenotazione" class="btn btn-light fs-6" name="save" />
                 </div>
                 <div>
                     <input type="submit" value="Salva e Conferma Arrivo" class="btn btn-info fs-6" id="aziendaBtn" />
@@ -140,7 +165,7 @@
         </div>
     }
 
-    <div class="m-2">
+    <div class="m-2 text-center">
         <a href="/Prenotazione/ManageBooking/@Model.IdEvento" style="color: #154166">Annulla</a>
     </div>
 </div>
@@ -151,9 +176,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var NewName = "";
+
+        var InitName = $("#Nome").val();
         $("#Nome").change(function () {
             var nome = $(this).val();
+           
             $.ajax({
                 url: '/Prenotazione/ChangeName/',
                 method: "GET",
@@ -163,24 +190,87 @@
                     if (a.length == 0) {
                         $("#alertName").append("<div id=\"liveAlertPlaceholder\"><div class=\"alert alert-info alert-dismissible p-4\" role=\"alert\">" +
                             "<div> Il nome inserito non corrisponde a nessun nominativo registrato. Desideri aggiungerlo? </div>" +
-                            "<hr/><div><button type=\"button\" class=\"btn btn-success py-1 mx-1\" id=\"AddName\">Aggiungi al<br/>database</button>" +
+                            "<hr/><div><button type=\"button\" class=\"btn btn-success py-1 mx-1 RegisterClient\">Aggiungi al<br/>database</button>" +
                             "<button type=\"button\" class=\"btn btn-primary py-1 mx-1 NoRegister\" data-bs-dismiss=\"alert\" aria-label=\"Close\">Continua senza<br/>registrare</button>" +
-                            "<button type=\"button\" class=\"btn btn-secondary py-1 mx-1\" id=\"Undo\">Annulla<br/>inserimento</button></div></div></div>")
+                            "<button type=\"button\" class=\"btn btn-secondary py-1 mx-1 Undo\" data-bs-dismiss=\"alert\" aria-label=\"Close\">Annulla<br/>inserimento</button></div><div id=\"AddName\"></div></div></div>")
                     }
                     else {
                         $("#alertName").append("<div id=\"liveAlertPlaceholder\"><div class=\"alert alert-info alert-dismissible p-4\" role=\"alert\">" +
-                            "<div>Il nome inserito corrisponde ai seguenti nominativi:<div id=\"Names\"></div>" +
-                            "<hr/><button type =\"button\" class=\"btn btn-secondary py-0 float-end mx-1\" id=\"Undo\">Annulla<br/>inserimento</button>" +
+                            "<div>Il nome inserito corrisponde ai seguenti nominativi:<div id=\"Names\"></div><div id=\"AddName\"></div>" +
+                            "<hr/><button type =\"button\" class=\"btn btn-secondary py-0 float-end mx-1 Undo\" data-bs-dismiss=\"alert\" aria-label=\"Close\">Annulla<br/>inserimento</button>" +
                             "<button type=\"button\" class=\"btn btn-secondary py-0 float-end mx-1 NoRegister\" data-bs-dismiss=\"alert\" aria-label=\"Close\">Continua senza<br/>registrare</button>" +
-                            "<button type=\"button\" class=\"btn btn-secondary py-0 float-end mx-1\" id=\"RegisterClient\">Inserisci nuovo<br/>cliente</button></div></div></div>");
+                            "<button type=\"button\" class=\"btn btn-secondary py-0 float-end mx-1 RegisterClient\">Inserisci nuovo<br/>cliente</button></div></div></div>");
                         $.each(a, function (index, valore) {
                             $("#Names").append("<hr/>" + valore.Cognome + " " + valore.Nome + " <br/> Tel.: " + valore.Contatto + " <br/> e-mail: " + valore.Email + " </div>" +
-                                "<div><button type=\"button\" class=\"btn btn-primary py-1\" id=\"" + valore.IdUtente + "\">Associa a questa prenotazione</button>")
+                                "<div class=\"NameLink\" ><button type=\"button\" class=\"btn btn-primary py-1 LinkName\" id=\"" + valore.IdUtente + "\" data-bs-dismiss=\"alert\" aria-label=\"Close\">Associa a questa prenotazione</button></div>" +
+                                "<div class=\"d-none NameLinked\" id=\"" + valore.Cognome + " " + valore.Nome + "\">")
                         })
+
+                        $(".LinkName").click(function () {                      
+                            $("input[name=IdUtente]").val(null);
+                            $("input[name=IdUtente]").val($(this).attr("id"));
+                            alert($("input[name=IdUtente]").val())
+                            var nameLinked = $(this).parent(".NameLink").siblings(".NameLinked").attr("id");
+                            $("input[name=Nome]").val(nameLinked);
+                            $("#Nome").val(nameLinked);
+                            
+                        })
+                   
                     }
+
+            
+
+                    $(".Undo").click(function () {
+                        $("#Nome").val(InitName);
+                    })
                   
                     $(".NoRegister").click(function () {
-                        NewName = nome;
+                        $("input[name=Nome]").val(nome);
+                        $("input[name=IdUtente]").val(null);
+                    })
+
+                    $(".RegisterClient").click(function () {
+                        $("input[name=Nome]").val(nome);
+                        $("#AddName").append("<div><div class=\"form-floating my-2\">" +
+                            "<input type =\"text\" class=\"form-control\" id=\"floatingNome\" name=\"floatingNome\" placeholder=\"Nome\">" +
+                            "<label for=\"floatingNome\">Nome</label></div><div class=\"form-floating my-2\">" +
+                            "<input type =\"text\" class=\"form-control\" id=\"floatingCognome\" name=\"floatingCognome\" placeholder=\"Cognome\">" +
+                            "<label for=\"floatingCognome\">Cognome</label></div><div class=\"form-floating my-2\">" +
+                            "<input type =\"email\" class=\"form-control\" id=\"floatingInput\" placeholder=\"name@example.com\">" +
+                            "<label for=\"floatingInput\">Email address</label></div><div class=\"form-floating my-2\">"+
+                            "<input type=\"text\" class=\"form-control\" id=\"floatingContact\" placeholder=\"Numero\">"+
+                            "<label for=\"floatingContact\">Contatto telefonico</label></div>"+
+                            "<button type=\"button\" class=\"btn btn-primary py-1 Register\" data-bs-dismiss=\"alert\" aria-label=\"Close\">Inserisci</button></div>")
+                        var name;
+                        var cognome;
+                        var email;
+                        var contatto;
+                        $("#floatingNome").change(function () {
+                            name = $(this).val()
+                        })
+                        $("#floatingCognome").change(function () {
+                            cognome = $(this).val()
+                        })
+                        $("#floatingInput").change(function () {
+                            email = $(this).val()
+                        })
+                        $("#floatingContact").change(function () {
+                            contatto = $(this).val()
+                        })
+                    $(".Register").click(function () {
+                        $.ajax({
+                            url: '/Prenotazione/AddNewClient/',
+                            method: "POST",
+                            data: { 'nome': name, 'cognome': cognome, 'email': email, 'contatto': contatto },
+                            success: function (u) {
+                                $("input[name=IdUtente]").val(null);
+                                $("input[name=IdUtente]").val(u.IdUtente);
+                                $("input[name=Nome]").val(u.Cognome + " " + u.Nome);
+                                $("#Nome").val(u.Cognome + " " + u.Nome);
+                            }
+                        })
+                        
+                    })
                     })
                 }
             })
@@ -194,15 +284,18 @@
         })
         $(".tarInput").change(function () {
             var tot = 0;
-            var Tar = parseInt($(this).attr("name"));
             var idTar = parseInt($(this).siblings(".d-none").attr("id"))
             var nrpax = parseInt($(this).val())
             $.each($(".tarInput"), function () {
                 var result = ($(this).val()) * parseInt($(this).attr("name"));
                 tot += result
             })
-            if ($("#sconto").val() > 0) {
-                tot -= $("#sconto").val();
+            var sconto = $("#sconto").val();
+            if (sconto != "") {
+                if (sconto.includes("%")) {
+                    tot -= (tot * parseInt($("#sconto").val())) / 100;
+                } else { tot -= parseInt($("#sconto").val()); }
+                
             }
             $("#totale").val(tot) 
             var i = arr.find(x => x.Tar == idTar)
@@ -222,20 +315,17 @@
         })
 
         $("#sconto").change(function () {  
-            if ($("#totale").val() == 0) {
-                var TotSc = parseInt($("#TotPren").val()) - $(this).val();
-                $("#totale").val(TotSc)
-            } else {
                 var tot = 0;
                 $.each($(".tarInput"), function () {
                     var result = ($(this).val()) * parseInt($(this).attr("name"));
                     tot += result
                 })
-                if ($("#sconto").val() > 0) {
-                    tot -= $("#sconto").val();
-                }
-                $("#totale").val(tot)              
-            }
+            var sconto = $(this).val()
+            if (sconto.includes("%")) {
+                tot -= (tot * parseInt($(this).val())) / 100;
+            } else { tot -= parseInt($(this).val()); }
+            
+            $("#totale").val(tot);
             
         })
 

@@ -49,6 +49,9 @@ namespace WineSuite.Models
         [Column(TypeName = "date")]
         public DateTime DataCreazione { get; set; }
 
+        [NotMapped]
+        public string Body { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prenotazione> Prenotazione { get; set; }
     }

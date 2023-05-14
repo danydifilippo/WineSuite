@@ -19,14 +19,14 @@ namespace WineSuite.Models
         [Key]
         public int IdPrenotazione { get; set; }
 
-        public int IdUtente { get; set; }
+        public int? IdUtente { get; set; }
 
         public string Nome { get; set; } 
 
         public int IdEvento { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataPrenotazione { get; set; }
 
         public string Note { get; set; }
@@ -36,10 +36,13 @@ namespace WineSuite.Models
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal? TotDaPagare { get; set; }
+        
+        [StringLength(7)]
+        public string Sconto { get; set; }
 
-        [Column(TypeName = "money")]
+        [NotMapped]
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        public decimal? Sconto { get; set; }
+        public decimal? ScontoEuro { get; set; }
         public int? TotArrivati { get; set; }
 
         [Column(TypeName = "money")]

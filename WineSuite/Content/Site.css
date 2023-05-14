@@ -115,7 +115,7 @@ textarea{
 
 a {
     text-decoration: none;
-    color: #93cdff;
+    color: #fdc2f3;
     font-weight: bold
 }
 
@@ -249,7 +249,7 @@ a:hover{
     padding-left: 0
 }
 .tableBack {
-    background-color: #00000085;
+    background-color: #000000c2;
     padding-top: 30px;
     height: 100%;
     margin: auto;
@@ -257,7 +257,7 @@ a:hover{
 }
 
 tbody {
-   color: #bbddff
+    color: #93cdff
 }
 
 :root {
@@ -461,7 +461,7 @@ iframe {
 .separator {
     height: 5px;
     border-top: 1px solid #c6e2fd;
-    opacity: 2;
+    opacity: 2;   
     text-align: center
 }
 
@@ -697,13 +697,13 @@ input:-webkit-autofill:focus {
 }
 
 .inArrivo {
-    background-color: #e5bfcd;
-    color: #8d4167
+    background-color: #ff91ba2b;
+    color: #ffc4da
 }
 
 .arrivati {
-    background-color: #83a9cf;
-    color: #004f91
+    background-color: #4bcaf94a;
+    color: #d6f4ff;
 }
 
 .logoText{
