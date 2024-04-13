@@ -61,6 +61,7 @@
                 </div>
                 <div class="form-group w-auto">
                     @Html.LabelFor(model => model.Sconto, htmlAttributes: new { @class = "control-label" })
+                    <input value="@Model.ScontoEuro" id="ValSconto" class="d-none" />
                     <div>
                         @{Html.EnableClientValidation(false);}
                         @if (Model.Sconto != null)
@@ -68,6 +69,7 @@
                             if (Model.Sconto.Contains("%") || Model.Sconto.Contains("€"))
                             {
                                 @Html.EditorFor(model => model.Sconto, new { htmlAttributes = new { @class = "form-control", @id = "sconto" } })
+                                
                             }
                             else
                             {
@@ -314,6 +316,23 @@
             })
         })
 
+        if ($("#sconto") != "") {
+            var tot = 0;
+            $.each($(".tarInput"), function () {
+                var result = ($(this).val()) * parseFloat($(this).attr("name"));
+                tot += result
+            })
+            var sconto = $("#sconto").val()
+            if (sconto.includes("%")) {
+                tot -= (tot * parseFloat($("#sconto").val())) / 100;
+            } else {
+                var valore = $("#ValSconto").val()
+                valore=valore.replace(/,/, ".")
+                tot = tot - valore;
+            }
+            
+            $("#totale").val(tot);
+        }
         $("#sconto").change(function () {  
                 var tot = 0;
                 $.each($(".tarInput"), function () {
@@ -322,8 +341,12 @@
                 })
             var sconto = $(this).val()
             if (sconto.includes("%")) {
-                tot -= (tot * parseInt($(this).val())) / 100;
-            } else { tot -= parseInt($(this).val()); }
+                tot -= (tot * parseFloat($(this).val())) / 100;
+            } else if (sconto.includes(",")) {
+                sconto = sconto.replace(/,/, ".")
+                tot -= sconto;
+            }
+            else { tot -= sconto; }
             
             $("#totale").val(tot);
             

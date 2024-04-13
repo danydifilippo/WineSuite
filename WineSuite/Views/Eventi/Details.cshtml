@@ -4,11 +4,64 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+    .cont-ev {
+        width: 70vw;
+        padding: 4em;
+        background-color: aliceblue;
+        border-radius: 3%;
+    }
 
+    .TitoloEventi {
+        font-size: 3.8em;
+        font-family: Dancing Script, cursive;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        text-align: center;
+        color: #3792e1;
+    }
+    #carouselExampleFade {
+        padding: 8px;
+        border-radius: 0 0 4.7cm 4.7cm;
+        width: 40%;
+        border: 3px solid #3792e1;
+        height:fit-content;
+    }
 
-<div class="container cont-ev bg-black">
+    .btn-events {
+        border: 4px solid #3792e1;
+        border-radius: 8px;
+    }
+    .img-card-ev {
+        width: 68px;
+        padding: 0.7em;
+    }
+
+</style>
+
+<div class="container cont-ev">
     <div class="row">
-        <div id="carouselExampleFade" class="carousel slide carousel-fade col-5" data-bs-ride="carousel" style="padding:0">
+
+        <div class="col-7" style="color: #215b95; font-family: Poiret One, sans-serif;">
+            <p style="font-size: 30px; line-height: 10px; margin-bottom: -3px;">@Model.Titolo.Remove(@Model.Titolo.IndexOf('-') - 1)</p>
+            <p class="TitoloEventi">@Model.Titolo.Substring(@Model.Titolo.IndexOf('-') + 2)</p>
+            <p style="font-size: 14px; margin-right: 2em; text-align: justify;">@Model.Descrizione</p>
+            @*<p style="font-size:12px">@Model.SottoDescrizione</p>*@
+            @*<p style="font-size:12px">Evento del @Model.Giorno.ToShortDateString() alle ore @Model.Ora.ToString(@"hh\:mm") </p>*@
+        <div class="row">
+            <div class="col-1 d-flex justify-content-center m-auto btn-events">
+                <img class="img-card-ev" src="~/Content/img/food.png" />
+            </div>
+            <div class="col-1 d-flex justify-content-center m-auto btn-events">
+                <img class="img-card-ev" src="~/Content/img/food.png" />
+            </div>
+            <div class="col-1 d-flex justify-content-center m-auto btn-events">
+                <img class="img-card-ev" src="~/Content/img/food.png" />
+            </div>
+        </div>
+        </div>
+
+        <div id="carouselExampleFade" class="carousel slide carousel-fade col-5" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item img-ev active" style=" background-image: url('/Content/img/@Model.FotoVetrina');">
 
@@ -32,45 +85,46 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div class="col-7">
-            <p style="font-size:30px; font-family: 'Lobster Two', cursive;">@Model.Titolo</p>
-            <p style="font-size:15px">@Model.Descrizione</p>
-            <p style="font-size:12px">@Model.SottoDescrizione</p>
-            <p style="font-size:12px">Evento del @Model.Giorno.ToShortDateString() alle ore @Model.Ora.ToString(@"hh\:mm") </p>
-        </div>
     </div>
-    <div class="row" style="color: #ffd4ea; background-color: transparent ">
-        <div class="col-9 d-flex justify-content-center m-auto my-4">
-            @foreach (var item in ViewBag.Prices)
-            {
-                <div class="col-4 d-flex flex-column flex-wrap tar-square justify-content-between mb-4">
-                    <div class="TarPic">
-                        @if (item.DescrTariffa.Contains("Calice"))
-                        {<i class="fa-solid fa-wine-glass"></i>}
-                        else if (item.DescrTariffa.Contains("Calici"))
-                        {<i class="fa-solid fa-champagne-glasses"></i>}
-                        else if (item.DescrTariffa.Contains("Bambini"))
-                        {<i class="fa-solid fa-children"></i>}</div>
-                    <p class="tariffe" id="@item.Tariffa" style="background-color:transparent">
+    
+        @*<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+        <div class="elfsight-app-feff47cb-e74d-4ef9-bc15-ab232b894ed0" data-elfsight-app-lazy></div>*@
 
-                        @item.Tariffa.ToString("c2")
-                    </p>
-                    <p style="background-color:transparent" class="px-3">@item.DescrTariffa</p>
-                    <span class="spanInp" id="@Model.IdEvento">Nr <input type="number" name="Pax" id="@item.IdTariffa" class="col-3 input-nr" min="0" /></span>
+        <div class="row d-none" style="color: #ffd4ea; background-color: transparent ">
+            <div class="col-9 d-flex justify-content-center m-auto my-4">
+
+
+                @foreach (var item in ViewBag.Prices)
+                {
+                    <div class="col-4 d-flex flex-column flex-wrap tar-square justify-content-between mb-4">
+                        <div class="TarPic">
+                            @if (item.DescrTariffa.Contains("Calice"))
+                            {<i class="fa-solid fa-wine-glass"></i>}
+                            else if (item.DescrTariffa.Contains("Calici"))
+                            {<i class="fa-solid fa-champagne-glasses"></i>}
+                            else if (item.DescrTariffa.Contains("Bambini"))
+                            {<i class="fa-solid fa-children"></i>}
+                        </div>
+                        <p class="tariffe" id="@item.Tariffa" style="background-color:transparent">
+
+                            @item.Tariffa.ToString("c2")
+                        </p>
+                        <p style="background-color:transparent" class="px-3">@item.DescrTariffa</p>
+                        <span class="spanInp" id="@Model.IdEvento">Nr <input type="number" name="Pax" id="@item.IdTariffa" class="col-3 input-nr" min="0" /></span>
+                    </div>
+                }
+            </div>
+            <div class="text-center">
+                <div class="row justify-content-center" style="color: #ffd4ea;">
+                    <label class="control-label align-self-center col-1 text-end">Note:</label>
+                    <textarea cols="1" rows="1" class="form-control col-6 note" name="Note" id="Note"></textarea>
                 </div>
-            }
+                <br />
+                <btn type="button" class="btn btn-warning mb-5" id=@(User.Identity.Name)>PRENOTA</btn>
+            </div>
         </div>
 
-        </div>
-    <div class="text-center">
-        <div class="row justify-content-center" style="color: #ffd4ea;">
-            <label class="control-label align-self-center col-1 text-end">Note:</label>
-            <textarea cols="1" rows="1" class="form-control col-6 note" name="Note" id="Note"></textarea>
-        </div>
-        <br />
-        <btn type="button" class="btn btn-warning mb-5" id=@(User.Identity.Name)>PRENOTA</btn>
     </div>
-</div>
 
 
 

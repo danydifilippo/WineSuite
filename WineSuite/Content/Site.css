@@ -11,8 +11,43 @@ body {
     background-repeat: no-repeat
 }
 
-.brand{
+.changeBg {
+    background-image: url('img/51.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.eventsPage {
+    background-image: url('img/9.jpg');
+    height: 50em;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.brand {
     width: 173%
+}
+
+.pEvents {
+    color: #cde8ff;
+    text-shadow:1px 1px 2px black;
+    font-size: 4.2em;
+    font-family: 'Mulish', sans-serif;
+    line-height: 57px;
+    padding-inline: 1.4em;
+    padding-inline-start: 56%
+}
+
+.pDescrEv {
+    font-size: 27px;
+    padding-inline-start: 17%;
+    line-height: 1.4em;
+    text-indent: -7%;
+    margin-top: 2em;
+    font-family: 'Satisfy', cursive;
+    font-weight: normal;
 }
 
 .video-box {
@@ -222,10 +257,10 @@ a:hover{
 }
 #aziendaBtn {
     --bs-btn-border-color: white;
-    --bs-btn-hover-bg: #93cdff;
-    --bs-btn-hover-border-color: #93cdff;
-    --bs-btn-active-bg: #56abf5;
-    --bs-btn-active-border-color: #56abf5;
+    --bs-btn-hover-bg: #ffffff;
+    --bs-btn-hover-border-color: #161d1d;
+    --bs-btn-active-bg: #ffffff;
+    --bs-btn-active-border-color: #000000;
 }
 
 .btn-light {
@@ -431,10 +466,11 @@ iframe {
     width: 70vw;
     height: 80vh;
 }
-.img-ev{
-    height:60vh;
-    background-position:center;
-    background-size:auto;
+.img-ev {
+    height: 60vh;
+    background-position: center;
+    background-size: auto;
+    border-radius: 0 0 4.7cm 4.7cm;
 }
 .carousel-item {
     background-repeat: no-repeat;
@@ -465,10 +501,6 @@ iframe {
     text-align: center
 }
 
-.cont-ev {
-    width: 70vw;
-}
-
 .btn-warning {
     --bs-btn-bg: #ffd4ea;
     --bs-btn-border-color: #ffd4ea;
@@ -484,8 +516,7 @@ iframe {
 }
 
 .events-img {
-    height: 410px;
-    width: 410px;
+    height: 200px;
     background-position-x: center;
     background-size: cover;
 }

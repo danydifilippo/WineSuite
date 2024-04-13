@@ -28,7 +28,7 @@ namespace WineSuite.Controllers
         // GET: Eventi/index User
         public ActionResult Events()
         {
-            var eventi = db.Eventi.Include(e => e.Luogo).Where(x => x.Eliminato == false && x.Pubblico== true);
+            var eventi = db.Eventi.Include(e => e.Luogo).Where(x => x.Eliminato == false && x.Pubblico== true).OrderBy(x=>x.Giorno);
 
             List<Tariffe_Eventi> tar = new List<Tariffe_Eventi>();
 

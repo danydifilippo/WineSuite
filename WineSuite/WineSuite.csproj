@@ -180,17 +180,26 @@
     <Content Include="Content\img\background_sec1.jpeg" />
     <Content Include="Content\img\campania_fiano.png" />
     <Content Include="Content\img\campania_rosso.png" />
+    <Content Include="Content\img\eventibg.jpeg" />
     <Content Include="Content\img\evento1.jpeg" />
     <Content Include="Content\img\events.jpg" />
+    <Content Include="Content\img\ev_sch.png" />
+    <Content Include="Content\img\ev_schem%281%29.png" />
+    <Content Include="Content\img\ev_schem.png" />
+    <Content Include="Content\img\ev_schema1.png" />
     <Content Include="Content\img\fiano_borgognotta.png" />
+    <Content Include="Content\img\food.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\bg1.jpeg" />
     <Content Include="Content\img\logoWS.png" />
+    <Content Include="Content\img\mountain_bg.png" />
+    <Content Include="Content\img\Mountain_Rosa.jpg" />
     <Content Include="Content\img\numero3.png" />
     <Content Include="Content\img\overlay-pattern2.png" />
     <Content Include="Content\img\paestum_rosso.png" />
     <Content Include="Content\img\red.jpeg" />
     <Content Include="Content\img\rosee.png" />
+    <Content Include="Content\img\ser1.jpeg" />
     <Content Include="Content\img\sfndo_glass.jpg" />
     <Content Include="Content\img\sfondo_porta.png" />
     <Content Include="Content\img\spumante_brut.png" />
@@ -199,6 +208,10 @@
     <Content Include="Content\video\video3.mp4" />
     <Content Include="Content\img\vino_pane.png" />
     <Content Include="Content\img\yoga.png" />
+    <Content Include="Content\video\vidEv1.mp4" />
+    <Content Include="Content\video\vid_ev1.mp4" />
+    <Content Include="Content\video\vid_ev2.mp4" />
+    <Content Include="Content\video\vid_ev3.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -313,6 +326,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-grid_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -2,10 +2,83 @@
 
 @{
     ViewBag.Title = "Events";
+
 }
+<style>
+
+    h1 {
+        margin-bottom: 0;
+        font-size: 38px;
+    }
+
+    .h1Events {
+        color: #244450;
+        padding: 20px;
+        font-family: 'Mulish', sans-serif;
+        text-align: center;
+    }
+
+    .mese {
+        font-size: 0.8em;
+        color: #244450;
+    }
+    .events-img {
+        background-image: url('/Content/img/ev_schem(1).png');
+        background-size: 55%;
+        background-repeat: no-repeat;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .divDescr {
+        width: 60%;
+        background-color: #f0f8ffd9;
+        border-radius: 14px;
+        margin: 10px;
+        padding-block: 1em;
+        align-self: center;
+    }
+    .number {
+        font-size: 3.5em;
+        margin-block-start: 0.78em;
+        color: #244450;
+        line-height: 15px;
+    }
+
+    .cropped {
+        overflow: hidden;
+        height: 180px;
+        width: 154px;
+        border-radius: 0 0 3cm 3cm;
+        text-align: center;
+    }
+
+    .cropEmptySx {
+        width: 84px;
+        border-right: 10px solid #ff0000;
+        border-radius: 0;
+        border-bottom: 5px solid #ff0000;
+    }
+
+    .cropEmptyDx {
+        width: 84px;
+        border-left: 10px solid #ff0000;
+        border-radius: 0;
+        border-bottom: 5px solid #ff0000;
+    }
+
+    .parEv {
+        font-size: 12px;
+        font-style: italic;
+        margin-bottom: -12px;
+        padding-inline-start: 2em;
+        color: #ff0000;
+    }
+</style>
 
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="background-color: darkslategray; margin: auto; width: 70vw">
+
+@*<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="background-color: darkslategray; margin: auto; width: 70vw">
     <div class="carousel-inner">
         <div class="carousel-item pic1 car-img active">
 
@@ -20,9 +93,84 @@
 
         </div>
     </div>
-</div>
+</div>*@
+<div style="padding-inline: 7rem; font-family: 'Mulish', sans-serif; ">
+    <div class="d-flex px-5 pt-5 justify-content-center" style="color: #244450">
+        @* #bb0019 - rosso 186e36 - verde *@
+        <div class="cropped" style="border-left: 10px solid #ff0000; ">
+            <video loop muted preload="metadata" autoplay height="200">
+                <source src="~/Content/video/vid_ev2.mp4" type="video/mp4" />
+            </video>
+        </div>
 
-<div class="container cont-ev mt-5">
+        <div class="px-4 divDescr">
+            <p class="parEv">Scopri i nostri</p>
+            <h1 style="color: #244450">Eventi in vigna</h1>
+            <p style="font-size:11px">
+                Le degustazioni nelle vigne Tredaniele sono un assaggio del territorio.<br />
+                Abbiamo l’ambizione di dare dignità al patrimonio culturale e paesaggistico di Trentinara e del nostro angolo di Cilento.
+                La valorizzazione parte dal lavoro in vigna e prosegue con la condivisione, che per noi vuol dire aprire le porte della nostra
+                azienda ai visitatori e avvicinarli alla cultura dei luoghi a noi cari.
+            </p>
+        </div>
+        <div class="cropped" style="width:84px"></div>
+    </div>
+    <div class="d-flex px-5 justify-content-center" style="color: #244450">
+        <div class="cropEmptySx" ></div>
+        <div class="px-4 divDescr">
+            <p class="parEv">Scopri le nostre</p>
+            <h1 style="color: #244450">Degustazioni</h1>
+            <p style="font-size:11px">
+                Assaporare i vini Tredaniele permette di entrare nel vivo dell'esperienza enoturistica riservata ai visitatori.
+                Il calice è al centro di un microcosmo composto da cultura e saperi antichi,
+                racconti e sfumature per un indimenticabile viaggio nei sensi.
+            </p>
+        </div>
+        <div class="cropped" style="border-right: 10px solid #ff0000; ">
+            <video loop muted preload="metadata" autoplay height="200">
+                <source src="~/Content/video/vid_ev1.mp4" type="video/mp4" />
+            </video>
+        </div>
+
+    </div>
+    <div class="d-flex px-5 pb-5 justify-content-center" style="color: #244450">
+        <div class="cropped" style="border-left: 10px solid #ff0000; ">
+            <video loop muted preload="metadata" autoplay height="200">
+                <source src="~/Content/video/vid_ev3.mp4" type="video/mp4" />
+            </video>
+        </div>
+
+        <div class="px-4 divDescr">
+            <p class="parEv">Scopri la nostra</p>
+            <h1 style="color: #244450">Villa Tredaniele</h1>
+            <p style="font-size:11px">
+                Le degustazioni nelle vigne Tredaniele sono un assaggio del territorio.<br />
+                Abbiamo l’ambizione di dare dignità al patrimonio culturale e paesaggistico di Trentinara e del nostro angolo di Cilento.
+                La valorizzazione parte dal lavoro in vigna e prosegue con la condivisione, che per noi vuol dire aprire le porte della nostra
+                azienda ai visitatori e avvicinarli alla cultura dei luoghi a noi cari.
+            </p>
+        </div>
+        <div class="cropEmptyDx"></div>
+    </div>
+
+    
+    <div class="container" style="font-family: 'Laila', serif; background-color: #a9a9a9c7">
+        <h1 class="h1Events">Tutte le date dei nostri Eventi</h1>
+        <div class="row justify-content-center" style=" --bs-gutter-y: 10px; color: #3e3e3e;">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+
+                <div class="col-3 events-img prenota" id="@Model[i].IdEvento">
+                    <span style=" font-size: 0.6em; color: aliceblue">@Model[i].Giorno.ToString("dddd").ToUpper()</span>
+                    <p class="number">@Model[i].Giorno.ToString(" d")</p>
+                    <span class="mese">@Model[i].Giorno.ToString("MMMM").ToUpper()</span>
+                </div>
+                @*@(User.Identity.IsAuthenticated? "prenota" : "login")*@
+            }
+        </div>
+    </div>
+</div>
+@*<div class="container cont-ev mt-5">
     @for (int i = 0; i < Model.Count; i++)
     {
         if (i % 2 == 0)
@@ -33,36 +181,36 @@
                     <p style="font-size:30px">@Model[i].Titolo</p>
                     <p style="font-size:15px">@Model[i].Descrizione</p>
                     @foreach (var evento in ViewBag.prices)
-                    {
-                        if (evento.IdEvento == Model[i].IdEvento)
                         {
-                            if (evento.DescrTariffa.Contains("Bambini"))
+                            if (evento.IdEvento == Model[i].IdEvento)
                             {
+                                if (evento.DescrTariffa.Contains("Bambini"))
+                                {
                                 <span style="color: #ffd4ea; font-size: 13px">
                                     Bambini:
-                                    @evento.Tariffa.ToString("c2") | 
+                                    @evento.Tariffa.ToString("c2") |
                                 </span>
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 <span style="color: #ffd4ea; font-size: 13px">
                                     Adulti:
-                                    @evento.Tariffa.ToString("c2") | 
+                                    @evento.Tariffa.ToString("c2") |
                                 </span>
+                                }
                             }
+
                         }
 
-                    }
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                        @if (User.Identity.IsAuthenticated)
+                        {
 
                         <btn class="btn btn-warning text-end float-end prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
                     }
                     else
                     {
                         <btn class="btn btn-warning text-end float-end login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
-                    }
+                }
                 </div>
                 <div class="col-6 events-img"
                      style="background-image: url('/Content/img/@Model[i].FotoVetrina');">
@@ -72,7 +220,7 @@
             <hr class="separator" />
         }
         else
-        {
+                {
             <div class="row justify-content-between events">
                 <div class="col-6 events-img"
                      style="background-image: url('/Content/img/@Model[i].FotoVetrina')">
@@ -82,33 +230,33 @@
                     <p style="font-size:15px">@Model[i].Descrizione</p>
                     @foreach (var evento in ViewBag.prices)
                     {
-                        if (evento.IdEvento == Model[i].IdEvento)
+                    if (evento.IdEvento == Model[i].IdEvento)
+                    {
+                        if (evento.DescrTariffa.Contains("Bambini"))
                         {
-                            if (evento.DescrTariffa.Contains("Bambini"))
-                            {
                                 <span style="color: #ffd4ea; font-size: 13px">
                                     Bambini:
                                     @evento.Tariffa.ToString("c2") |
                                 </span>
                             }
-                            else
-                            {
+                        else
+                        {
                                 <span style="color: #ffd4ea; font-size: 13px">
                                     Adulti:
                                     @evento.Tariffa.ToString("c2") |
                                 </span>
                             }
-                        }
-
                     }
 
-                    @if (User.Identity.IsAuthenticated)
+                }
+
+                @if (User.Identity.IsAuthenticated)
                     {
 
                         <btn class="btn btn-warning text-end float-end prenota" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray; ">PRENOTA</btn>
                     }
                     else
-                    {
+                {
                         <btn class="btn btn-warning text-end float-end login" id="@Model[i].IdEvento" style="font-family: 'Quattrocento Sans'; font-weight: 600; color: darkslategray;">PRENOTA</btn>
                     }
 
@@ -117,7 +265,7 @@
             <hr class="separator" />
         }
     }
-</div>
+</div>*@
 
 
 
@@ -125,13 +273,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".prenota").click(function () {
-            var id = $(this).attr("id")
+                        var id = $(this).attr("id")
             location.href = "../Eventi/Details/" + id
         })
-        $(".login").click(function () {
-            var id = $(this).attr("id")
-            location.href = "../Home/Login/" + id
-        })
+        //$(".login").click(function () {
+        //                var id = $(this).attr("id")
+        //    location.href = "../Home/Login/" + id
+        //})
     })
 
 </script>
